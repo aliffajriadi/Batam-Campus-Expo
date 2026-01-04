@@ -10,12 +10,43 @@
         </div>
     </div>
 
+    <!-- Search & Filter -->
+    <div class="bg-gray-800 rounded-xl p-4 border border-gray-700 mb-6">
+        <form action="{{ route('admin.merchandise.buyers') }}" method="GET" class="flex flex-wrap gap-4 items-end">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Search</label>
+                <input type="text" name="search" value="{{ request('search') }}"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Search by name, email, or product...">
+            </div>
+            <div class="w-40">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Status</label>
+                <select name="status"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="">All</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                </select>
+            </div>
+            <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                Filter
+            </button>
+            @if (request('search') || request('status'))
+                <a href="{{ route('admin.merchandise.buyers') }}"
+                    class="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-lg transition">
+                    Reset
+                </a>
+            @endif
+        </form>
+    </div>
+
     <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
         <table class="w-full">
             <thead class="bg-gray-700/50">
                 <tr>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Buyer</th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Product</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Product
+                    </th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Date</th>
                     <th class="px-6 py-4 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Actions
@@ -66,7 +97,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">No merchandise purchases yet</td>
+                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">No merchandise purchases found</td>
                     </tr>
                 @endforelse
             </tbody>

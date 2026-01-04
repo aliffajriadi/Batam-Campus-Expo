@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_campus');
             $table->foreign('id_campus')->references('id')->on('campus');
             $table->unsignedBigInteger('id_user')->unique();
-            $table->foreign('id_user')->references('id')->on('user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->timestamp('created_at')->useCurrent();
         });
 

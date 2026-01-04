@@ -10,9 +10,16 @@ use Illuminate\Http\Request;
 class MerchandiseController extends Controller
 {
     // Products
-    public function index()
+    public function index(Request $request)
     {
-        $products = MerchandiseProduct::orderBy('created_at', 'desc')->paginate(10);
+        $query = MerchandiseProduct::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('name_product', 'like', "%{$search}%");
+        }
+
+        $products = $query->orderBy('created_at', 'desc')->paginate(12)->withQueryString();
         return view('admin.merchandise.index', compact('products'));
     }
 
@@ -81,11 +88,33 @@ class MerchandiseController extends Controller
     }
 
     // Buyers
-    public function buyers()
+    public function buyers(Request $request)
     {
-        $buyers = MerchandiseBuyer::with(['user', 'product'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $query = MerchandiseBuyer::with(['user', 'product']);
+
+        // Search by user name, email, or product name
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($q2) use ($search) {
+                    $q2->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                })->orWhereHas('product', function ($q2) use ($search) {
+                    $q2->where('name_product', 'like', "%{$search}%");
+                });
+            });
+        }
+
+        // Filter by status
+        if ($request->filled('status')) {
+            if ($request->status === 'pending') {
+                $query->where('status_acc', false);
+            } elseif ($request->status === 'approved') {
+                $query->where('status_acc', true);
+            }
+        }
+
+        $buyers = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
 
         return view('admin.merchandise.buyers', compact('buyers'));
     }

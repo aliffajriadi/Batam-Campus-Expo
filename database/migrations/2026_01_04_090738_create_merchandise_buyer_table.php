@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('merchandise_buyer', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->unsignedBigInteger('id_product');
             $table->foreign('id_product')->references('id')->on('merchandise_product');
             $table->string('photo_transfer');

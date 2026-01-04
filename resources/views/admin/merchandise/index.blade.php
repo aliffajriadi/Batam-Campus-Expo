@@ -17,6 +17,27 @@
         </a>
     </div>
 
+    <!-- Search -->
+    <div class="bg-gray-800 rounded-xl p-4 border border-gray-700 mb-6">
+        <form action="{{ route('admin.merchandise.index') }}" method="GET" class="flex gap-4 items-end">
+            <div class="flex-1">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Search Product</label>
+                <input type="text" name="search" value="{{ request('search') }}"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Search by product name...">
+            </div>
+            <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                Search
+            </button>
+            @if (request('search'))
+                <a href="{{ route('admin.merchandise.index') }}"
+                    class="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-lg transition">
+                    Reset
+                </a>
+            @endif
+        </form>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($products as $product)
             <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
@@ -58,7 +79,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                 </svg>
-                <p class="text-gray-400">No products yet</p>
+                <p class="text-gray-400">No products found</p>
                 <a href="{{ route('admin.merchandise.create') }}"
                     class="text-indigo-400 hover:text-indigo-300 transition mt-2 inline-block">Add your first product</a>
             </div>

@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::create('ticket_buyer', function (Blueprint $table) {
             $table->unsignedBigInteger('id_user')->unique();
-            $table->foreign('id_user')->references('id')->on('user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->id();
             $table->unsignedBigInteger('id_ticket');
             $table->foreign('id_ticket')->references('id')->on('ticket_status');

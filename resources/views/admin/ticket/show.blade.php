@@ -75,22 +75,40 @@
     </div>
 
     <!-- Actions -->
-    @if (!$buyer->done_check)
-        <div class="mt-6 flex gap-4">
+    <div class="mt-6">
+        <h3 class="text-sm font-medium text-gray-300 mb-3">Ubah Status</h3>
+        <div class="flex flex-wrap gap-4">
             <form action="{{ route('admin.ticket.approve', $buyer->id) }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
-                    Approve Purchase
+                    class="px-6 py-3 {{ $buyer->status_acc && $buyer->done_check ? 'bg-green-800' : 'bg-green-600 hover:bg-green-700' }} text-white font-semibold rounded-lg transition flex items-center gap-2">
+                    @if ($buyer->status_acc && $buyer->done_check)
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    @endif
+                    Approve
                 </button>
             </form>
             <form action="{{ route('admin.ticket.reject', $buyer->id) }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition">
-                    Reject Purchase
+                    class="px-6 py-3 {{ !$buyer->status_acc && $buyer->done_check ? 'bg-red-800' : 'bg-red-600 hover:bg-red-700' }} text-white font-semibold rounded-lg transition flex items-center gap-2">
+                    @if (!$buyer->status_acc && $buyer->done_check)
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    @endif
+                    Reject
                 </button>
             </form>
         </div>
-    @endif
+        @if ($buyer->done_check)
+            <p class="text-gray-500 text-sm mt-2">Terakhir diubah: {{ $buyer->check_at }}</p>
+        @endif
+    </div>
 @endsection

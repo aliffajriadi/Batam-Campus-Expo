@@ -13,6 +13,8 @@ class MerchandiseBuyer extends Model
         'id_product',
         'photo_transfer',
         'status_acc',
+        'claimed',
+        'claimed_at',
     ];
 
     public $timestamps = false;
@@ -21,6 +23,8 @@ class MerchandiseBuyer extends Model
 
     protected $casts = [
         'status_acc' => 'boolean',
+        'claimed' => 'boolean',
+        'claimed_at' => 'datetime',
     ];
 
     public function user()

@@ -1,13 +1,44 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Ticket Management')
+@section('title', 'Ticket Buyers')
 
 @section('content')
     <div class="flex items-center justify-between mb-8">
         <div>
-            <h1 class="text-2xl font-bold text-gray-100">Ticket Management</h1>
+            <h1 class="text-2xl font-bold text-gray-100">Ticket Buyers</h1>
             <p class="text-gray-400 mt-1">Manage ticket purchases and approvals</p>
         </div>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="bg-gray-800 rounded-xl p-4 border border-gray-700 mb-6">
+        <form action="{{ route('admin.ticket.index') }}" method="GET" class="flex flex-wrap gap-4 items-end">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Search</label>
+                <input type="text" name="search" value="{{ request('search') }}"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Search by name or email...">
+            </div>
+            <div class="w-40">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Status</label>
+                <select name="status"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="">All</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                    <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                </select>
+            </div>
+            <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                Filter
+            </button>
+            @if (request('search') || request('status'))
+                <a href="{{ route('admin.ticket.index') }}"
+                    class="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-lg transition">
+                    Reset
+                </a>
+            @endif
+        </form>
     </div>
 
     <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
@@ -66,7 +97,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">No ticket purchases yet</td>
+                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">No ticket purchases found</td>
                     </tr>
                 @endforelse
             </tbody>
