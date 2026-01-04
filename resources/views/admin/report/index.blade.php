@@ -110,7 +110,7 @@
     <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
         <h2 class="text-lg font-semibold text-gray-100 mb-4">Top Products</h2>
         <div class="overflow-x-auto">
-            <table class="w-full">
+            <table class="w-full whitespace-nowrap">
                 <thead class="bg-gray-700/50">
                     <tr>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase">#</th>

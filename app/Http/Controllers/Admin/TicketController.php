@@ -25,11 +25,12 @@ class TicketController extends Controller
         // Filter by status
         if ($request->filled('status')) {
             if ($request->status === 'pending') {
-                $query->where('done_check', false);
+                // Pending is when status_acc is NULL
+                $query->whereNull('status_acc');
             } elseif ($request->status === 'approved') {
-                $query->where('status_acc', true)->where('done_check', true);
+                $query->where('status_acc', true);
             } elseif ($request->status === 'rejected') {
-                $query->where('status_acc', false)->where('done_check', true);
+                $query->where('status_acc', false);
             }
         }
 
@@ -49,8 +50,8 @@ class TicketController extends Controller
         $buyer = TicketBuyer::findOrFail($id);
         $buyer->update([
             'status_acc' => true,
-            'done_check' => true,
-            'check_at' => now(),
+            // 'done_check' => true, // Remove this: Check-in is done via scan
+            // 'check_at' => now(),
         ]);
 
         return redirect()->route('admin.ticket.index')->with('success', 'Ticket purchase approved');
@@ -61,8 +62,8 @@ class TicketController extends Controller
         $buyer = TicketBuyer::findOrFail($id);
         $buyer->update([
             'status_acc' => false,
-            'done_check' => true,
-            'check_at' => now(),
+            // 'done_check' => true, // Remove this
+            // 'check_at' => now(),
         ]);
 
         return redirect()->route('admin.ticket.index')->with('success', 'Ticket purchase rejected');

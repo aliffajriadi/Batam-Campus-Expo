@@ -15,15 +15,30 @@
 </head>
 
 <body class="bg-gray-900 text-gray-100">
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen relative">
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebarOverlay"
+            class="fixed inset-0 bg-gray-900/50 z-40 hidden md:hidden glass-effect transition-opacity duration-300 opacity-0"
+            onclick="toggleSidebar()"></div>
+
         <!-- Sidebar -->
-        <aside class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
-            <div class="p-6 border-b border-gray-700">
-                <h1 class="text-xl font-bold text-indigo-400">BCE Admin</h1>
-                <p class="text-xs text-gray-400 mt-1">Batam Campus Expo</p>
+        <aside id="sidebar"
+            class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col fixed md:sticky top-0 h-screen z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <div class="p-6 border-b border-gray-700 flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl font-bold text-indigo-400">BCE Admin</h1>
+                    <p class="text-xs text-gray-400 mt-1">Created by IT BCE 2026</p>
+                </div>
+                <!-- Close Button (Mobile Only) -->
+                <button onclick="toggleSidebar()" class="md:hidden text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
             </div>
 
-            <nav class="flex-1 p-4 space-y-2">
+            <nav class="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
                 <a href="{{ route('admin.dashboard') }}"
                     class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('admin.dashboard') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,34 +174,62 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-auto">
-            <div class="p-8">
-                @if (session('success'))
-                    <div class="mb-6 bg-green-900/50 border border-green-700 text-green-300 px-4 py-3 rounded-lg">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="mb-6 bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="mb-6 bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg">
-                        <ul class="list-disc list-inside">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                @yield('content')
+        <main class="flex-1 w-full md:w-auto overflow-x-hidden p-4 md:p-8">
+            <!-- Mobile Header -->
+            <div class="md:hidden flex items-center justify-between mb-6">
+                <h1 class="text-xl font-bold text-gray-100">BCE Admin</h1>
+                <button onclick="toggleSidebar()" class="p-2 text-gray-400 hover:bg-gray-800 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
-        </main>
+            @if (session('success'))
+                <div class="mb-6 bg-green-900/50 border border-green-700 text-green-300 px-4 py-3 rounded-lg">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="mb-6 bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="mb-6 bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg">
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @yield('content')
     </div>
+    </main>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            if (sidebar.classList.contains('-translate-x-full')) {
+                // Open sidebar
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden', 'opacity-0');
+            } else {
+                // Close sidebar
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
 </body>
 
 </html>

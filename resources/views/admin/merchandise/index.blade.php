@@ -19,7 +19,7 @@
 
     <!-- Search -->
     <div class="bg-gray-800 rounded-xl p-4 border border-gray-700 mb-6">
-        <form action="{{ route('admin.merchandise.index') }}" method="GET" class="flex gap-4 items-end">
+        <form action="{{ route('admin.merchandise.index') }}" method="GET" class="flex flex-wrap gap-4 items-end">
             <div class="flex-1">
                 <label class="block text-sm font-medium text-gray-400 mb-1">Search Product</label>
                 <input type="text" name="search" value="{{ request('search') }}"
