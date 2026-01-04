@@ -48,6 +48,8 @@
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Product
                     </th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Diambil
+                    </th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Date</th>
                     <th class="px-6 py-4 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Actions
                     </th>
@@ -87,6 +89,24 @@
                                     class="px-3 py-1 bg-yellow-900/50 text-yellow-300 rounded-full text-xs font-medium">Pending</span>
                             @endif
                         </td>
+                        <td class="px-6 py-4">
+                            @if ($buyer->claimed)
+                                <span
+                                    class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-xs font-medium flex items-center gap-1 w-fit">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    Sudah
+                                </span>
+                            @elseif($buyer->status_acc)
+                                <span
+                                    class="px-3 py-1 bg-gray-700 text-gray-400 rounded-full text-xs font-medium">Belum</span>
+                            @else
+                                <span class="text-gray-500">-</span>
+                            @endif
+                        </td>
                         <td class="px-6 py-4 text-gray-400 text-sm">{{ $buyer->created_at }}</td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('admin.merchandise.show-buyer', $buyer->id) }}"
@@ -97,7 +117,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">No merchandise purchases found</td>
+                        <td colspan="6" class="px-6 py-12 text-center text-gray-400">No merchandise purchases found</td>
                     </tr>
                 @endforelse
             </tbody>
