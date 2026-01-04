@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voting</title>
+</head>
+<body>
+    <h1>Welcome to Voting Page</h1>
+</body>
+</html>
