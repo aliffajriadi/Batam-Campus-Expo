@@ -15,4 +15,10 @@ export default defineConfig({
             ignored: ['**/storage/framework/views/**'],
         },
     },
+
+    content: [
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
+      ],
 });

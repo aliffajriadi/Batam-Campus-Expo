@@ -11,13 +11,44 @@ use App\Http\Controllers\Admin\EventSettingController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\MerchandiseController;
 use App\Http\Controllers\Admin\CampusController;
+use App\Http\Controllers\Admin\kampusController;
 use App\Http\Controllers\Admin\ReportController;
 
-// Public Routes
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/voting', [VotingController::class, 'index']);
-Route::get('/kegiatan', [KegiatanController::class, 'index']);
-Route::get('/toko', [TokoController::class, 'index']);
+// Rute untuk halaman utama
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Rute dummy untuk testing
+Route::get('/voting', function () {
+    return view('pages.voting');
+})->name('voting');
+
+Route::get('/kampus', function () {
+    return view('pages.kampus');
+})->name('kampus');
+
+Route::get('/kegiatan', function () {
+    return view('pages.kegiatan');
+})->name('kegiatan');
+
+Route::get('/toko', function () {
+    return view('pages.toko');
+})->name('toko');
+
+Route::get('/tickets', function () {
+    return view('pages.tickets');
+})->name('tickets');
+
+/// Rute autentikasi pengguna
+//Route::middleware(['auth'])->group(function () {
+    //Route::get('/dashboard', function () {
+        //return view('dashboard');
+    //})->name('dashboard');
+    
+    //Route::get('/profile', function () {
+       // return view('profile');
+    //})->name('profile');
+//});
+
 
 // Admin Auth Routes
 Route::prefix('admin')->name('admin.')->group(function () {
