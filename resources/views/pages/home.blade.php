@@ -313,7 +313,7 @@
                             <path fill-rule="evenodd"
                                   d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9z"/>
                         </svg>
-                        Pollux Mall Batam Centre
+                        {{ $lokasi }}
                     </a>
                 </div>
             </div>
@@ -326,6 +326,7 @@
 
                 <div class="timer-content">
                     <div class="flex justify-center items-center mb-2">
+                        {{-- 2026-02-07 09:59:00 --}}
                         <div class="timer-number text-3xl md:text-5xl lg:text-6xl mx-2" id="days">0</div>
                         <div class="timer-number text-3xl md:text-5xl lg:text-6xl">:</div>
                         <div class="timer-number text-3xl md:text-5xl lg:text-6xl mx-2" id="hours">00</div>
@@ -336,29 +337,39 @@
                     </div>
 
                     <div class="flex justify-center gap-6 text-sm md:text-base timer-number">
-                        <span>DAYS</span>
-                        <span>HOURS</span>
-                        <span>MINUTES</span>
-                        <span>SECONDS</span>
+                        <span>Hari</span>
+                        <span>Jam</span>
+                        <span>Menit</span>
+                        <span>Detik</span>
                     </div>
                 </div>
             </div>
 
             <!-- CTA BUTTON - Tambahkan class button-animate -->
             <div class="text-center mt-8 button-animate">
-                <button id="ticket-button"
-                        class="ticket-button text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full">
-                    Get Your Ticket Now !
-                </button>
+                @if ($ticket_status == 'open')
+                    <button id="ticket-button"
+                            class="ticket-button text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full">
+                        Get Your Ticket Now !
+                    </button>
+                @else
+                    <button disabled
+                            class="ticket-button text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full">
+                        Ticket Not Available
+                    </button>
+                @endif
             </div>
 
         </div>
     </div>
 </div>
+<p>
+    {{ $desc_event }}
+</p>
 
 <!-- SCRIPT -->
 <script>
-    const targetDate = new Date(2024, 11, 31, 23, 59, 59);
+    const targetDate = new Date(@json($end_event));
 
     function updateCountdown() {
         const now = new Date().getTime();
