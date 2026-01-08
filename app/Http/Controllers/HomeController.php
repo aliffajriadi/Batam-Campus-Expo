@@ -20,6 +20,7 @@ class HomeController extends Controller
             'google_maps' => $query->google_maps,
             'desc_event' => $query->desc_event,
             'ticket_status' => $ticket->status,
+            'nohp' => $query->no_contact,
         ];
         return view('pages.home', $data);
     }

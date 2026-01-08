@@ -1,4 +1,4 @@
-<x-layout.app title="Batam Campus Expo">
+<x-layout.app :title="'Batam Campus Expo'" :nohp="$nohp" :lokasi="$lokasi">
     <!-- BACKGROUND -->
     <div class="absolute inset-0 -z-10">
         <img src="{{ asset('images/MainBG.svg') }}" class="w-full h-full object-cover" alt="">
@@ -85,7 +85,7 @@
         </div>
     </div>
     </div>
-    
+
 
     <!-- SCRIPT -->
     @push('scripts')

@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="relative min-h-screen w-full overflow-hidden">
+    <div class="relative min-h-screen w-full overflow-hidden flex flex-col">
 
         <!-- NAVBAR - Tambahkan class navbar-animate -->
         <nav class="animate-navbar-slide opacity-0">
@@ -23,6 +23,9 @@
         </nav>
 
         {{ $slot }}
+
+        <!-- FOOTER -->
+        @include('components.layout.footer', ['nohp' => $nohp, 'lokasi' => $lokasi])
 
     </div>
     @stack('scripts')
