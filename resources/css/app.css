@@ -1,13 +1,62 @@
 @import 'tailwindcss';
 
+
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 @theme {
+    --font-sancreek: 'Sancreek', cursive;
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    
+    --animate-navbar-slide: slideDown 2s ease-out forwards;
+    --animate-headline-slide: slideUpToTop 1.2s ease-out forwards;
+    --animate-fade-scale: slideDownFromCenter 1.2s ease-out forwards;
+    --animate-blink: circusBlink 3s infinite steps(1);
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUpToTop {
+        from {
+            transform: translateY(50vh) scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideDownFromCenter {
+        from {
+            transform: translateY(-50vh) scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes circusBlink {
+        0%, 100% { opacity: 1; }
+        5%, 10%, 15%, 20%, 25%, 30%, 35%, 40%, 45%, 50% {
+            opacity: var(--blink-opacity, 1);
+        }
+        7%, 12%, 17%, 22%, 27%, 32%, 37%, 42%, 47% {
+            opacity: 0.3;
+        }
+    }
 }
