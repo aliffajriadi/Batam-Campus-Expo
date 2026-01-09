@@ -30,9 +30,7 @@ Route::get('/kegiatan', function () {
     return view('pages.kegiatan');
 })->name('kegiatan');
 
-Route::get('/toko', function () {
-    return view('pages.toko');
-})->name('toko');
+Route::get('/toko', [TokoController::class, 'index'])->name('toko');
 
 Route::get('/tickets', function () {
     return view('pages.tickets');
