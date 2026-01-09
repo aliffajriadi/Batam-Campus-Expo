@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\MerchandiseController;
 use App\Http\Controllers\Admin\CampusController;
 use App\Http\Controllers\Admin\kampusController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\ProfileController;
 
@@ -46,7 +47,7 @@ Route::post('logout', function () {
 })->name('logout');
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'check.suspended'])->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -120,4 +121,9 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminAut
     Route::post('/scan/ticket', [ReportController::class, 'verifyTicket'])->name('report.verify-ticket');
     Route::get('/scan/merchandise', [ReportController::class, 'scanMerchandise'])->name('report.scan-merchandise');
     Route::post('/scan/merchandise', [ReportController::class, 'verifyMerchandise'])->name('report.verify-merchandise');
+
+    // User Management
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users/{id}/toggle-suspend', [UserController::class, 'toggleSuspend'])->name('users.toggle-suspend');
 });

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'password',
         'nohp',
         'asal_sekolah',
+        'is_suspended',
     ];
 
     public $timestamps = true;

@@ -35,6 +35,10 @@ class GoogleController extends Controller
                 'email_verified_at' => now(),
             ]);
 
+            if ($user->is_suspended) {
+                return redirect('/')->with('error', 'Akun Anda sedang ditangguhkan. Silakan hubungi admin.');
+            }
+
             Auth::login($user, true); // True untuk remember me
 
             return redirect()->intended('/ticket-user'); // Arahkan ke halaman toko
