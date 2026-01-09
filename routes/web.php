@@ -89,6 +89,7 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminAut
     Route::get('/tickets/{id}', [TicketController::class, 'show'])->name('ticket.show');
     Route::post('/tickets/{id}/approve', [TicketController::class, 'approve'])->name('ticket.approve');
     Route::post('/tickets/{id}/reject', [TicketController::class, 'reject'])->name('ticket.reject');
+    Route::delete('/tickets/{id}', [TicketController::class, 'destroy'])->name('ticket.destroy');
 
     // Merchandise Products
     Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise.index');

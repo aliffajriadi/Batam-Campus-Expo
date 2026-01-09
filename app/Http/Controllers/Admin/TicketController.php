@@ -69,6 +69,17 @@ class TicketController extends Controller
         return redirect()->route('admin.ticket.index')->with('success', 'Ticket purchase rejected');
     }
 
+    public function destroy($id)
+    {
+        $buyer = TicketBuyer::findOrFail($id);
+        $buyer->ticket->update([
+            "sold_ticket" => $buyer->ticket->sold_ticket - 1
+        ]);
+        $buyer->delete();
+
+        return redirect()->route('admin.ticket.index')->with('success', 'Ticket buyer deleted successfully');
+    }
+
     public function settings()
     {
         $ticketStatus = TicketStatus::first();
