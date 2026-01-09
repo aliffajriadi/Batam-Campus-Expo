@@ -1,4 +1,4 @@
-<nav class="bg-white/98 backdrop-blur-[10px] rounded-[35px] py-3 px-8 my-6 mx-auto max-w-[1200px] border-2 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 relative z-50 max-lg:py-3 max-lg:px-6 max-lg:my-6 max-lg:mx-4 max-lg:rounded-[25px] max-lg:sticky max-lg:top-0 max-lg:z-[100] max-md:p-3 max-md:m-3 max-md:rounded-[20px] max-md:z-[1000] max-[375px]:py-2 max-[375px]:px-3 max-[375px]:m-3 max-[375px]:mx-2"
+<nav class="bg-white/98 backdrop-blur-[10px] rounded-[35px] py-3 px-8 my-6 mx-auto max-w-[1200px] border-2 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 relative z-50 max-lg:py-3 max-lg:px-6 max-lg:my-6 max-lg:mx-4 max-lg:rounded-[25px] max-lg:sticky max-lg:top-0 max-lg:z-[100] max-md:p-3 max-md:m-3 max-md:rounded-[20px] max-md:z-[1000] max-[375px]:py-2 max-[375px]:px-3 max-[375px]:m-3 max-[375px]:mx-2 z-[1000]"
     id="main-navbar">
     <div class="flex justify-between items-center relative z-10 w-full">
         <!-- Logo/Brand -->
@@ -42,38 +42,47 @@
                 <span
                     class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('toko') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
-            <a href="{{ url('/login') }}"
-                class="text-[#333] no-underline font-semibold bg-orange-600 text-white border-0 py-2 px-5 rounded-[25px] font-semibold text-sm cursor-pointer transition-all duration-300 shadow-[0_4px_12px_rgba(255,140,0,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(255,140,0,0.4)] max-lg:text-sm">
-                Login
-            </a>
 
-            {{-- 
             @auth
                 <!-- Jika user sudah login -->
                 <span class="text-[#ccc] mx-2 font-light max-lg:hidden">|</span>
+                <a href="{{ url('/ticket-user') }}"
+                    class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('ticket-user') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
+                    Tiket
+                    <span
+                        class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('ticket-user') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                </a>
+
                 <div class="relative user-dropdown">
-                    <button class="user-menu-btn flex items-center gap-2 bg-gradient-to-br from-[#4CAF50] to-[#388E3C] text-white border-0 py-2 px-5 rounded-[25px] font-semibold text-sm cursor-pointer transition-all duration-300 shadow-[0_4px_12px_rgba(76,175,80,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(76,175,80,0.4)] max-lg:py-1.5 max-lg:px-5 max-lg:text-[0.85rem]">
+                    <button
+                        class="user-menu-btn flex items-center gap-2 bg-gradient-to-br from-[#4CAF50] to-[#388E3C] text-white border-0 py-2 px-5 rounded-[25px] font-semibold text-sm cursor-pointer transition-all duration-300 shadow-[0_4px_12px_rgba(76,175,80,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(76,175,80,0.4)] max-lg:py-1.5 max-lg:px-5 max-lg:text-[0.85rem]">
                         <span class="text-sm font-semibold">{{ Auth::user()->name }}</span>
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
                         </svg>
                     </button>
-                    <div class="user-dropdown-menu hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
-                        <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                        <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
-                        <div class="border-t my-1"></div>
+                    <div
+                        class="user-dropdown-menu hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
+                        {{-- <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a> --}}
+                        {{-- <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a> --}}
+                        {{-- <div class="border-t my-1"></div> --}}
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
+                            <button type="submit"
+                                class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
                         </form>
+                        <p>{{ Auth::user()->name }}</p>
                     </div>
                 </div>
             @else
                 <!-- Jika user belum login -->
                 <span class="text-[#ccc] mx-2 font-light max-lg:hidden">|</span>
-                <a href="{{ route('login') }}" class="bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] text-white border-0 py-2 px-6 rounded-[25px] font-semibold text-[0.9rem] cursor-pointer transition-all duration-300 no-underline inline-block text-center shadow-[0_4px_12px_rgba(211,47,47,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(211,47,47,0.4)] hover:from-[#E53935] hover:to-[#C62828] max-lg:py-1.5 max-lg:px-5 max-lg:text-[0.85rem]">Sign In</a>
+                <a href="{{ route('google.login') }}"
+                    class="bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] text-white border-0 py-2 px-6 rounded-[25px] font-semibold text-[0.9rem] cursor-pointer transition-all duration-300 no-underline inline-block text-center shadow-[0_4px_12px_rgba(211,47,47,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(211,47,47,0.4)] hover:from-[#E53935] hover:to-[#C62828] max-lg:py-1.5 max-lg:px-5 max-lg:text-[0.85rem]">Login
+                    with Google</a>
             @endauth
-            --}}
         </div>
 
         <!-- Mobile Menu Button -->
@@ -104,21 +113,22 @@
 
             <div class="border-t my-2"></div>
 
-            {{-- 
             @auth
                 <div class="px-4 py-2">
                     <span class="text-sm font-semibold">Hi, {{ Auth::user()->name }}</span>
                 </div>
-                <a href="{{ route('profile') }}" class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F]">Profile</a>
-                <a href="{{ route('dashboard') }}" class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F]">Dashboard</a>
+                {{-- <a href="{{ route('profile') }}" class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F]">Profile</a> --}}
+                {{-- <a href="{{ route('dashboard') }}" class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F]">Dashboard</a> --}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full text-left block p-3 text-red-600 no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-red-50">Logout</button>
+                    <button type="submit"
+                        class="w-full text-left block p-3 text-red-600 no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-red-50">Logout</button>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="block bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] text-white border-0 py-3 px-6 rounded-[25px] font-semibold text-base cursor-pointer transition-all duration-300 no-underline text-center mx-2 shadow-[0_4px_12px_rgba(211,47,47,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(211,47,47,0.4)] max-md:text-[0.95rem] max-md:py-2.5 max-md:mt-2 max-[375px]:text-sm max-[375px]:py-2">Sign In</a>
+                <a href="{{ route('google.login') }}"
+                    class="block bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] text-white border-0 py-3 px-6 rounded-[25px] font-semibold text-base cursor-pointer transition-all duration-300 no-underline text-center mx-2 shadow-[0_4px_12px_rgba(211,47,47,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(211,47,47,0.4)] max-md:text-[0.95rem] max-md:py-2.5 max-md:mt-2 max-[375px]:text-sm max-[375px]:py-2">Login
+                    with Google</a>
             @endauth
-            --}}
         </div>
     </div>
 </nav>

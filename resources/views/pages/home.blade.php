@@ -70,10 +70,18 @@
             <!-- CTA BUTTON - Tambahkan class button-animate -->
             <div class="text-center mt-8 animate-fade-scale opacity-0">
                 @if ($ticket_status == 'open')
+                @auth
+                    <button
+                        class="bg-gradient-to-br from-[#ff6b6b] to-[#ee5a24] shadow-[0_4px_15px_rgba(238,90,36,0.4)] transition-all duration-300 hover:-translate-y-[3px] hover:shadow-[0_6px_20px_rgba(238,90,36,0.6)] text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full">
+                        Dapatkan Tiket !
+                    </button>
+                @endauth
+                @guest
                     <button id="ticket-button"
                         class="bg-gradient-to-br from-[#ff6b6b] to-[#ee5a24] shadow-[0_4px_15px_rgba(238,90,36,0.4)] transition-all duration-300 hover:-translate-y-[3px] hover:shadow-[0_6px_20px_rgba(238,90,36,0.6)] text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full">
-                        Get Your Ticket Now !
+                        Login dan dapatkan Tiket !
                     </button>
+                @endguest
                 @else
                     <button disabled
                         class="bg-gradient-to-br from-[#ff6b6b] to-[#ee5a24] shadow-[0_4px_15px_rgba(238,90,36,0.4)] transition-all duration-300 hover:-translate-y-[3px] hover:shadow-[0_6px_20px_rgba(238,90,36,0.6)] text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full opacity-70 cursor-not-allowed">
@@ -113,7 +121,7 @@
             const ticketButton = document.getElementById('ticket-button');
             if (ticketButton) {
                 ticketButton.onclick = () => {
-                    window.location.href = "{{ route('tickets') }}";
+                    window.location.href = "{{ route('google.login') }}";
                 };
             }
 

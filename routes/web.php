@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VotingController;
+use App\Http\Controllers\Auth\TicketUserController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\TokoController;
 use App\Http\Controllers\Admin\AuthController;
@@ -13,6 +15,7 @@ use App\Http\Controllers\Admin\MerchandiseController;
 use App\Http\Controllers\Admin\CampusController;
 use App\Http\Controllers\Admin\kampusController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Auth\GoogleController;
 
 // Rute untuk halaman utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -32,19 +35,27 @@ Route::get('/kegiatan', function () {
 
 Route::get('/toko', [TokoController::class, 'index'])->name('toko');
 
-Route::get('/tickets', function () {
-    return view('pages.tickets');
-})->name('tickets');
-
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::post('logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/ticket-user', [TicketUserController::class, 'index'])->name('ticket-user');
+    Route::post('/ticket-user', [TicketUserController::class, 'store'])->name('ticket-user.store');
+});
 /// Rute autentikasi pengguna
 //Route::middleware(['auth'])->group(function () {
-    //Route::get('/dashboard', function () {
-        //return view('dashboard');
-    //})->name('dashboard');
-    
-    //Route::get('/profile', function () {
-       // return view('profile');
-    //})->name('profile');
+//Route::get('/dashboard', function () {
+//return view('dashboard');
+//})->name('dashboard');
+
+//Route::get('/profile', function () {
+// return view('profile');
+//})->name('profile');
 //});
 
 

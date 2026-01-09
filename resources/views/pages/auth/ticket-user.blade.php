@@ -1,0 +1,253 @@
+<x-layout.app :title="'Tickets'" :nohp="'089808043'" :lokasi="'jasdkashd'">
+    <!-- BACKGROUND -->
+    <div class="absolute inset-0 -z-10">
+        <div class="w-full h-full bg-gradient-to-br from-[#A61E22] to-[#8a1a1e]"></div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="relative z-10 min-h-screen py-12">
+        <div class="container mx-auto px-4 max-w-2xl">
+            
+            <!-- HEADER -->
+            <div class="text-center mb-8">
+                <h1 class="font-bold uppercase text-white leading-tight text-4xl md:text-5xl mb-3 [text-shadow:_3px_3px_0_rgba(0,0,0,0.8),_6px_6px_0_rgba(0,0,0,0.6)]">
+                    BELI TIKET
+                </h1>
+                <p class="text-white text-lg opacity-90 [text-shadow:_1px_1px_2px_rgba(0,0,0,0.5)]">
+                    Dapatkan tiket Anda sekarang!
+                </p>
+            </div>
+
+            <!-- PAYMENT INFO CARD -->
+            @if(!$ticket)
+            <div class="bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.4)] p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <svg class="w-6 h-6 text-[#A61E22] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                    <h3 class="text-xl font-bold text-gray-800">Informasi Pembayaran</h3>
+                </div>
+                
+                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 mb-4 border-2 border-[#A61E22]">
+                    <p class="text-sm text-gray-600 mb-3">Silakan transfer ke rekening berikut:</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white rounded-lg p-3 shadow-sm">
+                            <p class="text-xs text-gray-500 mb-1">Bank</p>
+                            <p class="font-bold text-gray-800">BCA</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg p-3 shadow-sm">
+                            <p class="text-xs text-gray-500 mb-1">Nomor Rekening</p>
+                            <div class="flex items-center justify-between">
+                                <p class="font-bold text-gray-800 text-lg">1234567890</p>
+                                <button onclick="copyToClipboard('1234567890')" class="text-[#A61E22] hover:text-[#8a1a1e] transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg p-3 shadow-sm">
+                            <p class="text-xs text-gray-500 mb-1">Atas Nama</p>
+                            <p class="font-bold text-gray-800">BATAM CAMPUS EXPO</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg p-3 shadow-sm">
+                            <p class="text-xs text-gray-500 mb-1">Jumlah Transfer</p>
+                            <p class="font-bold text-[#A61E22] text-2xl">Rp {{ $ticket_status->price }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
+                    <p class="text-sm text-yellow-800">
+                        <span class="font-semibold">⚠️ Penting:</span> Setelah transfer, upload bukti pembayaran Anda di form di bawah ini.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FORM UPLOAD BUKTI TRANSFER -->
+            <div class="bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.4)] p-6 mb-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Upload Bukti Transfer</h3>
+                
+                <form action="" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    
+                    <!-- File Upload Area -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Bukti Pembayaran <span class="text-red-500">*</span>
+                        </label>
+                        
+                        <div class="relative border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-[#A61E22] transition-colors cursor-pointer bg-gray-50" id="dropzone">
+                            <input type="file" name="payment_proof" id="payment_proof" class="hidden" accept="image/*,.pdf" required onchange="handleFileSelect(event)">
+                            
+                            <div id="upload-placeholder">
+                                <svg class="mx-auto h-12 w-12 text-gray-400 mb-3" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p class="text-sm text-gray-600 mb-1">
+                                    <span class="font-semibold text-[#A61E22]">Klik untuk upload</span> atau drag & drop
+                                </p>
+                                <p class="text-xs text-gray-500">PNG, JPG, JPEG atau PDF (Max. 5MB)</p>
+                            </div>
+
+                            <div id="file-preview" class="hidden">
+                                <div class="flex items-center justify-center space-x-3">
+                                    <svg class="h-10 w-10 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <div class="text-left">
+                                        <p class="text-sm font-semibold text-gray-800" id="file-name"></p>
+                                        <p class="text-xs text-gray-500" id="file-size"></p>
+                                    </div>
+                                    <button type="button" onclick="removeFile()" class="text-red-500 hover:text-red-700">
+                                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        @error('payment_proof')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-gradient-to-br from-[#A61E22] to-[#8a1a1e] text-white font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(166,30,34,0.4)] flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Kirim Bukti Pembayaran
+                    </button>
+                </form>
+            </div>
+            @endif
+
+            <!-- STATUS TIKET (jika sudah ada tiket) -->
+            @if(isset($ticket))
+            <div class="bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.4)] p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Status Tiket Anda</h3>
+                
+                <div class="border-l-4 @if($ticket->status_acc) border-green-500 bg-green-50 @else border-yellow-500 bg-yellow-50 @endif rounded-r-lg p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center">
+                            @if($ticket->status_acc == 1)
+                                <svg class="w-8 h-8 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <div>
+                                    <p class="font-bold text-green-800">Tiket Disetujui</p>
+                                    <p class="text-sm text-green-600">Pembayaran Anda telah dikonfirmasi</p>
+                                </div>
+                            @else
+                                <svg class="w-8 h-8 text-yellow-500 mr-3 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                                <div>
+                                    <p class="font-bold text-yellow-800">Sedang Diproses</p>
+                                    <p class="text-sm text-yellow-600">Pembayaran Anda sedang diverifikasi</p>
+                                    <p class="text-sm text-yellow-600">Tunggu dalam 24 jam ya</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 pt-4 border-t @if($ticket->status_acc) border-green-200 @else border-yellow-200 @endif">
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <p class="text-gray-600">Kode Tiket</p>
+                                <p class="font-bold text-gray-800">{{ $ticket->code ?? 'TCK-' . str_pad($ticket->id, 6, '0', STR_PAD_LEFT) }}</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">Tanggal Pembelian</p>
+                                <p class="font-bold text-gray-800">{{ $ticket->created_at }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if($ticket->status_acc == 1)
+                    <div class="mt-4">
+                        <a href="" class="block w-full text-center bg-green-600 text-white font-semibold py-3 rounded-lg hover:bg-green-700 transition">
+                            📥 Download E-Ticket
+                        </a>
+                    </div>
+                    @endif
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
+
+    @push('scripts')
+    <script>
+        // Drag and drop functionality
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('payment_proof');
+
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('border-[#A61E22]', 'bg-red-50');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('border-[#A61E22]', 'bg-red-50');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-[#A61E22]', 'bg-red-50');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileSelect({ target: { files } });
+            }
+        });
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Validasi ukuran file (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Ukuran file terlalu besar. Maksimal 5MB.');
+                    fileInput.value = '';
+                    return;
+                }
+
+                // Tampilkan preview
+                document.getElementById('upload-placeholder').classList.add('hidden');
+                document.getElementById('file-preview').classList.remove('hidden');
+                document.getElementById('file-name').textContent = file.name;
+                document.getElementById('file-size').textContent = formatFileSize(file.size);
+            }
+        }
+
+        function removeFile() {
+            fileInput.value = '';
+            document.getElementById('upload-placeholder').classList.remove('hidden');
+            document.getElementById('file-preview').classList.add('hidden');
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Nomor rekening berhasil disalin!');
+            });
+        }
+    </script>
+    @endpush
+</x-layout.app>

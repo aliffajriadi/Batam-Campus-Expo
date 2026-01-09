@@ -18,11 +18,10 @@ class User extends Authenticatable
         'name',
         'photo',
         'email_verified_at',
+        'password',
     ];
 
-    public $timestamps = false;
-
-    const CREATED_AT = 'created_at';
+    public $timestamps = true;
 
     protected $casts = [
         'email_verified_at' => 'datetime',

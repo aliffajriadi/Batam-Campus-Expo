@@ -22,8 +22,8 @@ return new class extends Migration
             $table->integer('total_price');
             $table->boolean('status_acc');
             $table->string('photo_transfer');
-            $table->boolean('done_check');
-            $table->dateTime('check_at');
+            $table->boolean('done_check')->default(false);
+            $table->dateTime('check_at')->nullable();
             $table->timestamp('created_at')->useCurrent();
         });
 
