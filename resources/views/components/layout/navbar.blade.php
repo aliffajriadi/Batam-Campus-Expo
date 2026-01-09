@@ -1,4 +1,4 @@
-<nav class="bg-white/98 backdrop-blur-[10px] rounded-[35px] py-3 px-8 my-6 mx-auto max-w-[1200px] border-2 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 relative z-50 max-lg:py-3 max-lg:px-6 max-lg:my-6 max-lg:mx-4 max-lg:rounded-[25px] max-lg:sticky max-lg:top-0 max-lg:z-[100] max-md:p-3 max-md:m-3 max-md:rounded-[20px] max-md:z-[1000] max-[375px]:py-2 max-[375px]:px-3 max-[375px]:m-3 max-[375px]:mx-2 z-[1000]"
+<nav class="bg-white backdrop-blur-[10px] rounded-[35px] py-3 px-8 my-6 mx-auto max-w-[1200px] border-2 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 relative z-50 max-lg:py-3 max-lg:px-6 max-lg:my-6 max-lg:mx-4 max-lg:rounded-[25px] max-lg:sticky max-lg:top-0 max-lg:z-10 max-md:p-3 max-md:m-3 max-md:rounded-[20px] max-[375px]:py-2 max-[375px]:px-3 max-[375px]:m-3 max-[375px]:mx-2"
     id="main-navbar">
     <div class="flex justify-between items-center relative z-10 w-full">
         <!-- Logo/Brand -->
@@ -52,6 +52,12 @@
                     <span
                         class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('ticket-user') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
                 </a>
+                <a href="{{ route('profile') }}"
+                    class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('profile') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
+                    Profile
+                    <span
+                        class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('profile') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                </a>
 
                 <div class="relative user-dropdown">
                     <button
@@ -65,15 +71,13 @@
                     </button>
                     <div
                         class="user-dropdown-menu hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
-                        {{-- <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a> --}}
-                        {{-- <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a> --}}
-                        {{-- <div class="border-t my-1"></div> --}}
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit"
-                                class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
+                                class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-200">Logout</button>
                         </form>
-                        <p>{{ Auth::user()->name }}</p>
+                        
+                        
                     </div>
                 </div>
             @else
@@ -97,7 +101,7 @@
     </div>
 
     <!-- Mobile Navigation Menu (Hidden by default) -->
-    <div class="hidden md:hidden absolute top-full left-0 right-0 bg-white rounded-b-[20px] shadow-[0_20px_40px_rgba(0,0,0,0.15)] overflow-hidden z-[9999] animate-[slideDown_0.3s_ease] mt-4 p-6 border-t border-black/5 origin-top max-md:mt-3 max-[375px]:p-3 max-[375px]:pb-6"
+    <div class="hidden md:hidden absolute top-full left-0 right-0 bg-white rounded-b-[20px] shadow-[0_20px_40px_rgba(0,0,0,0.15)] overflow-hidden z-50 animate-[slideDown_0.3s_ease] mt-4 p-6 border-t border-black/5 origin-top max-md:mt-3 max-[375px]:p-3 max-[375px]:pb-6"
         id="mobile-nav-menu">
         <div class="flex flex-col space-y-3">
             <a href="{{ url('/') }}"

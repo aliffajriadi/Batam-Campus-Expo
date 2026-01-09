@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->string('nohp')->nullable();
+            $table->string('asal_sekolah')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

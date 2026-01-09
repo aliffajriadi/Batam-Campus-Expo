@@ -14,6 +14,7 @@ class TicketStatus extends Model
         'kuota_ticket',
         'discount',
         'auto_close_ticket_at',
+        'sold_ticket',
     ];
 
     public $timestamps = false;

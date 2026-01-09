@@ -15,6 +15,7 @@ class TicketBuyer extends Model
         'status_acc',
         'photo_transfer',
         'done_check',
+        'token',
         'check_at',
     ];
 

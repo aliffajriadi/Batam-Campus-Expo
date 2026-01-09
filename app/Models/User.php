@@ -19,6 +19,8 @@ class User extends Authenticatable
         'photo',
         'email_verified_at',
         'password',
+        'nohp',
+        'asal_sekolah',
     ];
 
     public $timestamps = true;

@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('ticket_status', function (Blueprint $table) {
             $table->id();
-            $table->integer('price');
-            $table->enum('status', ["open","pending","close"]);
-            $table->integer('kuota_ticket');
-            $table->decimal('discount');
-            $table->dateTime('auto_close_ticket_at');
+            $table->integer('price')->default(0);
+            $table->enum('status', ["open","pending","close"])->default("open");
+            $table->integer('kuota_ticket')->default(0);
+            $table->decimal('discount')->default(0);
+            $table->integer('sold_ticket')->default(0);
+            $table->dateTime('auto_close_ticket_at')->nullable();
             $table->timestamp('created_at')->useCurrent();
         });
     }

@@ -64,7 +64,7 @@
         <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
             <h2 class="text-lg font-semibold text-gray-100 mb-4">Transfer Proof</h2>
             @if ($buyer->photo_transfer)
-                <img src="{{ asset('storage/' . $buyer->photo_transfer) }}"
+                <img src="{{ asset('images/payment_proof/' . $buyer->photo_transfer) }}"
                     class="w-full max-h-96 object-contain rounded-lg bg-gray-900" alt="Transfer Proof">
             @else
                 <div class="h-48 bg-gray-700 rounded-lg flex items-center justify-center">

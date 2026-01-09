@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CampusController;
 use App\Http\Controllers\Admin\kampusController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\ProfileController;
 
 // Rute untuk halaman utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -43,7 +44,13 @@ Route::post('logout', function () {
     request()->session()->regenerateToken();
     return redirect('/');
 })->name('logout');
+
+
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::get('/ticket-user', [TicketUserController::class, 'index'])->name('ticket-user');
     Route::post('/ticket-user', [TicketUserController::class, 'store'])->name('ticket-user.store');
 });

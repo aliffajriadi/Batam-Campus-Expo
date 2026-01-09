@@ -12,7 +12,7 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
     
-    --animate-navbar-slide: slideDown 2s ease-out forwards;
+    --animate-navbar-slide: slideDown 0.2s ease-out forwards;
     --animate-headline-slide: slideUpToTop 1.2s ease-out forwards;
     --animate-fade-scale: slideDownFromCenter 1.2s ease-out forwards;
     --animate-blink: circusBlink 3s infinite steps(1);
