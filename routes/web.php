@@ -7,6 +7,7 @@ use App\Http\Controllers\VotingController;
 use App\Http\Controllers\Auth\TicketUserController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\TokoController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventSettingController;
@@ -37,6 +38,10 @@ Route::get('/kegiatan', function () {
 
 Route::get('/toko', [TokoController::class, 'index'])->name('toko');
 
+// Community Routes
+Route::get('/komunitas', [CommunityController::class, 'index'])->name('komunitas');
+Route::delete('/komunitas/post/{postId}', [CommunityController::class, 'destroyPost'])->name('komunitas.post.destroy');
+
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 Route::post('logout', function () {
@@ -54,6 +59,11 @@ Route::middleware(['auth', 'check.suspended'])->group(function () {
 
     Route::get('/ticket-user', [TicketUserController::class, 'index'])->name('ticket-user');
     Route::post('/ticket-user', [TicketUserController::class, 'store'])->name('ticket-user.store');
+
+    // Community Actions
+    Route::post('/komunitas/post', [CommunityController::class, 'storePost'])->name('komunitas.post.store');
+    Route::post('/komunitas/comment/{postId}', [CommunityController::class, 'storeComment'])->name('komunitas.comment.store');
+    Route::post('/komunitas/like/{postId}', [CommunityController::class, 'toggleLike'])->name('komunitas.like.toggle');
 });
 /// Rute autentikasi pengguna
 //Route::middleware(['auth'])->group(function () {

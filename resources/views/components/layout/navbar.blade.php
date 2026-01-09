@@ -42,6 +42,12 @@
                 <span
                     class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('toko') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
+            <a href="{{ url('/komunitas') }}"
+                class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('komunitas') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
+                Komunitas
+                <span
+                    class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('komunitas') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+            </a>
 
             @auth
                 <!-- Jika user sudah login -->
@@ -76,8 +82,8 @@
                             <button type="submit"
                                 class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-200">Logout</button>
                         </form>
-                        
-                        
+
+
                     </div>
                 </div>
             @else
@@ -114,6 +120,8 @@
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('kegiatan') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Kegiatan</a>
             <a href="{{ url('/toko') }}"
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('toko') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Toko</a>
+            <a href="{{ url('/komunitas') }}"
+                class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('komunitas') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Komunitas</a>
 
             <div class="border-t my-2"></div>
 
