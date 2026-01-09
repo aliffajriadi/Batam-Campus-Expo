@@ -46,7 +46,7 @@ class CommunityController extends Controller
     public function storePost(Request $request)
     {
         $request->validate([
-            'content' => 'required|string|max:1000',
+            'content' => 'required|string|max:500',
         ]);
 
         Post::create([
@@ -60,7 +60,7 @@ class CommunityController extends Controller
     public function storeComment(Request $request, $postId)
     {
         $request->validate([
-            'content' => 'required|string|max:500',
+            'content' => 'required|string|max:200',
         ]);
 
         Comment::create([
