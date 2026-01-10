@@ -1,25 +1,65 @@
 @import 'tailwindcss';
 
-
-
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/* === BASE STYLES === */
+@layer base {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        @apply bg-transparent;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        scroll-behavior: smooth;
+    }
+
+    .main-app-container {
+        @apply bg-transparent;
+    }
+
+    /* Improve readability */
+    body {
+        line-height: 1.6;
+        color: #333;
+    }
+
+    /* Better focus states */
+    *:focus {
+        outline: 2px solid #D32F2F;
+        outline-offset: 2px;
+    }
+
+    /* Better button focus */
+    button:focus,
+    a:focus {
+        outline: 2px solid #D32F2F;
+        outline-offset: 2px;
+    }
+}
+
 @theme {
     --font-sancreek: 'Sancreek', cursive;
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
     
-    --animate-navbar-slide: slideDown 0.2s ease-out forwards;
+    --animate-navbar-slide: slideDown 0.3s ease-out forwards;
     --animate-headline-slide: slideUpToTop 1.2s ease-out forwards;
     --animate-fade-scale: slideDownFromCenter 1.2s ease-out forwards;
     --animate-blink: circusBlink 3s infinite steps(1);
 
     @keyframes slideDown {
         from {
-            transform: translateY(-100px);
+            transform: translateY(-100%);
             opacity: 0;
         }
         to {
@@ -30,7 +70,7 @@
 
     @keyframes slideUpToTop {
         from {
-            transform: translateY(50vh) scale(0.8);
+            transform: translateY(50px) scale(0.95);
             opacity: 0;
         }
         to {
@@ -41,7 +81,7 @@
 
     @keyframes slideDownFromCenter {
         from {
-            transform: translateY(-50vh) scale(0.8);
+            transform: translateY(-50px) scale(0.95);
             opacity: 0;
         }
         to {
@@ -58,5 +98,305 @@
         7%, 12%, 17%, 22%, 27%, 32%, 37%, 42%, 47% {
             opacity: 0.3;
         }
+    }
+}
+
+/* === HERO SECTION STYLES === */
+.hero-section {
+    background: #87CEEB url('/images/MainBG.svg') center/cover no-repeat;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    z-index: -1;
+}
+
+/* Fix white background behind navbar */
+body {
+    background: linear-gradient(to bottom, #4A3E6FF 8 0%, #437CB4 87%, transparent 100%);
+}
+
+/* Better responsive hero */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-section {
+        padding: 4rem 0 2rem;
+    }
+}
+
+/* === FUN SHAPE SECTION === */
+.fun-shape-container {
+    position: relative;
+    width: 100%;
+    height: 90px;
+    overflow: visible;
+    z-index: 30;
+    margin-bottom: -2px;
+}
+
+/* === INFO SECTION STYLES === */
+.info-section {
+    background: linear-gradient(to bottom, #EFE4B7, #FBE99C, #FDDC57);
+    position: relative;
+    overflow: hidden;
+    z-index: 20;
+    margin-top: -2px;
+}
+
+/* === FAQ SECTION STYLES === */
+.faq-section {
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.faq-pattern-bg {
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23FDDC57" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    opacity: 0.3;
+    position: absolute;
+    inset: 0;
+}
+
+.faq-card {
+    background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.faq-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* === CONTACT SECTION STYLES === */
+.contact-section {
+    background: linear-gradient(to bottom, #FDDC57, #F9A825);
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* === SPONSOR SECTION STYLES === */
+.sponsor-card {
+    background-color: #f9fafb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.sponsor-card:hover {
+    background-color: #f3f4f6;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* === UTILITY CLASSES === */
+.font-sancreek {
+    font-family: 'Sancreek', cursive;
+}
+
+.headline-animate {
+    animation: var(--animate-headline-slide);
+}
+
+.timer-animate,
+.button-animate {
+    animation: var(--animate-fade-scale);
+}
+
+.animate-blink {
+    animation: var(--animate-blink);
+}
+
+/* === BUTTON STYLES === */
+.ticket-button {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+    padding: 0.875rem 2.5rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.ticket-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.ticket-button:hover::before {
+    left: 100%;
+}
+
+.ticket-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(238, 90, 36, 0.6);
+    background: linear-gradient(135deg, #ff5252, #e64a19);
+}
+
+.ticket-button:active {
+    transform: translateY(-1px);
+}
+
+.ticket-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(238, 90, 36, 0.3);
+}
+
+.ticket-button:disabled:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(238, 90, 36, 0.3);
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+}
+
+/* === HOVER EFFECTS === */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* === TEXT SHADOWS === */
+.text-shadow-heavy {
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8), 6px 6px 0 rgba(0, 0, 0, 0.6), 0 0 20px rgba(166, 30, 34, 0.5);
+}
+
+.text-shadow-medium {
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8), 4px 4px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* === CUSTOM SCROLLBAR === */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D32F2F;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #B71C1C;
+}
+
+/* === RESPONSIVE STYLES === */
+@media (max-width: 768px) {
+    .hero-section {
+        background-size: cover;
+        background-position: center center;
+        padding-top: 100px;
+    }
+    
+    .ticket-button {
+        font-size: 1rem;
+        padding: 0.75rem 2rem;
+    }
+
+    .faq-card,
+    .contact-card {
+        padding: 1.5rem;
+    }
+
+    .sponsor-card {
+        height: 6rem;
+        padding: 1rem;
+    }
+
+    /* Better mobile spacing */
+    section {
+        padding: 3rem 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-section {
+        padding-top: 120px;
+    }
+
+    .fun-shape-container {
+        height: 70px;
+    }
+
+    /* Even better mobile spacing */
+    section {
+        padding: 2rem 0;
+    }
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ultra mobile optimizations */
+    .ticket-button {
+        font-size: 0.875rem;
+        padding: 0.625rem 1.5rem;
+    }
+
+    section {
+        padding: 1.5rem 0;
+    }
+
+    h1, h2, h3 {
+        word-break: break-word;
     }
 }

@@ -1,5 +1,5 @@
-<footer class="relative z-10 w-full mt-auto pt-20">
-    <div class="bg-gradient-to-b from-[#A61E22] to-[#800F12] pt-12 pb-8 px-4 rounded-t-[3rem] shadow-[0_-4px_20px_rgba(166,30,34,0.3)] border-t border-[#ff6b6b]/30">
+<footer class="relative z-10 w-full mt-auto pt-8">
+    <div class="bg-gradient-to-b from-[#A61E22] to-[#800F12] pt-6 pb-8 px-4 rounded-t-[3rem] shadow-[0_-4px_20px_rgba(166,30,34,0.3)] border-t border-[#ff6b6b]/30">
         <div class="container mx-auto max-w-6xl">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start px-10">
                 

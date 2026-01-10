@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VotingController;
+use App\Http\Controllers\KampusController;
 use App\Http\Controllers\Auth\TicketUserController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\TokoController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\Admin\EventSettingController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\MerchandiseController;
 use App\Http\Controllers\Admin\CampusController;
-use App\Http\Controllers\Admin\kampusController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\GoogleController;
@@ -28,13 +28,9 @@ Route::get('/voting', function () {
     return view('pages.voting');
 })->name('voting');
 
-Route::get('/kampus', function () {
-    return view('pages.kampus');
-})->name('kampus');
+Route::get('/kampus', [KampusController::class, 'index'])->name('kampus');
 
-Route::get('/kegiatan', function () {
-    return view('pages.kegiatan');
-})->name('kegiatan');
+Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
 
 Route::get('/toko', [TokoController::class, 'index'])->name('toko');
 
