@@ -107,9 +107,9 @@
 
             <!-- Bottom Copyright -->
             <div class="flex flex-col md:flex-row justify-between px-10 items-center gap-4 text-center md:text-left">
-                <p class="text-white/80 text-sm md:text-base">
+                <a href="https://www.instagram.com/p/DSul6yDjyIg/?img_index=14" rel="noopener noreferrer" class="text-white/80 hover:underline text-sm md:text-base">
                     &copy; <span id="year"></span> IT Department Batam Campus Expo
-                </p>
+                </a>
                 <p class="text-white/60 text-xs md:text-sm">
                     All Rights Reserved
                 </p>

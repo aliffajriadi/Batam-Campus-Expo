@@ -74,7 +74,7 @@
 
             <!-- All Campuses List -->
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">📊 Semua Kampus</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">🏆 Top 10 Besar</h2>
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full">

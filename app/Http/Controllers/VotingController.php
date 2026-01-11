@@ -16,9 +16,10 @@ class VotingController extends Controller
             ->take(3)
             ->get();
 
-        // Get all campuses with vote counts
+        // Get top 10 campuses with vote counts
         $allCampuses = Campus::withCount('votes')
             ->orderBy('votes_count', 'desc')
+            ->take(10)
             ->get();
 
         // Get event settings
