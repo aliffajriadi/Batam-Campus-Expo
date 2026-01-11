@@ -17,6 +17,7 @@ class TicketStatus extends Model
         'discount',
         'auto_close_ticket_at',
         'sold_ticket',
+        'link',
     ];
 
     public $timestamps = false;

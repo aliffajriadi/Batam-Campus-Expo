@@ -86,6 +86,12 @@ class TicketController extends Controller
         return view('admin.ticket.settings', compact('tickets'));
     }
 
+    public function editType($id)
+    {
+        $ticket = TicketStatus::findOrFail($id);
+        return view('admin.ticket.edit', compact('ticket'));
+    }
+
     public function storeType(Request $request)
     {
         $request->validate([
@@ -96,6 +102,7 @@ class TicketController extends Controller
             'kuota_ticket' => 'required|integer|min:0',
             'discount' => 'required|numeric|min:0|max:100',
             'auto_close_ticket_at' => 'required|date',
+            'link' => 'nullable|string|max:255',
         ]);
 
         TicketStatus::create($request->all());
@@ -113,12 +120,13 @@ class TicketController extends Controller
             'kuota_ticket' => 'required|integer|min:0',
             'discount' => 'required|numeric|min:0|max:100',
             'auto_close_ticket_at' => 'required|date',
+            'link' => 'nullable|string|max:255',
         ]);
 
         $ticket = TicketStatus::findOrFail($id);
         $ticket->update($request->all());
 
-        return redirect()->back()->with('success', 'Ticket type updated successfully');
+        return redirect()->route('admin.ticket.settings')->with('success', 'Ticket type updated successfully');
     }
 
     public function destroyType($id)

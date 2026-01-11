@@ -9,8 +9,7 @@
     <!-- Fonts -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Sancreek&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -222,9 +221,11 @@
             @endif
 
             @yield('content')
+        </main>
     </div>
-    </main>
-    </div>
+
+    @stack('modals')
+    @stack('scripts')
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');

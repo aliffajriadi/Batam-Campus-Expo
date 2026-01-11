@@ -92,6 +92,7 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminAut
     Route::get('/tickets/export', [TicketController::class, 'export'])->name('ticket.export');
     Route::get('/tickets', [TicketController::class, 'index'])->name('ticket.index');
     Route::get('/tickets/settings', [TicketController::class, 'settings'])->name('ticket.settings');
+    Route::get('/tickets/types/{id}/edit', [TicketController::class, 'editType'])->name('ticket.type.edit');
     Route::post('/tickets/settings', [TicketController::class, 'updateSettings'])->name('ticket.settings.update'); // Keep for legacy if needed or redirect
     Route::post('/tickets/types', [TicketController::class, 'storeType'])->name('ticket.type.store');
     Route::put('/tickets/types/{id}', [TicketController::class, 'updateType'])->name('ticket.type.update');

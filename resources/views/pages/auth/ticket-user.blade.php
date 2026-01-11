@@ -247,12 +247,28 @@
                     </div>
 
                     <div class="p-8">
-                        @if (!$ticket->status_acc)
+                        @if ($ticket->status_acc)
+                            {{-- Approved status message or similar --}}
+                        @elseif (!$ticket->status_acc)
                             <div class="text-center mb-6">
                                 <p class="text-gray-500 text-sm leading-relaxed">
                                     Bukti pembayaran Anda sedang kami cek. Proses verifikasi biasanya memakan waktu
                                     <span class="font-bold text-gray-700">maksimal 24 jam</span>.
                                 </p>
+                            </div>
+                        @endif
+
+                        @if ($ticket->status_acc && $ticket->ticket->link)
+                            <div class="mb-6">
+                                <a href="{{ $ticket->ticket->link }}" target="_blank"
+                                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-blue-500/30">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                    Masuk ke Link Tiket
+                                </a>
                             </div>
                         @endif
 
