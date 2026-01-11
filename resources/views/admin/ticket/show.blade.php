@@ -121,6 +121,25 @@
                     Hapus Data
                 </button>
             </form>
+
+            @if ($buyer->status_acc)
+                <form action="{{ route('admin.ticket.toggle-check', $buyer->id) }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="px-6 py-3 {{ $buyer->done_check ? 'bg-amber-600 hover:bg-amber-700' : 'bg-blue-600 hover:bg-blue-700' }} text-white font-semibold rounded-lg transition flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            @if ($buyer->done_check)
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            @else
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            @endif
+                        </svg>
+                        {{ $buyer->done_check ? 'Mark Unchecked' : 'Mark Checked-in' }}
+                    </button>
+                </form>
+            @endif
         </div>
         @if ($buyer->done_check)
             <p class="text-gray-500 text-sm mt-2">Terakhir diubah: {{ $buyer->check_at }}</p>

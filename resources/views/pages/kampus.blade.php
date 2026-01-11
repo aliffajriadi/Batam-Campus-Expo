@@ -1,430 +1,575 @@
 <x-layout.app :title="'Kampus - Batam Campus Expo'" :nohp="$nohp" :lokasi="$lokasi">
     <!-- HERO SECTION -->
-    <section class="hero-section min-h-[60vh] relative overflow-hidden">
-        <!-- Background utama -->
-        <div class="absolute inset-0 bg-gradient-to-br from-[#D32F2F] via-[#B71C1C] to-[#A61E22] z-0"></div>
-        
-        <!-- Decorative Elements -->
-        <img src="{{ asset('images/balloon.svg') }}" class="absolute left-8 top-20 w-16 opacity-70 animate-bounce" alt="balloon">
-        <img src="{{ asset('images/balloon.svg') }}" class="absolute right-12 top-32 w-12 opacity-60 animate-bounce" style="animation-delay: 0.5s;" alt="balloon">
-        <img src="{{ asset('images/balloon.svg') }}" class="absolute left-1/4 top-40 w-10 opacity-50 animate-bounce" style="animation-delay: 1s;" alt="balloon">
-        <img src="{{ asset('images/balloon.svg') }}" class="absolute right-1/3 top-16 w-14 opacity-80 animate-bounce" style="animation-delay: 1.5s;" alt="balloon">
-        
-        <!-- KONTEN UTAMA -->
-        <div class="relative z-10 w-full h-full flex items-center">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-                <!-- HEADLINE -->
-                <div class="mb-8">
-                    <h1 class="font-sancreek uppercase text-white leading-[0.85] text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 [text-shadow:_3px_3px_0_rgba(0,0,0,0.8),_6px_6px_0_rgba(0,0,0,0.6)]">
-                        KAMPUS
-                    </h1>
-                    <h2 class="font-sancreek uppercase text-[#fbbf24] leading-[0.85] text-3xl sm:text-4xl md:text-5xl lg:text-6xl [text-shadow:_2px_2px_0_rgba(0,0,0,0.8)]">
-                        TERBAIK INDONESIA
-                    </h2>
-                    <p class="text-white/90 text-lg sm:text-xl mt-6 max-w-3xl mx-auto">
-                        Temukan kampus impianmu dari berbagai universitas terbaik di Indonesia
-                    </p>
+    <section class="relative bg-gradient-to-br from-[#D32F2F] to-[#800000] py-20 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+                Temukan Kampus Impianmu
+            </h1>
+            <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Jelajahi berbagai pilihan universitas terbaik di Indonesia. Mulai masa depan gemilangmu dari sini
+                bersama Batam Campus Expo.
+            </p>
+
+            <!-- Search & Filter Container -->
+            <div
+                class="max-w-4xl mx-auto bg-white p-4 rounded-2xl shadow-xl flex flex-col md:flex-row gap-4 items-center">
+                <div class="relative flex-1 w-full">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="text" id="search-kampus"
+                        class="block w-full pl-10 pr-3 py-3 border-none rounded-xl bg-gray-50 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#D32F2F]/50 transition-all font-medium"
+                        placeholder="Cari nama kampus, kota, atau provinsi...">
+                </div>
+
+                <div
+                    class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar justify-center md:justify-end">
+                    <button onclick="filterKampus('all')"
+                        class="filter-btn active whitespace-nowrap px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">
+                        Semua
+                    </button>
+                    <button onclick="filterKampus('negeri')"
+                        class="filter-btn whitespace-nowrap px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">
+                        Negeri
+                    </button>
+                    <button onclick="filterKampus('swasta')"
+                        class="filter-btn whitespace-nowrap px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">
+                        Swasta
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SEPARATOR -->
-    <div class="relative w-full h-[60px] overflow-visible z-30 -mt-1">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#A61E22] to-[#f5f5f5] opacity-80"></div>
-    </div>
+    <!-- CONTENT SECTION -->
+    <section class="bg-gray-50 py-16 min-h-[60vh]">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- KAMPUS CARDS SECTION -->
-    <section class="relative w-full py-16 bg-gradient-to-b from-[#f5f5f5] to-white overflow-hidden">
-        <!-- Decorative Elements -->
-        <img src="{{ asset('images/GajahKiri.svg') }}" class="absolute left-0 bottom-0 w-24 opacity-30" alt="elephant left">
-        <img src="{{ asset('images/GajahKanan.svg') }}" class="absolute right-0 bottom-0 w-28 opacity-30" alt="elephant right">
-        
-        <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 z-10">
-            <!-- Section Title -->
-            <div class="text-center mb-12">
-                <h2 class="font-sancreek uppercase text-[#D32F2F] text-4xl sm:text-5xl md:text-6xl mb-4 [text-shadow:_2px_2px_0_rgba(0,0,0,0.3)]">
-                    Daftar Kampus
-                </h2>
-                <p class="text-gray-700 text-lg max-w-2xl mx-auto">
-                    Jelajahi berbagai pilihan universitas terbaik dari seluruh Indonesia
-                </p>
-            </div>
-
-            <!-- Filter Section -->
-            <div class="flex flex-col items-center gap-6 mb-12">
-                <!-- Search Bar -->
-                <div class="relative w-full max-w-md">
-                    <input type="text" id="search-kampus" placeholder="Cari kampus..." 
-                           class="w-full px-4 py-3 pl-12 rounded-full border-2 border-[#D32F2F]/20 focus:border-[#D32F2F] focus:ring-2 focus:ring-[#D32F2F]/20 outline-none transition-all duration-300 text-gray-700">
-                    <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                </div>
-                
-                <!-- Filter Buttons -->
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="filterKampus('all')" class="filter-btn active bg-[#D32F2F] text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-[#B71C1C] hover:-translate-y-1 shadow-lg">
-                        Semua Kampus
-                    </button>
-                    <button onclick="filterKampus('negeri')" class="filter-btn bg-white text-[#D32F2F] border-2 border-[#D32F2F] px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-[#D32F2F] hover:text-white hover:-translate-y-1 shadow-lg">
-                        Negeri
-                    </button>
-                    <button onclick="filterKampus('swasta')" class="filter-btn bg-white text-[#D32F2F] border-2 border-[#D32F2F] px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-[#D32F2F] hover:text-white hover:-translate-y-1 shadow-lg">
-                        Swasta
-                    </button>
-                </div>
-            </div>
-
-            <!-- Kampus Cards Grid -->
+            <!-- Grid Kampus -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="kampus-grid">
-                @foreach($kampuses as $kampus)
-                    <div class="kampus-card bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl border-4 border-transparent hover:border-[#fbbf24] group" data-status="{{ $kampus->status }}">
-                        <!-- Card Header -->
-                        <div class="relative bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] p-6 text-white">
+                @foreach ($kampuses as $kampus)
+                    <div class="kampus-card group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col h-full"
+                        data-status="{{ $kampus->status }}">
+
+                        <!-- Card Header / Logo Area -->
+                        <div class="h-32 bg-gray-100 relative flex items-center justify-center overflow-hidden">
+                            <!-- Background Pattern/Shape -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-gray-200/50 to-transparent"></div>
+
+                            <!-- Logo Wrapper -->
+                            <div
+                                class="relative z-10 w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center p-2 group-hover:scale-110 transition-transform duration-300">
+                                @if ($kampus->logo_campus && file_exists(public_path('storage/' . $kampus->logo_campus)))
+                                    <img src="{{ asset('storage/' . $kampus->logo_campus) }}"
+                                        alt="{{ $kampus->singkatan }}" class="w-full h-full object-cover rounded-full">
+                                @else
+                                    <span
+                                        class="text-xl font-bold text-[#D32F2F] tracking-tighter">{{ substr($kampus->singkatan, 0, 3) }}</span>
+                                @endif
+                            </div>
+
                             <!-- Status Badge -->
-                            <div class="absolute top-4 right-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide
-                                    {{ $kampus->status === 'negeri' ? 'bg-[#4CAF50] text-white' : 'bg-[#fbbf24] text-black' }}">
-                                    {{ $kampus->status }}
-                                </span>
-                            </div>
-                            
-                            <!-- Logo Placeholder -->
-                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4">
-                                <span class="text-2xl font-bold">{{ substr($kampus->singkatan, 0, 2) }}</span>
-                            </div>
-                            
-                            <!-- Kampus Name -->
-                            <h3 class="font-bold text-xl mb-2 group-hover:text-[#fbbf24] transition-colors">
-                                {{ $kampus->nama_kampus }}
-                            </h3>
-                            <p class="text-white/80 text-sm">{{ $kampus->singkatan }}</p>
+                            <span
+                                class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider
+                                {{ $kampus->status === 'negeri' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700' }}">
+                                {{ $kampus->status }}
+                            </span>
                         </div>
 
                         <!-- Card Body -->
-                        <div class="p-6">
-                            <!-- Location -->
-                            <div class="flex items-center gap-2 mb-4 text-gray-600">
-                                <svg class="w-5 h-5 text-[#D32F2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
-                                <span class="text-sm font-medium">{{ $kampus->kota }}, {{ $kampus->provinsi }}</span>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center justify-between mb-2">
+                                <span
+                                    class="text-xs font-semibold text-gray-500 uppercase tracking-wide">{{ $kampus->singkatan }}</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xs text-gray-400">Akreditasi</span>
+                                    <span
+                                        class="px-2 py-0.5 rounded text-xs font-bold bg-[#D32F2F] text-white">{{ $kampus->akreditasi }}</span>
+                                </div>
                             </div>
 
-                            <!-- Description -->
-                            <p class="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
+                            <h3
+                                class="text-xl font-bold text-gray-800 mb-3 group-hover:text-[#D32F2F] transition-colors line-clamp-2 min-h-[3.5rem]">
+                                {{ $kampus->name_campus }}
+                            </h3>
+
+                            <div class="flex items-start gap-2 text-gray-600 mb-4 text-sm min-h-[2.5rem]">
+                                <svg class="w-4 h-4 mt-0.5 text-[#D32F2F] flex-shrink-0" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span>{{ $kampus->kota }}, {{ $kampus->provinsi }}</span>
+                            </div>
+
+                            <p class="text-gray-500 text-sm mb-6 line-clamp-3">
                                 {{ $kampus->deskripsi }}
                             </p>
 
-                            <!-- Stats -->
-                            <div class="grid grid-cols-2 gap-4 mb-6">
-                                <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                    <div class="text-[#D32F2F] font-bold text-lg">{{ $kampus->tahun_berdiri }}</div>
-                                    <div class="text-gray-600 text-xs">Tahun Berdiri</div>
-                                </div>
-                                <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                    <div class="text-[#D32F2F] font-bold text-lg">{{ number_format($kampus->jumlah_mahasiswa) }}</div>
-                                    <div class="text-gray-600 text-xs">Mahasiswa</div>
-                                </div>
-                            </div>
-
-                            <!-- Akreditasi -->
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-gray-600 text-sm">Akreditasi:</span>
-                                <span class="px-3 py-1 rounded-full text-sm font-bold
-                                    {{ $kampus->akreditasi === 'A' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
-                                    {{ $kampus->akreditasi }}
-                                </span>
-                            </div>
-
-                            <!-- Fakultas Preview -->
-                            <div class="mb-6">
-                                <h4 class="text-gray-800 font-semibold text-sm mb-2">Fakultas Unggulan:</h4>
-                                <div class="flex flex-wrap gap-1">
-                                    @foreach(array_slice($kampus->fakultas, 0, 3) as $fakultas)
-                                        <span class="px-2 py-1 bg-[#D32F2F]/10 text-[#D32F2F] text-xs rounded-full">
-                                            {{ $fakultas }}
-                                        </span>
-                                    @endforeach
-                                    @if(count($kampus->fakultas) > 3)
-                                        <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                                            +{{ count($kampus->fakultas) - 3 }} lainnya
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <!-- Action Buttons -->
-                            <div class="flex gap-2">
-                                <button onclick="showKampusDetail({{ $kampus->id }})" 
-                                        class="flex-1 bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-sm">
-                                    Detail
+                            <!-- Spacer to push button to bottom -->
+                            <div class="mt-auto pt-4 border-t border-gray-100">
+                                <button onclick="showKampusDetail({{ $kampus->id }})"
+                                    class="w-full bg-white border border-[#D32F2F] text-[#D32F2F] hover:bg-[#D32F2F] hover:text-white font-semibold py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group-btn">
+                                    <span>Lihat Detail</span>
+                                    <svg class="w-4 h-4 transform group-btn-hover:translate-x-1 transition-transform"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
                                 </button>
-                                @if($kampus->website)
-                                    <a href="{{ $kampus->website }}" target="_blank" 
-                                       class="flex-1 bg-gradient-to-r from-[#fbbf24] to-[#f59e0b] text-black py-3 px-4 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-sm text-center">
-                                        Website
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
 
+            <!-- Empty State (Hidden by default) -->
+            <div id="empty-state" class="hidden text-center py-20">
+                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-1">Tidak ada kampus yang ditemukan</h3>
+                <p class="text-gray-500">Coba ubah kata kunci pencarian atau filter Anda.</p>
+                <button onclick="resetFilters()" class="mt-4 text-[#D32F2F] font-semibold hover:underline">Reset
+                    Filter</button>
+            </div>
+
             <!-- Load More Button -->
-            <div class="text-center mt-12">
-                <button class="bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] text-white py-4 px-8 rounded-full font-bold text-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    Muat Lebih Banyak
+            <div id="load-more-container" class="text-center mt-12 {{ $kampuses->hasMorePages() ? '' : 'hidden' }}">
+                <button id="load-more-btn" onclick="loadMore()"
+                    class="inline-flex items-center gap-2 bg-[#D32F2F] hover:bg-[#b71c1c] text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <span>Jelajahi Lagi</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
                 </button>
+                <div id="loading-spinner" class="hidden mt-4">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#D32F2F]"></div>
+                    <p class="text-gray-600 mt-2">Memuat data...</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Modal Detail Kampus -->
-    <div id="kampus-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="sticky top-0 bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] text-white p-6 rounded-t-2xl">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-2xl font-bold" id="modal-title">Detail Kampus</h3>
-                    <button onclick="closeKampusModal()" class="text-white hover:text-[#fbbf24] transition-colors">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+    <div id="kampus-modal" class="fixed inset-0 z-[9999] hidden" aria-labelledby="modal-title" role="dialog"
+        aria-modal="true">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity opacity-0"
+            id="modal-backdrop">
+        </div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-3xl scale-95 opacity-0"
+                    id="modal-panel">
+
+                    <!-- Close button -->
+                    <button onclick="closeKampusModal()"
+                        class="absolute top-4 right-4 z-10 text-gray-400 hover:text-gray-500 bg-white/50 rounded-full p-1 hover:bg-white transition-colors">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
+
+                    <div id="modal-content">
+                        <!-- Content will be injected via JS -->
+                    </div>
                 </div>
-            </div>
-            <div class="p-6" id="modal-content">
-                <!-- Content will be loaded here -->
             </div>
         </div>
     </div>
 
     @push('scripts')
-    <script>
-        // Search functionality
-        document.getElementById('search-kampus').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.kampus-card');
-            
-            cards.forEach(card => {
-                const kampusName = card.querySelector('h3').textContent.toLowerCase();
-                const kampusLocation = card.querySelector('.text-gray-600 span').textContent.toLowerCase();
-                const kampusDesc = card.querySelector('.text-gray-700').textContent.toLowerCase();
-                
-                if (kampusName.includes(searchTerm) || 
-                    kampusLocation.includes(searchTerm) || 
-                    kampusDesc.includes(searchTerm)) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
-                }
-            });
-        });
+        <script>
+            // Store kampuses data globally
+            let kampusesData = {};
 
-        // Filter functionality
-        function filterKampus(status) {
-            const cards = document.querySelectorAll('.kampus-card');
-            const buttons = document.querySelectorAll('.filter-btn');
+            // Initialize with server data
+            @foreach ($kampuses as $kampus)
+                kampusesData[{{ $kampus->id }}] = @json($kampus);
+            @endforeach
+
+            // Element References
             const searchInput = document.getElementById('search-kampus');
-            
-            // Clear search when filtering
-            searchInput.value = '';
-            
-            // Update button states
-            buttons.forEach(btn => {
-                btn.classList.remove('active', 'bg-[#D32F2F]', 'text-white');
-                btn.classList.add('bg-white', 'text-[#D32F2F]', 'border-2', 'border-[#D32F2F]');
-            });
-            
-            event.target.classList.add('active', 'bg-[#D32F2F]', 'text-white');
-            event.target.classList.remove('bg-white', 'text-[#D32F2F]', 'border-2', 'border-[#D32F2F]');
-            
-            // Filter cards
-            cards.forEach(card => {
-                if (status === 'all' || card.dataset.status === status) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
-                }
-            });
-        }
+            const grid = document.getElementById('kampus-grid');
+            const emptyState = document.getElementById('empty-state');
+            const loadMoreContainer = document.getElementById('load-more-container');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const modal = document.getElementById('kampus-modal');
+            const modalBackdrop = document.getElementById('modal-backdrop');
+            const modalPanel = document.getElementById('modal-panel');
+            const body = document.body;
 
-        // Modal functionality
-        function showKampusDetail(kampusId) {
-            const kampuses = @json($kampuses);
-            const kampus = kampuses.find(k => k.id === kampusId);
-            
-            if (!kampus) return;
-            
-            document.getElementById('modal-title').textContent = kampus.nama_kampus;
-            
-            const modalContent = `
-                <div class="space-y-6">
-                    <!-- Header Info -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="text-lg font-bold text-[#D32F2F] mb-3">Informasi Umum</h4>
-                            <div class="space-y-2 text-sm">
-                                <div><strong>Nama:</strong> ${kampus.nama_kampus}</div>
-                                <div><strong>Singkatan:</strong> ${kampus.singkatan}</div>
-                                <div><strong>Status:</strong> <span class="capitalize">${kampus.status}</span></div>
-                                <div><strong>Akreditasi:</strong> ${kampus.akreditasi}</div>
-                                <div><strong>Tahun Berdiri:</strong> ${kampus.tahun_berdiri}</div>
-                                <div><strong>Jumlah Mahasiswa:</strong> ${kampus.jumlah_mahasiswa?.toLocaleString() || 'N/A'}</div>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-[#D32F2F] mb-3">Lokasi</h4>
-                            <div class="space-y-2 text-sm">
-                                <div><strong>Kota:</strong> ${kampus.kota}</div>
-                                <div><strong>Provinsi:</strong> ${kampus.provinsi}</div>
-                                ${kampus.website ? `<div><strong>Website:</strong> <a href="${kampus.website}" target="_blank" class="text-blue-600 hover:underline">${kampus.website}</a></div>` : ''}
-                            </div>
+            // State
+            let currentFilter = 'all';
+            let currentSearch = '';
+            let currentPage = 1;
+            let nextPageUrl = '{{ $kampuses->nextPageUrl() }}';
+            let isLoading = false;
+
+            // Debounce function
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            // Fetch kampuses from server
+            async function fetchKampuses(page = 1, append = false) {
+                if (isLoading) return;
+                isLoading = true;
+
+                if (append) {
+                    loadMoreBtn.classList.add('hidden');
+                    loadingSpinner.classList.remove('hidden');
+                } else {
+                    grid.innerHTML =
+                        '<div class="col-span-full text-center py-20"><div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#D32F2F]"></div><p class="text-gray-600 mt-4">Memuat data...</p></div>';
+                }
+
+                try {
+                    const params = new URLSearchParams({
+                        page: page,
+                        search: currentSearch,
+                        status: currentFilter
+                    });
+
+                    const response = await fetch(`/kampus?${params}`, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (append) {
+                        grid.insertAdjacentHTML('beforeend', data.html);
+                    } else {
+                        grid.innerHTML = data.html;
+                    }
+
+                    // Update kampusesData with new data
+                    if (data.kampuses_data) {
+                        data.kampuses_data.forEach(kampus => {
+                            kampusesData[kampus.id] = kampus;
+                        });
+                    }
+
+                    // Update next page URL
+                    nextPageUrl = data.next_page_url;
+
+                    // Show/hide load more button
+                    if (nextPageUrl) {
+                        loadMoreContainer.classList.remove('hidden');
+                    } else {
+                        loadMoreContainer.classList.add('hidden');
+                    }
+
+                    // Check if empty
+                    const cards = grid.querySelectorAll('.kampus-card');
+                    if (cards.length === 0) {
+                        grid.classList.add('hidden');
+                        emptyState.classList.remove('hidden');
+                        loadMoreContainer.classList.add('hidden');
+                    } else {
+                        grid.classList.remove('hidden');
+                        emptyState.classList.add('hidden');
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching kampuses:', error);
+                    if (!append) {
+                        grid.innerHTML =
+                            '<div class="col-span-full text-center py-20 text-red-600">Terjadi kesalahan saat memuat data. Silakan refresh halaman.</div>';
+                    }
+                } finally {
+                    isLoading = false;
+                    if (append) {
+                        loadMoreBtn.classList.remove('hidden');
+                        loadingSpinner.classList.add('hidden');
+                    }
+                }
+            }
+
+            // Load more function
+            window.loadMore = function() {
+                if (nextPageUrl) {
+                    const url = new URL(nextPageUrl);
+                    const page = url.searchParams.get('page');
+                    fetchKampuses(parseInt(page), true);
+                }
+            };
+
+            // Search handler
+            const handleSearch = debounce((value) => {
+                currentSearch = value.toLowerCase().trim();
+                currentPage = 1;
+                fetchKampuses(1, false);
+            }, 500);
+
+            searchInput.addEventListener('input', (e) => {
+                handleSearch(e.target.value);
+            });
+
+            // Filter handler
+            window.filterKampus = function(status) {
+                currentFilter = status;
+                currentPage = 1;
+
+                // Update UI buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-[#D32F2F]', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-600');
+                });
+
+                // Find specific button clicked
+                const clickedBtn = Array.from(document.querySelectorAll('.filter-btn')).find(b =>
+                    b.textContent.trim().toLowerCase().includes(status === 'all' ? 'semua' : status)
+                );
+                if (clickedBtn) {
+                    clickedBtn.classList.remove('bg-gray-100', 'text-gray-600');
+                    clickedBtn.classList.add('active', 'bg-[#D32F2F]', 'text-white');
+                }
+
+                fetchKampuses(1, false);
+            };
+
+            // Reset filters
+            window.resetFilters = function() {
+                searchInput.value = '';
+                currentSearch = '';
+                currentFilter = 'all';
+                currentPage = 1;
+
+                // Reset button states
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-[#D32F2F]', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-600');
+                });
+                const semuaBtn = document.querySelector('.filter-btn');
+                if (semuaBtn) {
+                    semuaBtn.classList.add('active', 'bg-[#D32F2F]', 'text-white');
+                    semuaBtn.classList.remove('bg-gray-100', 'text-gray-600');
+                }
+
+                fetchKampuses(1, false);
+            };
+
+            // Modal Logic
+            window.showKampusDetail = function(id) {
+                const kampus = kampusesData[id];
+                if (!kampus) {
+                    console.error('Kampus not found:', id);
+                    return;
+                }
+
+                const content = `
+                <div class="h-32 sm:h-48 bg-gradient-to-r from-[#D32F2F] to-[#800000] relative">
+                    <div class="absolute -bottom-12 left-6 sm:left-10 text-white flex items-end">
+                        <div class="w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-xl shadow-lg p-2 flex items-center justify-center">
+                             ${kampus.logo_campus ? `<img src="/storage/${kampus.logo_campus}" class="w-full h-full object-cover rounded-full">` : `<span class="text-3xl font-bold text-[#D32F2F]">${kampus.singkatan.substring(0,3)}</span>`}
                         </div>
                     </div>
-                    
-                    <!-- Description -->
-                    <div>
-                        <h4 class="text-lg font-bold text-[#D32F2F] mb-3">Deskripsi</h4>
-                        <p class="text-gray-700 leading-relaxed">${kampus.deskripsi}</p>
+                </div>
+                
+                <div class="pt-16 pb-8 px-6 sm:px-10">
+                    <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6">
+                        <div>
+                            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">${kampus.name_campus}</h2>
+                            <div class="flex items-center gap-3 text-gray-600 text-sm">
+                                <span class="bg-gray-100 px-3 py-1 rounded-full">${kampus.singkatan}</span>
+                                <span class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-[#D32F2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+                                    ${kampus.kota}, ${kampus.provinsi}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            ${kampus.website ? `<a href="${kampus.website}" target="_blank" class="flex items-center gap-2 bg-[#D32F2F] text-white px-5 py-2.5 rounded-lg hover:bg-[#b71c1c] transition-colors font-semibold text-sm">
+                                                                                                        <span>Kunjungi Website</span>
+                                                                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                                                                                    </a>` : ''}
+                            <button onclick="voteForCampus(${kampus.id}, '${kampus.name_campus}')" class="flex items-center gap-2 bg-green-600 text-white px-5 py-2.5 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                                </svg>
+                                @auth
+                                    <span>Vote Kampus Ini</span>
+                                @endauth
+                                @guest
+                                    <span>Login untuk Voting</span>
+                                @endguest
+                            </button>
+                        </div>
                     </div>
-                    
-                    <!-- Fakultas -->
-                    <div>
-                        <h4 class="text-lg font-bold text-[#D32F2F] mb-3">Fakultas (${kampus.fakultas?.length || 0})</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            ${kampus.fakultas?.map(fakultas => `
-                                <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-                                    <svg class="w-4 h-4 text-[#D32F2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
-                                    </svg>
-                                    <span class="text-sm">${fakultas}</span>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="md:col-span-2 space-y-6">
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-3 border-l-4 border-[#D32F2F] pl-3">Tentang Kampus</h3>
+                                <p class="text-gray-600 leading-relaxed text-justify">${kampus.deskripsi}</p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-3 border-l-4 border-[#D32F2F] pl-3">Fakultas</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    ${kampus.fakultas ? kampus.fakultas.map(f => `
+                                                                                                                <span class="px-3 py-1.5 bg-red-50 text-red-700 rounded-lg text-sm font-medium border border-red-100 hover:bg-red-100 transition-colors cursor-default">
+                                                                                                                    ${f}
+                                                                                                                </span>
+                                                                                                            `).join('') : '<span class="text-gray-500 italic">Data fakultas belum tersedia</span>'}
                                 </div>
-                            `).join('') || '<p class="text-gray-500">Tidak ada data fakultas</p>'}
+                            </div>
+                        </div>
+                        
+                        <div class="md:col-span-1 space-y-4">
+                            <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wider">Informasi Singkat</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500 mb-1">Status Perguruan Tinggi</p>
+                                        <p class="font-semibold text-gray-900 capitalize">${kampus.status}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 mb-1">Akreditasi</p>
+                                        <div class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded font-bold text-sm">
+                                            ${kampus.akreditasi}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 mb-1">Tahun Berdiri</p>
+                                        <p class="font-semibold text-gray-900">${kampus.tahun_berdiri}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 mb-1">Total Mahasiswa</p>
+                                        <p class="font-semibold text-gray-900">${kampus.jumlah_mahasiswa ? kampus.jumlah_mahasiswa.toLocaleString('id-ID') : '-'}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             `;
-            
-            document.getElementById('modal-content').innerHTML = modalContent;
-            document.getElementById('kampus-modal').classList.remove('hidden');
-            document.getElementById('kampus-modal').classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
 
-        function closeKampusModal() {
-            document.getElementById('kampus-modal').classList.add('hidden');
-            document.getElementById('kampus-modal').classList.remove('flex');
-            document.body.style.overflow = 'auto';
-        }
+                document.getElementById('modal-content').innerHTML = content;
 
-        // Close modal on outside click
-        document.getElementById('kampus-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeKampusModal();
-            }
-        });
+                modal.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    modalBackdrop.classList.remove('opacity-0');
+                    modalPanel.classList.remove('opacity-0', 'scale-95');
+                    modalPanel.classList.add('opacity-100', 'scale-100');
+                });
+                body.style.overflow = 'hidden';
+            };
 
-        // Close modal on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeKampusModal();
-            }
-        });
+            window.closeKampusModal = function() {
+                modalBackdrop.classList.add('opacity-0');
+                modalPanel.classList.remove('opacity-100', 'scale-100');
+                modalPanel.classList.add('opacity-0', 'scale-95');
 
-        // Animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    body.style.overflow = '';
+                }, 300);
+            };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+            // Close on backdrop click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal || e.target.closest('#modal-backdrop')) {
+                    closeKampusModal();
                 }
             });
-        }, observerOptions);
 
-        // Observe all kampus cards
-        document.querySelectorAll('.kampus-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'all 0.6s ease';
-            observer.observe(card);
-        });
-    </script>
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeKampusModal();
+                }
+            });
+
+            // Initial state for "Semua" button
+            document.addEventListener('DOMContentLoaded', function() {
+                const semuaBtn = document.querySelector('.filter-btn');
+                if (semuaBtn) {
+                    semuaBtn.classList.add('active', 'bg-[#D32F2F]', 'text-white');
+                    semuaBtn.classList.remove('bg-gray-100', 'text-gray-600');
+                }
+            });
+
+            // Vote function
+            // Vote function
+            window.voteForCampus = async function(campusId, campusName) {
+                console.log('Voting for:', campusName, 'ID:', campusId);
+                @guest
+                window.location.href = '{{ route('google.login') }}';
+                return;
+            @endguest
+
+            try {
+                const response = await fetch('{{ route('kampus.vote') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        campus_id: campusId
+                    })
+                });
+
+                if (response.status === 419) {
+                    alert('Sesi kadaluarsa. Silakan refresh halaman.');
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ ' + data.message + '\n\nTotal vote untuk ' + campusName + ' sekarang: ' + data.vote_count);
+                    // Refresh voting page if open, or at least update the local state
+                    if (confirm('Lihat hasil voting sekarang?')) {
+                        window.location.href = '{{ route('voting') }}';
+                    }
+                } else {
+                    alert('⚠️ ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error voting:', error);
+                alert('Terjadi kesalahan saat melakukan voting.');
+            }
+            };
+        </script>
     @endpush
-
     <style>
-        .line-clamp-3 {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .filter-btn.active {
-            background: linear-gradient(135deg, #D32F2F, #B71C1C) !important;
-            color: white !important;
-            border: none !important;
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
         }
 
-        /* Additional circus-themed animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .kampus-card:nth-child(odd) {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .kampus-card:nth-child(even) {
-            animation: float 6s ease-in-out infinite;
-            animation-delay: 3s;
-        }
-
-        /* Hover effects for circus theme */
-        .kampus-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(211, 47, 47, 0.2);
-        }
-
-        /* Modal animations */
-        #kampus-modal.flex {
-            animation: modalFadeIn 0.3s ease-out;
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </x-layout.app>

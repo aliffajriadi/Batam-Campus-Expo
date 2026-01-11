@@ -56,7 +56,7 @@ class ReportController extends Controller
     public function verifyTicket(Request $request)
     {
         $request->validate([
-            'purchase_id' => 'required|integer',
+            'purchase_id' => 'required',
         ]);
 
         $ticket = TicketBuyer::with(['user', 'ticket'])->find($request->purchase_id);
@@ -81,6 +81,90 @@ class ReportController extends Controller
 
         return back()->with('success', 'Tiket #' . $request->purchase_id . ' berhasil di-scan! Pemilik: ' . $ticket->user->name);
     }
+    public function checkTicket(Request $request)
+    {
+        $request->validate([
+            'purchase_id' => 'required|string',
+        ]);
+
+        $purchaseId = $request->query('purchase_id');
+
+        $ticket = TicketBuyer::with(['user', 'ticket'])
+            ->where('token', $purchaseId)
+            ->first();
+
+        if (!$ticket) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tiket tidak ditemukan'
+            ], 404);
+        }
+
+        if (!$ticket->status_acc) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tiket belum di-approve'
+            ], 403);
+        }
+
+        if ($ticket->done_check) {
+            return response()->json([
+                'status' => 'warning',
+                'message' => 'Tiket sudah digunakan',
+                'checked_at' => $ticket->check_at
+            ], 409);
+        }
+
+        return response()->json([
+            'status' => 'ready',
+            'message' => 'Tiket valid, siap dikonfirmasi',
+            'data' => [
+                'nama'  => $ticket->user->name,
+                'email' => $ticket->user->email,
+                'event' => $ticket->ticket->name,
+                'total_price' => $ticket->total_price,
+                'asal_sekolah' => $ticket->user->asal_sekolah,
+            ]
+        ]);
+    }
+
+
+    public function confirmTicket(Request $request)
+    {
+        $request->validate([
+            'purchase_id' => 'required|string',
+        ]);
+
+        $purchaseId = $request->query('purchase_id');
+
+        $ticket = TicketBuyer::where('token', $purchaseId)->first();
+
+        if (!$ticket) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tiket tidak ditemukan'
+            ], 404);
+        }
+
+        if ($ticket->done_check) {
+            return response()->json([
+                'status' => 'warning',
+                'message' => 'Tiket sudah digunakan sebelumnya'
+            ], 409);
+        }
+
+        $ticket->update([
+            'done_check' => true,
+            'check_at' => now(),
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Tiket berhasil dikonfirmasi'
+        ]);
+    }
+
+
 
     public function scanMerchandise()
     {
@@ -90,7 +174,7 @@ class ReportController extends Controller
     public function verifyMerchandise(Request $request)
     {
         $request->validate([
-            'purchase_id' => 'required|integer',
+            'purchase_id' => 'required',
         ]);
 
         $purchase = MerchandiseBuyer::with(['user', 'product'])->find($request->purchase_id);

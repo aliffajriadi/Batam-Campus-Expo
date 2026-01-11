@@ -273,6 +273,16 @@
                 })
                 .catch(error => console.error('Error:', error));
             }
+
+            function toggleComments(postId) {
+                const section = document.getElementById(`comments-${postId}`);
+                if (section.classList.contains('hidden')) {
+                    section.classList.remove('hidden');
+                    section.classList.add('animate-fade-in');
+                } else {
+                    section.classList.add('hidden');
+                }
+            }
         </script>
     @endpush
 

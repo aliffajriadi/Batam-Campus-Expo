@@ -31,6 +31,63 @@
                         <h3 class="text-xl font-bold text-gray-800">Informasi Pembayaran</h3>
                     </div>
 
+                    <!-- TICKET SELECTION -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-3">Pilih Jenis Tiket</h4>
+                        <div class="grid grid-cols-1 gap-4" id="ticket-list">
+                            @forelse ($tickets as $t)
+                                @php
+                                    $finalPrice = $t->price * (1 - $t->discount / 100);
+                                    $isSoldOut = $t->sold_ticket >= $t->kuota_ticket;
+                                @endphp
+                                <label
+                                    class="relative flex items-center p-4 border-2 rounded-xl transition-all {{ $isSoldOut ? 'bg-gray-100 border-gray-200 opacity-75 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50 border-gray-200 ticket-option' }}"
+                                    data-price="{{ $finalPrice }}" data-id="{{ $t->id }}">
+                                    <input type="radio" name="selected_ticket" value="{{ $t->id }}"
+                                        class="hidden" onchange="selectTicket(this)" {{ $isSoldOut ? 'disabled' : '' }}>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-bold text-gray-800">{{ $t->name }}</span>
+                                                @if ($isSoldOut)
+                                                    <span
+                                                        class="bg-gray-600 text-white text-xs px-2 py-1 rounded-full font-bold">SOLD
+                                                        OUT</span>
+                                                @endif
+                                            </div>
+                                            @if ($t->discount > 0)
+                                                <span
+                                                    class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full font-bold">-{{ $t->discount }}%</span>
+                                            @endif
+                                        </div>
+                                        <p class="text-sm text-gray-500 mb-2">{{ $t->description }}</p>
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center">
+                                                @if ($t->discount > 0)
+                                                    <span class="text-xs text-gray-400 line-through mr-2">Rp
+                                                        {{ number_format($t->price, 0, ',', '.') }}</span>
+                                                @endif
+                                                <span class="text-[#A61E22] font-bold">Rp
+                                                    {{ number_format($finalPrice, 0, ',', '.') }}</span>
+                                            </div>
+                                            <span class="text-xs text-gray-400">{{ $t->sold_ticket }} /
+                                                {{ $t->kuota_ticket }} sold</span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center ml-4 check-circle">
+                                        <div class="w-3 h-3 bg-[#A61E22] rounded-full hidden"></div>
+                                    </div>
+                                    <!-- Border highlight when selected will be handled by JS/CSS -->
+                                </label>
+                            @empty
+                                <div class="text-center p-4 bg-gray-100 rounded-lg text-gray-500">
+                                    Belum ada tiket yang tersedia saat ini.
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+
                     <div
                         class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 mb-4 border-2 border-[#A61E22]">
                         <p class="text-sm text-gray-600 mb-3">Silakan transfer ke rekening berikut:</p>
@@ -62,15 +119,15 @@
 
                             <div class="bg-white rounded-lg p-3 shadow-sm">
                                 <p class="text-xs text-gray-500 mb-1">Jumlah Transfer</p>
-                                <p class="font-bold text-[#A61E22] text-2xl">Rp {{ $ticket_status->price }}</p>
+                                <p class="font-bold text-[#A61E22] text-2xl" id="display-price">Rp 0</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
                         <p class="text-sm text-yellow-800">
-                            <span class="font-semibold">⚠️ Penting:</span> Setelah transfer, upload bukti pembayaran
-                            Anda di form di bawah ini.
+                            <span class="font-semibold">⚠️ Penting:</span> Pilih tiket terlebih dahulu, lalu transfer
+                            sesuai nominal yang tertera.
                         </p>
                     </div>
                 </div>
@@ -79,8 +136,10 @@
                 <div class="bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.4)] p-6 mb-6">
                     <h3 class="text-xl font-bold text-gray-800 mb-4">Upload Bukti Transfer</h3>
 
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('ticket-user.store') }}" method="POST" enctype="multipart/form-data"
+                        id="uploadForm">
                         @csrf
+                        <input type="hidden" name="ticket_id" id="ticket_id" required>
 
                         <!-- File Upload Area -->
                         <div class="mb-6">
@@ -109,7 +168,8 @@
 
                                 <div id="file-preview" class="hidden">
                                     <div class="flex items-center justify-center space-x-3">
-                                        <svg class="h-10 w-10 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg class="h-10 w-10 text-green-500" fill="currentColor"
+                                            viewBox="0 0 20 20">
                                             <path fill-rule="evenodd"
                                                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                                 clip-rule="evenodd" />
@@ -133,11 +193,14 @@
                             @error('payment_proof')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
+                            @error('ticket_id')
+                                <p class="text-red-500 text-xs mt-1">Silakan pilih tiket terlebih dahulu.</p>
+                            @enderror
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit"
-                            class="w-full bg-gradient-to-br from-[#A61E22] to-[#8a1a1e] text-white font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(166,30,34,0.4)] flex items-center justify-center">
+                        <button type="submit" id="submitBtn" disabled
+                            class="w-full bg-gradient-to-br from-[#A61E22] to-[#8a1a1e] text-white font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(166,30,34,0.4)] flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -160,6 +223,8 @@
                                 <h3 class="text-2xl font-black">
                                     {{ $ticket->status_acc ? 'Verified' : 'Pending Review' }}
                                 </h3>
+                                <p class="text-xs mt-1 bg-white/20 inline-block px-2 py-0.5 rounded">
+                                    {{ $ticket->ticket->name ?? 'Unknown Ticket' }}</p>
                             </div>
                             @if ($ticket->status_acc)
                                 <div class="bg-white/20 p-2 rounded-full backdrop-blur-md">
@@ -201,6 +266,12 @@
                                     </p>
                                 </div>
                                 <div class="space-y-1 text-right">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Type</p>
+                                    <p class="font-bold text-gray-800">
+                                        {{ $ticket->ticket->name ?? '-' }}
+                                    </p>
+                                </div>
+                                <div class="space-y-1">
                                     <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Tanggal
                                         Beli</p>
                                     <p class="font-bold text-gray-800">
@@ -214,7 +285,8 @@
                                     <div class="p-4 bg-gray-50 rounded-2xl border-2 border-gray-100 shadow-inner">
                                         {!! QrCode::size(160)->margin(1)->generate($ticket->token) !!}
                                     </div>
-                                    <p class="text-[10px] text-gray-400 font-medium">SIMPAN QR INI, KARENA QR INI AKAN DI CEK PADA HARI ACARA</p>
+                                    <p class="text-[10px] text-gray-400 font-medium">SIMPAN QR INI, KARENA QR INI AKAN
+                                        DI CEK PADA HARI ACARA</p>
                                 </div>
                             @else
                                 <div
@@ -246,6 +318,37 @@
 
     @push('scripts')
         <script>
+            // Ticket Selection Logic
+            function selectTicket(radio) {
+                // Remove selected styling from all
+                document.querySelectorAll('.ticket-option').forEach(el => {
+                    el.classList.remove('border-[#A61E22]', 'bg-red-50');
+                    el.querySelector('.check-circle div').classList.add('hidden');
+                    el.querySelector('.check-circle').classList.remove('border-[#A61E22]', 'bg-white');
+                    el.querySelector('.check-circle').classList.add('border-gray-300');
+                });
+
+                // Add styling to selected
+                const label = radio.closest('label');
+                label.classList.add('border-[#A61E22]', 'bg-red-50');
+                label.querySelector('.check-circle div').classList.remove('hidden');
+                label.querySelector('.check-circle').classList.remove('border-gray-300');
+                label.querySelector('.check-circle').classList.add('border-[#A61E22]', 'bg-white');
+
+                // Update Display Price
+                const price = label.getAttribute('data-price');
+                const formattedPrice = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR'
+                }).format(price);
+                document.getElementById('display-price').textContent = formattedPrice.replace(/,00$/,
+                    ''); // Clean trailing zeros
+
+                // Update Hidden Input
+                document.getElementById('ticket_id').value = radio.value;
+                document.getElementById('submitBtn').disabled = false;
+            }
+
             // Drag and drop functionality
             const dropzone = document.getElementById('dropzone');
             const fileInput = document.getElementById('payment_proof');

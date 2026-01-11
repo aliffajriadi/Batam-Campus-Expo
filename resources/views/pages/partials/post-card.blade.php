@@ -66,21 +66,24 @@
                         class="font-bold text-sm">{{ $post->likes_count }}</span>
                 </button>
 
-                <!-- Comment Count -->
-                <div class="flex items-center gap-2 text-gray-500">
-                    <div class="p-2 rounded-full hover:bg-gray-100 transition-all">
+                <!-- Comment Toggle Button -->
+                <button onclick="toggleComments({{ $post->id }})"
+                    class="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors group">
+                    <div class="p-2 rounded-full group-hover:bg-gray-100 transition-all">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                     </div>
                     <span class="font-bold text-sm">{{ $post->comments_count }}</span>
-                </div>
+                    <span class="text-xs hidden md:inline">Komentar</span>
+                </button>
             </div>
         </div>
 
-        <!-- Comments Section -->
-        <div class="bg-linear-to-br from-gray-50 to-gray-100/50 p-6 md:p-8 border-t-2 border-gray-100">
+        <!-- Comments Section (Hidden by default) -->
+        <div id="comments-{{ $post->id }}"
+            class="hidden bg-linear-to-br from-gray-50 to-gray-100/50 p-6 md:p-8 border-t-2 border-gray-100">
             @auth
                 <form action="{{ route('komunitas.comment.store', $post->id) }}" method="POST"
                     class="mb-6 interaction-form">

@@ -34,9 +34,22 @@ class CampusController extends Controller
             'name_campus' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'logo_campus' => 'nullable|image|max:2048',
+            'singkatan' => 'nullable|string|max:255',
+            'akreditasi' => 'required|string|max:255',
+            'status' => 'required|in:negeri,swasta',
+            'tahun_berdiri' => 'nullable|integer',
+            'jumlah_mahasiswa' => 'nullable|integer',
+            'fakultas' => 'nullable|string', // Accept comma values
+            'website' => 'nullable|url',
+            'deskripsi' => 'nullable|string',
         ]);
 
-        $data = $request->only(['name_campus', 'location']);
+        $data = $request->except(['logo_campus', 'fakultas']);
+
+        // Handle JSON array for fakultas
+        if ($request->filled('fakultas')) {
+            $data['fakultas'] = array_map('trim', explode(',', $request->fakultas));
+        }
 
         if ($request->hasFile('logo_campus')) {
             $path = $request->file('logo_campus')->store('campus', 'public');
@@ -60,10 +73,23 @@ class CampusController extends Controller
             'name_campus' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'logo_campus' => 'nullable|image|max:2048',
+            'singkatan' => 'nullable|string|max:255',
+            'akreditasi' => 'required|string|max:255',
+            'status' => 'required|in:negeri,swasta',
+            'tahun_berdiri' => 'nullable|integer',
+            'jumlah_mahasiswa' => 'nullable|integer',
+            'fakultas' => 'nullable|string',
+            'website' => 'nullable|url',
+            'deskripsi' => 'nullable|string',
         ]);
 
         $campus = Campus::findOrFail($id);
-        $data = $request->only(['name_campus', 'location']);
+        $data = $request->except(['logo_campus', 'fakultas']);
+
+        // Handle JSON array for fakultas
+        if ($request->filled('fakultas')) {
+            $data['fakultas'] = array_map('trim', explode(',', $request->fakultas));
+        }
 
         if ($request->hasFile('logo_campus')) {
             $path = $request->file('logo_campus')->store('campus', 'public');

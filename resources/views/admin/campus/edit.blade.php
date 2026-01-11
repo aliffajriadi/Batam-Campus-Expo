@@ -34,6 +34,83 @@
                     value="{{ old('location', $campus->location) }}" required>
             </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="singkatan" class="block text-sm font-medium text-gray-300 mb-2">Abbreviation</label>
+                    <input type="text" name="singkatan" id="singkatan"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        value="{{ old('singkatan', $campus->singkatan) }}" placeholder="e.g. UI">
+                </div>
+                <div>
+                    <label for="akreditasi" class="block text-sm font-medium text-gray-300 mb-2">Accreditation</label>
+                    <select name="akreditasi" id="akreditasi"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="A" {{ old('akreditasi', $campus->akreditasi) == 'A' ? 'selected' : '' }}>A
+                        </option>
+                        <option value="B" {{ old('akreditasi', $campus->akreditasi) == 'B' ? 'selected' : '' }}>B
+                        </option>
+                        <option value="C" {{ old('akreditasi', $campus->akreditasi) == 'C' ? 'selected' : '' }}>C
+                        </option>
+                        <option value="Unggul" {{ old('akreditasi', $campus->akreditasi) == 'Unggul' ? 'selected' : '' }}>
+                            Unggul</option>
+                        <option value="Baik Sekali"
+                            {{ old('akreditasi', $campus->akreditasi) == 'Baik Sekali' ? 'selected' : '' }}>Baik Sekali
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-300 mb-2">Status</label>
+                    <select name="status" id="status"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="negeri" {{ old('status', $campus->status) == 'negeri' ? 'selected' : '' }}>Negeri
+                        </option>
+                        <option value="swasta" {{ old('status', $campus->status) == 'swasta' ? 'selected' : '' }}>Swasta
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label for="tahun_berdiri" class="block text-sm font-medium text-gray-300 mb-2">Founded Year</label>
+                    <input type="number" name="tahun_berdiri" id="tahun_berdiri"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        value="{{ old('tahun_berdiri', $campus->tahun_berdiri) }}" placeholder="e.g. 1990">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="jumlah_mahasiswa" class="block text-sm font-medium text-gray-300 mb-2">Total
+                        Students</label>
+                    <input type="number" name="jumlah_mahasiswa" id="jumlah_mahasiswa"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        value="{{ old('jumlah_mahasiswa', $campus->jumlah_mahasiswa) }}" placeholder="e.g. 5000">
+                </div>
+                <div>
+                    <label for="website" class="block text-sm font-medium text-gray-300 mb-2">Website</label>
+                    <input type="url" name="website" id="website"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        value="{{ old('website', $campus->website) }}" placeholder="https://example.com">
+                </div>
+            </div>
+
+            <div>
+                <label for="fakultas" class="block text-sm font-medium text-gray-300 mb-2">Faculties (Comma
+                    separated)</label>
+                <input type="text" name="fakultas" id="fakultas"
+                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    value="{{ old('fakultas', is_array($campus->fakultas) ? implode(', ', $campus->fakultas) : $campus->fakultas) }}"
+                    placeholder="e.g. Engineering, Medicine, Economics">
+            </div>
+
+            <div>
+                <label for="deskripsi" class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                <textarea name="deskripsi" id="deskripsi" rows="4"
+                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Brief description about the campus...">{{ old('deskripsi', $campus->deskripsi) }}</textarea>
+            </div>
+
             @if ($campus->logo_campus)
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Current Logo</label>

@@ -24,11 +24,11 @@ use App\Http\Controllers\Auth\ProfileController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Rute dummy untuk testing
-Route::get('/voting', function () {
-    return view('pages.voting');
-})->name('voting');
+Route::get('/voting', [VotingController::class, 'index'])->name('voting');
+
 
 Route::get('/kampus', [KampusController::class, 'index'])->name('kampus');
+Route::post('/kampus/vote', [KampusController::class, 'vote'])->name('kampus.vote')->middleware('auth');
 
 Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
 
@@ -46,7 +46,6 @@ Route::post('logout', function () {
     request()->session()->regenerateToken();
     return redirect('/');
 })->name('logout');
-
 
 Route::middleware(['auth', 'check.suspended'])->group(function () {
 
@@ -90,12 +89,17 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminAut
     Route::post('/event', [EventSettingController::class, 'update'])->name('event.update');
 
     // Ticket Management
+    Route::get('/tickets/export', [TicketController::class, 'export'])->name('ticket.export');
     Route::get('/tickets', [TicketController::class, 'index'])->name('ticket.index');
     Route::get('/tickets/settings', [TicketController::class, 'settings'])->name('ticket.settings');
-    Route::post('/tickets/settings', [TicketController::class, 'updateSettings'])->name('ticket.settings.update');
+    Route::post('/tickets/settings', [TicketController::class, 'updateSettings'])->name('ticket.settings.update'); // Keep for legacy if needed or redirect
+    Route::post('/tickets/types', [TicketController::class, 'storeType'])->name('ticket.type.store');
+    Route::put('/tickets/types/{id}', [TicketController::class, 'updateType'])->name('ticket.type.update');
+    Route::delete('/tickets/types/{id}', [TicketController::class, 'destroyType'])->name('ticket.type.destroy');
     Route::get('/tickets/{id}', [TicketController::class, 'show'])->name('ticket.show');
     Route::post('/tickets/{id}/approve', [TicketController::class, 'approve'])->name('ticket.approve');
     Route::post('/tickets/{id}/reject', [TicketController::class, 'reject'])->name('ticket.reject');
+    Route::post('/tickets/{id}/toggle-check', [TicketController::class, 'toggleCheck'])->name('ticket.toggle-check');
     Route::delete('/tickets/{id}', [TicketController::class, 'destroy'])->name('ticket.destroy');
 
     // Merchandise Products

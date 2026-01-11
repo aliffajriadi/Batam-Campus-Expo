@@ -11,6 +11,7 @@ class CampusVoting extends Model
     protected $fillable = [
         'id_campus',
         'id_user',
+        'created_at',
     ];
 
     public $timestamps = false;

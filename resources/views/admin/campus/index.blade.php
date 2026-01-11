@@ -46,6 +46,9 @@
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Campus
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                            Info
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
                             Location
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Votes
@@ -62,7 +65,7 @@
                                 <div class="flex items-center gap-3">
                                     @if ($campus->logo_campus)
                                         <img src="{{ asset('storage/' . $campus->logo_campus) }}"
-                                            class="w-12 h-12 rounded-lg object-cover" alt="">
+                                            class="w-12 h-12 rounded-lg object-contain bg-white" alt="">
                                     @else
                                         <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center">
                                             <span
@@ -71,7 +74,17 @@
                                     @endif
                                     <div>
                                         <p class="text-gray-100 font-medium">{{ $campus->name_campus }}</p>
+                                        <p class="text-gray-400 text-xs">{{ $campus->singkatan }}</p>
                                     </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex flex-col gap-1">
+                                    <span
+                                        class="text-xs px-2 py-0.5 rounded-full w-fit {{ $campus->status == 'negeri' ? 'bg-green-900 text-green-300' : 'bg-orange-900 text-orange-300' }}">
+                                        {{ ucfirst($campus->status) }}
+                                    </span>
+                                    <span class="text-gray-400 text-xs">Akr: {{ $campus->akreditasi }}</span>
                                 </div>
                             </td>
                             <td class="px-6 py-4 text-gray-400">{{ $campus->location }}</td>

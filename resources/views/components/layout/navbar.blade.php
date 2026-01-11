@@ -1,9 +1,11 @@
-<nav class="bg-white/90 backdrop-blur-[10px] rounded-[35px] py-3 px-8 my-6 mt-6 mx-auto max-w-[1200px] border-2 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 relative z-[50] max-lg:py-3 max-lg:px-6 max-lg:my-6 max-lg:mx-4 max-lg:rounded-[25px] max-lg:sticky max-lg:top-0 max-md:p-3 max-md:m-3 max-md:rounded-[20px] max-[375px]:py-2 max-[375px]:px-3 max-[375px]:m-3 max-[375px]:mx-2"
+<nav class="bg-white/90 backdrop-blur-[10px] rounded-[35px] py-3 px-8 my-6 mt-6 mx-auto max-w-[1200px] border-2 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 relative z-[1000] max-lg:py-3 max-lg:px-6 max-lg:my-6 max-lg:mx-4 max-lg:rounded-[25px] max-lg:sticky max-lg:top-0 max-md:p-3 max-md:m-3 max-md:rounded-[20px] max-[375px]:py-2 max-[375px]:px-3 max-[375px]:m-3 max-[375px]:mx-2"
     id="main-navbar" role="navigation" aria-label="Main navigation">
     <div class="flex justify-between items-center relative z-10 w-full">
         <!-- Logo/Brand -->
         <div class="flex items-center z-45">
-            <a href="{{ url('/') }}" class="no-underline transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] focus:ring-offset-2 rounded-lg" aria-label="Batam Campus Expo Home">
+            <a href="{{ url('/') }}"
+                class="no-underline transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] focus:ring-offset-2 rounded-lg"
+                aria-label="Batam Campus Expo Home">
                 <div
                     class="font-sancreek text-[#D32F2F] text-2xl leading-[0.9] drop-shadow-[1px_1px_2px_rgba(0,0,0,0.2)] max-lg:text-[1.3rem] max-md:text-[1.2rem] max-[375px]:text-[1.1rem]">
                     BATAM<br>CAMPUS EXPO</div>
@@ -99,7 +101,8 @@
             class="md:hidden bg-transparent border-none cursor-pointer text-[#333] transition-all duration-300 z-50 relative p-2 rounded-lg hover:bg-gray-100 hover:bg-[#D32F2F]/10 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] max-[375px]:p-1.5"
             id="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
             </svg>
         </button>
     </div>
@@ -109,7 +112,8 @@
         id="mobile-nav-menu" role="menu" aria-label="Mobile navigation menu">
         <div class="flex flex-col space-y-3">
             <a href="{{ url('/') }}"
-                class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] focus:outline-none focus:ring-2 focus:ring-[#D32F2F] {{ request()->is('/') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2" role="menuitem">Home</a>
+                class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] focus:outline-none focus:ring-2 focus:ring-[#D32F2F] {{ request()->is('/') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2"
+                role="menuitem">Home</a>
             <a href="{{ url('/voting') }}"
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('voting') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Voting</a>
             <a href="{{ url('/kampus') }}"
@@ -169,9 +173,11 @@
 
                 const icon = mobileMenuToggle.querySelector('svg');
                 if (mobileNavMenu.classList.contains('hidden')) {
-                    icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
+                    icon.innerHTML =
+                        `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
                 } else {
-                    icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
+                    icon.innerHTML =
+                        `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
                 }
             });
 
@@ -182,7 +188,8 @@
                     navbar.style.zIndex = '';
 
                     const icon = mobileMenuToggle.querySelector('svg');
-                    icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
+                    icon.innerHTML =
+                        `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
                 }
             });
         }
@@ -215,7 +222,8 @@
                 navbar.style.zIndex = '';
 
                 const icon = mobileMenuToggle.querySelector('svg');
-                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
+                icon.innerHTML =
+                    `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
             });
         });
 

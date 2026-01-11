@@ -9,6 +9,8 @@ class TicketStatus extends Model
     protected $table = 'ticket_status';
 
     protected $fillable = [
+        'name',
+        'description',
         'price',
         'status',
         'kuota_ticket',
