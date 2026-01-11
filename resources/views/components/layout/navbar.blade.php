@@ -6,32 +6,45 @@
             <a href="{{ url('/') }}"
                 class="no-underline transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] focus:ring-offset-2 rounded-lg"
                 aria-label="Batam Campus Expo Home">
-                <div
-                    class="font-sancreek text-[#D32F2F] text-2xl leading-[0.9] drop-shadow-[1px_1px_2px_rgba(0,0,0,0.2)] max-lg:text-[1.3rem] max-md:text-[1.2rem] max-[375px]:text-[1.1rem]">
-                    BATAM<br>CAMPUS EXPO</div>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 scale-150">
             </a>
         </div>
 
         <!-- Desktop Navigation Links -->
-        <div class="flex gap-6 items-center hidden md:flex max-lg:gap-4">
+        <div class="flex gap-12 items-center hidden md:flex ml-20 max-lg:gap-4 max-lg:ml-6">
             <a href="{{ url('/') }}"
-                class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('/') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
+                class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-px group {{ request()->is('/') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
                 Home
                 <span
                     class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('/') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
-            <a href="{{ url('/voting') }}"
-                class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('voting') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
-                Voting
-                <span
-                    class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('voting') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
-            </a>
-            <a href="{{ url('/kampus') }}"
-                class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('kampus') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
-                Kampus
-                <span
-                    class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('kampus') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
-            </a>
+            <!-- Desktop Navbar Dropdown Kampus -->
+            <div class="relative group campus-dropdown">
+                <button
+                    class="text-[#333] flex items-center gap-1 font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] group-hover:text-[#D32F2F] max-lg:text-sm">
+                    Kampus
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                    <span
+                        class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('kampus*') || request()->is('voting*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                </button>
+                <div
+                    class="absolute left-0 mt-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+                    <div class="py-2">
+                        <a href="{{ url('/kampus') }}"
+                            class="block px-4 py-2.5 text-sm font-medium text-[#333] hover:bg-gray-50 hover:text-[#D32F2F] transition-colors {{ request()->is('kampus') ? 'text-[#D32F2F] bg-gray-50' : '' }}">
+                            Daftar Kampus
+                        </a>
+                        <a href="{{ url('/voting') }}"
+                            class="block px-4 py-2.5 text-sm font-medium text-[#333] hover:bg-gray-50 hover:text-[#D32F2F] transition-colors {{ request()->is('voting') ? 'text-[#D32F2F] bg-gray-50' : '' }}">
+                            Voting Kampus
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <a href="{{ url('/kegiatan') }}"
                 class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('kegiatan') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
                 Kegiatan
@@ -114,10 +127,29 @@
             <a href="{{ url('/') }}"
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] focus:outline-none focus:ring-2 focus:ring-[#D32F2F] {{ request()->is('/') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2"
                 role="menuitem">Home</a>
-            <a href="{{ url('/voting') }}"
-                class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('voting') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Voting</a>
-            <a href="{{ url('/kampus') }}"
-                class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('kampus') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Kampus</a>
+
+            <!-- Mobile Dropdown Kampus -->
+            <div class="mx-2">
+                <button
+                    class="w-full flex justify-between items-center p-3 text-[#333] font-semibold text-base transition-all duration-300 rounded-lg hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] mobile-dropdown-btn {{ request()->is('kampus*') || request()->is('voting*') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }}">
+                    <span>Kampus</span>
+                    <svg class="w-4 h-4 transition-transform duration-300 dropdown-icon" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="hidden flex-col mt-1 pl-4 space-y-1 mobile-dropdown-menu">
+                    <a href="{{ url('/kampus') }}"
+                        class="block p-2.5 text-[#555] font-medium text-sm transition-all duration-300 rounded-lg hover:bg-gray-100 hover:text-[#D32F2F] {{ request()->is('kampus') ? 'text-[#D32F2F]' : '' }}">
+                        Daftar Kampus
+                    </a>
+                    <a href="{{ url('/voting') }}"
+                        class="block p-2.5 text-[#555] font-medium text-sm transition-all duration-300 rounded-lg hover:bg-gray-100 hover:text-[#D32F2F] {{ request()->is('voting') ? 'text-[#D32F2F]' : '' }}">
+                        Voting Kampus
+                    </a>
+                </div>
+            </div>
+
             <a href="{{ url('/kegiatan') }}"
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('kegiatan') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Kegiatan</a>
             <a href="{{ url('/toko') }}"
@@ -194,6 +226,20 @@
             });
         }
 
+        // Mobile Dropdown Functionality
+        const mobileDropdownBtn = document.querySelector('.mobile-dropdown-btn');
+        const mobileDropdownMenu = document.querySelector('.mobile-dropdown-menu');
+        const dropdownIcon = document.querySelector('.dropdown-icon');
+
+        if (mobileDropdownBtn && mobileDropdownMenu) {
+            mobileDropdownBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileDropdownMenu.classList.toggle('hidden');
+                mobileDropdownMenu.classList.toggle('flex');
+                dropdownIcon.classList.toggle('rotate-180');
+            });
+        }
+
         // User dropdown functionality
         const userMenuBtn = document.querySelector('.user-menu-btn');
         const userDropdownMenu = document.querySelector('.user-dropdown-menu');
@@ -216,6 +262,7 @@
         // Close mobile menu on link click
         const mobileLinks = document.querySelectorAll('#mobile-nav-menu a, #mobile-nav-menu button');
         mobileLinks.forEach(link => {
+            if (link.classList.contains('mobile-dropdown-btn')) return;
             link.addEventListener('click', function() {
                 mobileNavMenu.classList.add('hidden');
                 body.classList.remove('overflow-hidden');
