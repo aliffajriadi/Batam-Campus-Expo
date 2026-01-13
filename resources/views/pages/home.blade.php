@@ -1,11 +1,11 @@
 <x-layout.app :title="'Batam Campus Expo'" :nohp="$nohp" :lokasi="$lokasi">
 
-   <div class="absolute inset-0 -z-10">
+    <div class="absolute inset-0 -z-10">
         <div class="absolute inset-0 bg-[#87CEEB]"></div>
         <div class="absolute inset-0 bg-cover bg-center bg-[length:100%_100%]"
-             style="background-image: url('{{ asset('images/MainBG.svg') }}')"></div>
+            style="background-image: url('{{ asset('images/MainBG.svg') }}')"></div>
     </div>
-    
+
 
     <section class="min-h-screen relative z-10">
         <!-- KONTEN UTAMA -->
@@ -95,29 +95,26 @@
     </section>
 
     <!-- FUN SEPARATOR -->
- <!-- FUN SEPARATOR -->
-<div class="relative w-full h-[90px] overflow-visible z-30 -mb-[45px]">
-    <img
-        src="{{ asset('images/funShape.svg') }}"
-        class="absolute inset-x-0 top-0 h-full w-full object-cover separator-float"
-        alt="transition separator">
+    <!-- FUN SEPARATOR -->
+    <div class="relative w-full h-[90px] overflow-visible z-30 -mb-[45px]">
+        <img src="{{ asset('images/funShape.svg') }}"
+            class="absolute inset-x-0 top-0 h-full w-full object-cover separator-float" alt="transition separator">
 
-    <!-- Shimmer effect overlay -->
-    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse"></div>
-</div>
+        <!-- Shimmer effect overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse"></div>
+    </div>
 
 
     <!-- SECTION INFO -->
     <section class="relative w-full pb-16 sm:pb-20 lg:pb-24 z-20 overflow-hidden">
 
-    <!-- BACKGROUND GRADIENT -->
-    <div
-        class="absolute inset-0 bg-gradient-to-b from-[#EFE4B7] via-[#FBE99C] to-[#FDDC57] z-0">
-    </div>
-        
+        <!-- BACKGROUND GRADIENT -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#EFE4B7] via-[#FBE99C] to-[#FDDC57] z-0">
+        </div>
+
         <!-- Playing Cards Pattern Background for Carnival/Night Market Feel -->
-     <div class="absolute inset-0 opacity-15 z-[1] pointer-events-none">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <div class="absolute inset-0 opacity-15 z-[1] pointer-events-none">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <!-- Playing Cards Pattern -->
                     <pattern id="carnivalCards" x="0" y="0" width="150" height="200" patternUnits="userSpaceOnUse">
@@ -340,16 +337,16 @@
                 </h3>
 
                 <div class="flex flex-col gap-4 sm:gap-6 items-center">
-                    @for ($i = 1; $i <= 3; $i++)
+                    @foreach ($top_campuses as $campus)
                         <div class="relative w-full max-w-sm sm:max-w-md lg:max-w-xl">
                             <img src="{{ asset('images/PlaceHolderKampus.svg') }}" class="w-full" alt="label">
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <span class="text-white font-bold text-base sm:text-lg lg:text-xl">
-                                    Universitas Gajah Mada
+                                    {{ $campus->name_campus }}
                                 </span>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
 
@@ -627,7 +624,7 @@
                             <div class="rounded-xl overflow-hidden shadow-lg h-56 sm:h-64 md:h-80">
                                 <!-- Google Maps Embed -->
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.2888366408176!2d104.02727807416298!3d1.1315799988540995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d9895c448f2535%3A0xf6ce3b47e5671849!2sPollux%20Mall%20Batam%20Centre!5e0!3m2!1sen!2sid!4v1647421234567!5m2!1sen!2sid"
+                                    src="{{ $google_maps ?: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.2888366408176!2d104.02727807416298!3d1.1315799988540995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d9895c448f2535%3A0xf6ce3b47e5671849!2sPollux%20Mall%20Batam%20Centre!5e0!3m2!1sen!2sid!4v1647421234567!5m2!1sen!2sid' }}"
                                     width="100%" height="100%" style="border:0;" allowfullscreen=""
                                     loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full h-full">
                                 </iframe>
@@ -734,6 +731,32 @@
                     }
                 });
             });
+
+            // Countdown Timer
+            const countdownTarget = new Date("{{ $end_event }}").getTime();
+
+            const countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countdownTarget - now;
+
+                const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerHTML = d;
+                document.getElementById("hours").innerHTML = h < 10 ? "0" + h : h;
+                document.getElementById("minutes").innerHTML = m < 10 ? "0" + m : m;
+                document.getElementById("seconds").innerHTML = s < 10 ? "0" + s : s;
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("days").innerHTML = "0";
+                    document.getElementById("hours").innerHTML = "00";
+                    document.getElementById("minutes").innerHTML = "00";
+                    document.getElementById("seconds").innerHTML = "00";
+                }
+            }, 1000);
         </script>
     @endpush
 

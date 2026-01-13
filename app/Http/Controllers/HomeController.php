@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EventSetting;
 use App\Models\TicketStatus;
+use App\Models\Campus;
 
 class HomeController extends Controller
 {
@@ -40,6 +41,10 @@ class HomeController extends Controller
             'desc_event' => $query->desc_event ?? 'Batam Campus Expo 2026 adalah pameran pendidikan terbesar di Kepulauan Riau. Acara ini menghadirkan berbagai universitas dan perguruan tinggi dari seluruh Indonesia.',
             'ticket_status' => $ticket->status ?? 'open',
             'nohp' => $query->no_contact ?? '081234567890',
+            'top_campuses' => Campus::withCount('votes')
+                ->orderBy('votes_count', 'desc')
+                ->take(3)
+                ->get(),
         ];
         
         return view('pages.home', $data);
