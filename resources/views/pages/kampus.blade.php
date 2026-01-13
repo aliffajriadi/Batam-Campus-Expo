@@ -116,7 +116,7 @@
     <!-- HERO SECTION -->
     <section class="relative pt-28 pb-20 overflow-hidden z-10">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+            <h1 class="font-sancreek uppercase text-4xl md:text-6xl font-bold text-white leading-[0.85] mb-6 tracking-tight [text-shadow:_4px_4px_0_rgba(0,0,0,0.3),_8px_8px_0_rgba(0,0,0,0.2)]">
                 Temukan Kampus Impianmu
             </h1>
 

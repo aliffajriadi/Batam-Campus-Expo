@@ -3,7 +3,6 @@
    <div class="absolute inset-0 -z-10 overflow-hidden">
         <!-- Gradient -->
         <div class="absolute inset-0 bg-gradient-to-br from-[#D32F2F] to-[#800000]"></div>
-
         <!-- Pattern -->
           <div class="absolute inset-0 opacity-20">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">

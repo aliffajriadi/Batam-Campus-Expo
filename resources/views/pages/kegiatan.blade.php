@@ -141,7 +141,7 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
                 <!-- HEADLINE -->
                 <div class="mb-8">
-                    <h1 class="font-sancreek uppercase text-white leading-[0.85] text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 [text-shadow:_3px_3px_0_rgba(0,0,0,0.8),_6px_6px_0_rgba(0,0,0,0.6)]">
+                    <h1 class="font-sancreek uppercase text-white leading-[0.85] text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 [text-shadow:_4px_4px_0_rgba(0,0,0,0.3),_8px_8px_0_rgba(0,0,0,0.2)]">
                         JADWAL
                     </h1>
                     <h2 class="font-sancreek uppercase text-[#fbbf24] leading-[0.85] text-3xl sm:text-4xl md:text-5xl lg:text-6xl [text-shadow:_2px_2px_0_rgba(0,0,0,0.8)]">
