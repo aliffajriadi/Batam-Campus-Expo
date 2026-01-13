@@ -111,7 +111,6 @@
             </svg>
             </div>
         </div>
-        
     </div>
 
     <!-- HERO SECTION -->
