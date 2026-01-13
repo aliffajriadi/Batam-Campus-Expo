@@ -38,4 +38,13 @@ class Campus extends Model
     {
         return $this->hasMany(CampusVoting::class, 'id_campus');
     }
+
+    protected static function booted()
+{
+    static::creating(function ($model) {
+        if (empty($model->logo_campus)) {
+            $model->logo_campus = 'dummy/logo/default.png';
+        }
+    });
+}
 }

@@ -1,32 +1,30 @@
 <x-layout.app :title="'Batam Campus Expo'" :nohp="$nohp" :lokasi="$lokasi">
-    <!-- HERO SECTION -->
-    <section class="hero-section min-h-screen relative overflow-hidden">
-        <!-- Background utama -->
-        <div class="absolute inset-0 bg-[#87CEEB] z-0"></div>
 
-        <!-- Background image -->
-        <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-            style="background-image: url('{{ asset('images/MainBG.svg') }}')">
-        </div>
+   <div class="absolute inset-0 -z-10">
+        <div class="absolute inset-0 bg-[#87CEEB]"></div>
+        <div class="absolute inset-0 bg-cover bg-center bg-[length:100%_100%]"
+             style="background-image: url('{{ asset('images/MainBG.svg') }}')"></div>
+    </div>
+    
 
+    <section class="min-h-screen relative z-10">
         <!-- KONTEN UTAMA -->
         <div class="relative z-10 w-full h-full flex items-center">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-                <!-- Konten hero section -->
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <!-- HEADLINE -->
-                <div class="mb-8 sm:mb-10 lg:mb-12 pt-4 lg:pt-8 headline-animate opacity-0">
+                <div class="mb-8 sm:mb-10 lg:mb-12 pt-4 lg:pt-4 headline-animate opacity-0">
                     <h1
-                        class="font-sancreek uppercase text-[#D32F2F] leading-[0.85] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl mb-3 lg:mb-4 [text-shadow:_3px_3px_0_rgba(0,0,0,0.8),_6px_6px_0_rgba(0,0,0,0.6),_0_0_20px_rgba(166,30,34,0.5)] headline-main">
+                        class="font-sancreek uppercase text-[#D32F2F] leading-[0.85] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl mb-3 lg:mb-4 [text-shadow:_1px_1px_0_rgba(255,99,132,0.4),_0_0_14px_rgba(255,182,193,0.5)] headline-main">
                         BATAM</h1>
                     <h2
-                        class="font-sancreek uppercase text-[#D32F2F] leading-[0.85] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl [text-shadow:_3px_3px_0_rgba(0,0,0,0.8),_6px_6px_0_rgba(0,0,0,0.6),_0_0_20px_rgba(166,30,34,0.5)] headline-main">
+                        class="font-sancreek uppercase text-[#D32F2F] leading-[0.85] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl [text-shadow:_1px_1px_0_rgba(255,99,132,0.4),_0_0_14px_rgba(255,182,193,0.5)] headline-main">
                         CAMPUS EXPO</h2>
 
                     <!-- LOCATION -->
                     <div class="mt-6 sm:mt-8 lg:mt-10 mb-8 sm:mb-10 lg:mb-12">
                         <a href="https://www.google.com/maps/search/?api=1&query=Pollux+Mall+Batam+Centre"
                             target="_blank"
-                            class="inline-flex items-center bg-gradient-to-br from-[#fbbf24] to-[#f59e0b] text-black font-bold py-3 px-6 sm:py-3 sm:px-7 lg:py-4 lg:px-8 rounded-full transition-all duration-300 shadow-[0_4px_12px_rgba(245,158,11,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(245,158,11,0.4)] text-sm sm:text-base lg:text-lg">
+                            class="inline-flex items-center bg-gradient-to-br from-[#fbbf24] to-[#f59e0b] text-white font-bold py-3 px-6 sm:py-3 sm:px-7 lg:py-4 lg:px-8 rounded-full transition-all duration-300 shadow-[0_4px_12px_rgba(245,158,11,0.3)] hover:-translate-y-[2px] hover:shadow-[0_6px_16px_rgba(245,158,11,0.4)] text-sm sm:text-base lg:text-lg">
                             <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                     d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9z" />
@@ -74,7 +72,7 @@
                 </div>
 
                 <!-- CTA BUTTON -->
-                <div class="text-center mt-10 sm:mt-12 lg:mt-16 button-animate opacity-0">
+                <div class="text-center mt-6 sm:mt-12 lg:mt-16 button-animate opacity-0">
                     @if ($ticket_status == 'open')
                         @auth
                             <a href="{{ route('ticket-user') }}" class="ticket-button">
@@ -97,19 +95,29 @@
     </section>
 
     <!-- FUN SEPARATOR -->
-    <div class="relative w-full h-[90px] overflow-visible z-30 -mt-1">
-        <img src="{{ asset('images/funShape.svg') }}"
-            class="absolute inset-x-0 top-0 h-full w-full object-cover separator-float" alt="transition separator">
-        <!-- Shimmer effect overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse"></div>
-    </div>
+ <!-- FUN SEPARATOR -->
+<div class="relative w-full h-[90px] overflow-visible z-30 -mb-[45px]">
+    <img
+        src="{{ asset('images/funShape.svg') }}"
+        class="absolute inset-x-0 top-0 h-full w-full object-cover separator-float"
+        alt="transition separator">
+
+    <!-- Shimmer effect overlay -->
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse"></div>
+</div>
+
 
     <!-- SECTION INFO -->
-    <section
-        class="relative w-full pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-20 lg:pb-24 bg-gradient-to-b from-[#EFE4B7] via-[#FBE99C] to-[#FDDC57] overflow-hidden z-20">
+    <section class="relative w-full pb-16 sm:pb-20 lg:pb-24 z-20 overflow-hidden">
+
+    <!-- BACKGROUND GRADIENT -->
+    <div
+        class="absolute inset-0 bg-gradient-to-b from-[#EFE4B7] via-[#FBE99C] to-[#FDDC57] z-0">
+    </div>
+        
         <!-- Playing Cards Pattern Background for Carnival/Night Market Feel -->
-        <div class="absolute inset-0 opacity-15 z-0">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+     <div class="absolute inset-0 opacity-15 z-[1] pointer-events-none">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <!-- Playing Cards Pattern -->
                     <pattern id="carnivalCards" x="0" y="0" width="150" height="200" patternUnits="userSpaceOnUse">
@@ -302,13 +310,13 @@
         <img src="{{ asset('images/GajahKanan.svg') }}"
             class="absolute right-0 bottom-0 w-16 sm:w-20 lg:w-24 md:w-40 z-5" alt="elephant right">
 
-        <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 z-10">
+        <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 z-10 pt-[45px] ">
             <!-- GRID UTAMA -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20 items-start">
                 <!-- KIRI : JUDUL -->
                 <div>
                     <h2
-                        class="font-sancreek uppercase text-[#D32F2F] leading-[0.85] text-4xl sm:text-5xl md:text-6xl lg:text-7xl [text-shadow:_3px_3px_0_rgba(0,0,0,0.8),_6px_6px_0_rgba(0,0,0,0.6),_0_0_20px_rgba(166,30,34,0.5)]">
+                        class="font-sancreek uppercase text-[#D32F2F] leading-[0.85] text-4xl sm:text-5xl md:text-6xl lg:text-7xl [text-shadow:_1px_1px_0_rgba(255,99,132,0.4),_0_0_14px_rgba(255,182,193,0.5)]">
                         BATAM<br>CAMPUS EXPO
                     </h2>
                 </div>
@@ -327,7 +335,7 @@
             <!-- LEADERBOARD -->
             <div class="mt-16 sm:mt-20 lg:mt-24 text-center">
                 <h3
-                    class="font-sancreek uppercase text-[#D32F2F] text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-10 lg:mb-12 [text-shadow:_3px_3px_0_rgba(0,0,0,0.8),_6px_6px_0_rgba(0,0,0,0.6),_0_0_20px_rgba(166,30,34,0.5)]">
+                    class="font-sancreek uppercase text-[#D32F2F] text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-10 lg:mb-12 [text-shadow:_1px_1px_0_rgba(255,99,132,0.4),_0_0_14px_rgba(255,182,193,0.5)]">
                     Top leaderboard from voting
                 </h3>
 
@@ -403,9 +411,9 @@
                     <div class="relative cursor-pointer" onclick="toggleFAQ({{ $index }})">
                         <!-- Kotak Pertanyaan Bergaya Panah Kanan -->
                         <div
-                            class="flex items-center justify-between bg-yellow-400 border-4 border-yellow-600 rounded-r-full px-4 sm:px-6 py-3 sm:py-4 shadow-lg transition-colors duration-300">
+                            class="flex items-center justify-between bg-[#F0ECE1] border-4 border-yellow-400 rounded-r-full px-4 sm:px-6 py-3 sm:py-4 shadow-lg transition-colors duration-300">
                             <span
-                                class="font-bold text-gray-800 text-base sm:text-lg md:text-xl flex-grow pr-2 sm:pr-4">{{ $faq['question'] }}</span>
+                                class="font-bold text-[#1A2950] text-base sm:text-lg md:text-xl flex-grow pr-2 sm:pr-4">{{ $faq['question'] }}</span>
                             <svg id="arrow-{{ $index }}"
                                 class="w-4 h-4 sm:w-5 sm:h-5 text-gray-800 flex-shrink-0 transition-transform duration-300"
                                 fill="currentColor" viewBox="0 0 20 20">
@@ -417,7 +425,7 @@
 
                         <!-- Jawaban (Default hidden) -->
                         <div id="answer-{{ $index }}"
-                            class="mt-2 bg-white border-l-4 border-yellow-600 rounded-b-lg shadow-md overflow-hidden transition-all duration-300"
+                            class="mt-2 bg-[#F0ECE1] border-l-4 border-yellow-400 rounded-b-lg shadow-md overflow-hidden transition-all duration-300"
                             style="max-height: 0; opacity: 0; padding: 0;">
                             <div class="p-3 sm:p-4">
                                 <p class="text-gray-700 leading-relaxed text-sm sm:text-base">{{ $faq['answer'] }}</p>
@@ -462,7 +470,7 @@
             <!-- Section Title -->
             <div class="text-center mb-12 sm:mb-16">
                 <h2
-                    class="font-sancreek uppercase text-[#D32F2F] text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-6 [text-shadow:_2px_2px_0_rgba(0,0,0,0.8),_4px_4px_0_rgba(0,0,0,0.6)]">
+                    class="font-sancreek uppercase text-[#D32F2F] text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-6 [text-shadow:_1px_1px_0_rgba(255,99,132,0.4),_0_0_14px_rgba(255,182,193,0.5)]">
                     Kontak & Lokasi
                 </h2>
                 <p class="text-gray-800 text-base sm:text-lg max-w-3xl mx-auto">

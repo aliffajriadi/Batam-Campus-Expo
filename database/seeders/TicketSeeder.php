@@ -34,6 +34,7 @@ class TicketSeeder extends Seeder
             TicketBuyer::create([
                 'id_user' => $user->id,
                 'id_ticket' => $ticketStatus->id,
+                'token' => fake()->uuid(),
                 'total_price' => $ticketStatus->price * (1 - $ticketStatus->discount / 100),
                 'status_acc' => $statusAcc,
                 'photo_transfer' => 'dummy/transfer_' . fake()->uuid() . '.jpg',

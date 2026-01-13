@@ -1,8 +1,10 @@
 <x-layout.app :title="'Kegiatan - Batam Campus Expo'" :nohp="$nohp ?? '+62 812-3456-7890'" :lokasi="$lokasi ?? 'Pollux Mall Batam Centre'">
-    <!-- HERO SECTION -->
-    <section class="hero-section min-h-[70vh] relative overflow-hidden bg-gradient-to-br from-[#D32F2F] via-[#B71C1C] to-[#8B0000]">
-        <!-- Circus SVG Background Pattern -->
-        <div class="absolute inset-0 opacity-20 z-0">
+        <div class="fixed inset-0 -z-10 overflow-hidden">
+        <!-- Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#D32F2F] via-[#B71C1C] to-[#8B0000]"></div>
+
+        <!-- SVG Pattern -->
+        <div class="absolute inset-0 opacity-20">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <!-- Circus Pattern -->
@@ -105,8 +107,12 @@
                 <rect width="100%" height="100%" fill="url(#circusPattern)"/>
                 <rect width="100%" height="100%" fill="url(#floatingLights)" opacity="0.6"/>
             </svg>
+            </div>
         </div>
-        
+    <!-- HERO SECTION -->
+    <section class="relative min-h pt-5 flex items-center z-10 bg-gradient-to-br">
+        <!-- Circus SVG Background Pattern -->
+      
         <!-- Floating 3D Elements -->
         <div class="absolute top-16 left-8 w-16 h-20 bg-white rounded-lg shadow-2xl transform rotate-12 opacity-40 z-5" style="animation: float 6s ease-in-out infinite;">
             <div class="p-2 text-center">
@@ -156,9 +162,9 @@
     </section>
 
     <!-- SEPARATOR -->
-    <div class="relative w-full h-[60px] overflow-visible z-30 -mt-1">
+    <!-- <div class="relative w-full h-[60px] overflow-visible z-30 -mt-1">
         <div class="absolute inset-0 bg-gradient-to-b from-[#8B0000] to-[#f5f5f5] opacity-80"></div>
-    </div>
+    </div> -->
 
     <!-- SCHEDULE SECTION -->
     <section class="relative w-full py-16 bg-gradient-to-b from-[#f5f5f5] to-white overflow-hidden">

@@ -1,46 +1,162 @@
 <x-layout.app :title="'Kampus - Batam Campus Expo'" :nohp="$nohp" :lokasi="$lokasi">
-    <!-- HERO SECTION -->
-    <section class="relative bg-gradient-to-br from-[#D32F2F] to-[#800000] py-20 overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+
+    <!-- GLOBAL BACKGROUND -->
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <!-- Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#D32F2F] to-[#800000]"></div>
+
+        <!-- Pattern -->
+          <div class="absolute inset-0 opacity-20">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Circus Pattern -->
+                    <pattern id="circusPattern" x="0" y="0" width="200" height="250" patternUnits="userSpaceOnUse">
+                        <!-- Big Top Tent -->
+                        <g transform="translate(20, 30)">
+                            <polygon points="40,0 80,60 0,60" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+                            <polygon points="40,0 60,60 20,60" fill="#ff6b6b" stroke="#ee5a24" stroke-width="1"/>
+                            <rect x="35" y="60" width="10" height="20" fill="#8B4513"/>
+                            <circle cx="40" cy="5" r="3" fill="#FFD700"/>
+                        </g>
+                        
+                        <!-- Ferris Wheel -->
+                        <g transform="translate(120, 40)">
+                            <circle cx="30" cy="30" r="25" fill="none" stroke="#fbbf24" stroke-width="3"/>
+                            <circle cx="30" cy="5" r="4" fill="#ff6b6b"/>
+                            <circle cx="55" cy="30" r="4" fill="#4CAF50"/>
+                            <circle cx="30" cy="55" r="4" fill="#2196F3"/>
+                            <circle cx="5" cy="30" r="4" fill="#FF5722"/>
+                            <circle cx="30" cy="30" r="3" fill="#FFD700"/>
+                            <line x1="30" y1="30" x2="30" y2="5" stroke="#333" stroke-width="1"/>
+                            <line x1="30" y1="30" x2="55" y2="30" stroke="#333" stroke-width="1"/>
+                            <line x1="30" y1="30" x2="30" y2="55" stroke="#333" stroke-width="1"/>
+                            <line x1="30" y1="30" x2="5" y2="30" stroke="#333" stroke-width="1"/>
+                        </g>
+                        
+                        <!-- Playing Cards -->
+                        <g transform="translate(10, 120) rotate(15)">
+                            <rect width="25" height="35" rx="3" fill="white" stroke="#D32F2F" stroke-width="2"/>
+                            <path d="M12.5 8 C10 6, 6 6, 8 12 C6 6, 2 6, 4 12 L12.5 18 L21 12 C19 6, 15 6, 17 12 C15 6, 11 6, 12.5 8 Z" fill="#D32F2F"/>
+                            <text x="2" y="7" font-size="4" fill="#D32F2F" font-weight="bold">K</text>
+                        </g>
+                        
+                        <!-- Joker Card -->
+                        <g transform="translate(140, 140) rotate(-20)">
+                            <rect width="25" height="35" rx="3" fill="#8B5CF6" stroke="#7C3AED" stroke-width="2"/>
+                            <circle cx="12.5" cy="17.5" r="6" fill="white"/>
+                            <circle cx="10.5" cy="15.5" r="1" fill="#333"/>
+                            <circle cx="14.5" cy="15.5" r="1" fill="#333"/>
+                            <path d="M9 20 Q12.5 23 16 20" stroke="#D32F2F" stroke-width="1" fill="none"/>
+                            <text x="6" y="30" font-size="3" fill="white" font-weight="bold">JOKER</text>
+                        </g>
+                        
+                        <!-- Dice -->
+                        <g transform="translate(60, 180)">
+                            <rect width="20" height="20" rx="2" fill="white" stroke="#333" stroke-width="2"/>
+                            <circle cx="7" cy="7" r="1.5" fill="#333"/>
+                            <circle cx="13" cy="7" r="1.5" fill="#333"/>
+                            <circle cx="7" cy="13" r="1.5" fill="#333"/>
+                            <circle cx="13" cy="13" r="1.5" fill="#333"/>
+                            <circle cx="10" cy="10" r="1.5" fill="#333"/>
+                        </g>
+                        
+                        <!-- Carnival Mask -->
+                        <g transform="translate(160, 200)">
+                            <ellipse cx="15" cy="12" rx="12" ry="8" fill="#FFD700" stroke="#f59e0b" stroke-width="2"/>
+                            <circle cx="10" cy="10" r="2" fill="#333"/>
+                            <circle cx="20" cy="10" r="2" fill="#333"/>
+                            <path d="M10 16 Q15 20 20 16" stroke="#D32F2F" stroke-width="2" fill="none"/>
+                            <path d="M5 8 Q0 5 -2 10" stroke="#8B5CF6" stroke-width="3" fill="none"/>
+                            <path d="M25 8 Q30 5 32 10" stroke="#8B5CF6" stroke-width="3" fill="none"/>
+                        </g>
+                        
+                        <!-- Magic Wand -->
+                        <g transform="translate(80, 80) rotate(45)">
+                            <rect x="0" y="8" width="30" height="2" fill="#8B4513"/>
+                            <polygon points="30,5 35,10 30,15" fill="#FFD700"/>
+                            <circle cx="32" cy="7" r="1" fill="#ff6b6b"/>
+                            <circle cx="32" cy="13" r="1" fill="#4CAF50"/>
+                        </g>
+                        
+                        <!-- Balloon Cluster -->
+                        <g transform="translate(40, 200)">
+                            <ellipse cx="5" cy="10" rx="4" ry="6" fill="#ff6b6b"/>
+                            <ellipse cx="12" cy="8" rx="4" ry="6" fill="#4CAF50"/>
+                            <ellipse cx="19" cy="12" rx="4" ry="6" fill="#2196F3"/>
+                            <line x1="5" y1="16" x2="8" y2="25" stroke="#333" stroke-width="1"/>
+                            <line x1="12" y1="14" x2="8" y2="25" stroke="#333" stroke-width="1"/>
+                            <line x1="19" y1="18" x2="8" y2="25" stroke="#333" stroke-width="1"/>
+                        </g>
+                    </pattern>
+                    
+                    <!-- Floating Lights -->
+                    <pattern id="floatingLights" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                        <circle cx="20" cy="20" r="2" fill="#fbbf24" opacity="0.8">
+                            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="60" cy="40" r="2" fill="#ff6b6b" opacity="0.8">
+                            <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="80" cy="70" r="2" fill="#4CAF50" opacity="0.8">
+                            <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="30" cy="80" r="2" fill="#2196F3" opacity="0.8">
+                            <animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite"/>
+                        </circle>
+                    </pattern>
+                </defs>
+                
+                <rect width="100%" height="100%" fill="url(#circusPattern)"/>
+                <rect width="100%" height="100%" fill="url(#floatingLights)" opacity="0.6"/>
+            </svg>
+            </div>
         </div>
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-28 pb-20 overflow-hidden z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
                 Temukan Kampus Impianmu
             </h1>
+
             <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed">
                 Jelajahi berbagai pilihan universitas terbaik di Indonesia. Mulai masa depan gemilangmu dari sini
                 bersama Batam Campus Expo.
             </p>
 
-            <!-- Search & Filter Container -->
+            <!-- Search & Filter -->
             <div
-                class="max-w-4xl mx-auto bg-white p-4 rounded-2xl shadow-xl flex flex-col md:flex-row gap-4 items-center">
+                class="max-w-4xl mx-auto bg-white/95 backdrop-blur p-4 rounded-2xl shadow-xl flex flex-col md:flex-row gap-4 items-center">
+
+                <!-- Search -->
                 <div class="relative flex-1 w-full">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                 clip-rule="evenodd" />
                         </svg>
                     </div>
+
                     <input type="text" id="search-kampus"
-                        class="block w-full pl-10 pr-3 py-3 border-none rounded-xl bg-gray-50 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#D32F2F]/50 transition-all font-medium"
+                        class="block w-full pl-10 pr-3 py-3 rounded-xl bg-gray-50 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#D32F2F]/50 transition-all font-medium"
                         placeholder="Cari nama kampus, kota, atau provinsi...">
                 </div>
 
-                <div
-                    class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar justify-center md:justify-end">
+                <!-- Filter -->
+                <div class="flex gap-2 w-full md:w-auto justify-center md:justify-end">
                     <button onclick="filterKampus('all')"
-                        class="filter-btn active whitespace-nowrap px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">
+                        class="filter-btn active px-5 py-2.5 rounded-xl font-semibold text-sm bg-gray-100 text-gray-600 hover:bg-gray-200">
                         Semua
                     </button>
                     <button onclick="filterKampus('negeri')"
-                        class="filter-btn whitespace-nowrap px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">
+                        class="filter-btn px-5 py-2.5 rounded-xl font-semibold text-sm bg-gray-100 text-gray-600 hover:bg-gray-200">
                         Negeri
                     </button>
                     <button onclick="filterKampus('swasta')"
-                        class="filter-btn whitespace-nowrap px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">
+                        class="filter-btn px-5 py-2.5 rounded-xl font-semibold text-sm bg-gray-100 text-gray-600 hover:bg-gray-200">
                         Swasta
                     </button>
                 </div>
