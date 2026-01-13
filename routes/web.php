@@ -137,4 +137,7 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminAut
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::post('/users/{id}/toggle-suspend', [UserController::class, 'toggleSuspend'])->name('users.toggle-suspend');
+
+    // Kegiatan Management
+    Route::resource('kegiatan', \App\Http\Controllers\Admin\KegiatanController::class);
 });
