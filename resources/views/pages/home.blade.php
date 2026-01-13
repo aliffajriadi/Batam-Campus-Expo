@@ -1,4 +1,4 @@
-<x-layout.app :title="'Batam Campus Expo'" :nohp="$nohp" :lokasi="$lokasi">
+<x-layout.app :title="'Batam Campus Expo'">
 
     <div class="absolute inset-0 -z-10">
         <div class="absolute inset-0 bg-[#87CEEB]"></div>
@@ -353,7 +353,7 @@
             <!-- CTA -->
             <div class="mt-12 sm:mt-16 lg:mt-20 text-center">
                 <button class="ticket-button">
-                    Get Your Ticket Now !
+                    Voting Kampus
                 </button>
             </div>
         </div>
@@ -408,7 +408,7 @@
                     <div class="relative cursor-pointer" onclick="toggleFAQ({{ $index }})">
                         <!-- Kotak Pertanyaan Bergaya Panah Kanan -->
                         <div
-                            class="flex items-center justify-between bg-[#F0ECE1] border-4 border-yellow-400 rounded-r-full px-4 sm:px-6 py-3 sm:py-4 shadow-lg transition-colors duration-300">
+                            class="flex items-center justify-between bg-[#c0992f] border-4 border-yellow-400 rounded-r-full px-4 sm:px-6 py-3 sm:py-4 shadow-lg transition-colors duration-300">
                             <span
                                 class="font-bold text-[#1A2950] text-base sm:text-lg md:text-xl flex-grow pr-2 sm:pr-4">{{ $faq['question'] }}</span>
                             <svg id="arrow-{{ $index }}"
@@ -516,7 +516,7 @@
                                     <h4 class="font-bold text-gray-800 text-sm sm:text-base">Email</h4>
                                     <a href="mailto:info@batamcampuseexpo.com"
                                         class="text-gray-600 hover:text-[#D32F2F] transition-colors text-sm sm:text-base">
-                                        info@batamcampuseexpo.com
+                                        batamcampusexpo@gmail.com
                                     </a>
                                 </div>
                             </div>
@@ -623,11 +623,7 @@
                             <!-- Map Container -->
                             <div class="rounded-xl overflow-hidden shadow-lg h-56 sm:h-64 md:h-80">
                                 <!-- Google Maps Embed -->
-                                <iframe
-                                    src="{{ $google_maps ?: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.2888366408176!2d104.02727807416298!3d1.1315799988540995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d9895c448f2535%3A0xf6ce3b47e5671849!2sPollux%20Mall%20Batam%20Centre!5e0!3m2!1sen!2sid!4v1647421234567!5m2!1sen!2sid' }}"
-                                    width="100%" height="100%" style="border:0;" allowfullscreen=""
-                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full h-full">
-                                </iframe>
+                                {!! $google_maps !!}
                             </div>
 
                             <!-- Directions Button -->

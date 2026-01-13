@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Traits\ClearCacheOnMutation;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, ClearCacheOnMutation;
 
     protected $table = 'users';
+
+    protected static $cacheTagsToFlush = ['posts', 'community_page'];
 
     protected $fillable = [
         'google_id',

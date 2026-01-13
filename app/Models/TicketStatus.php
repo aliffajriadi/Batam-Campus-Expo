@@ -3,10 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ClearCacheOnMutation;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TicketStatus extends Model
 {
+    use ClearCacheOnMutation, HasFactory;
+
     protected $table = 'ticket_status';
+
+    protected static $cacheTagsToFlush = ['tickets'];
 
     protected $fillable = [
         'name',

@@ -3,10 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ClearCacheOnMutation;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MerchandiseProduct extends Model
 {
+    use ClearCacheOnMutation, HasFactory;
+
     protected $table = 'merchandise_product';
+
+    protected static $cacheTagsToFlush = ['merchandise'];
 
     protected $fillable = [
         'name_product',

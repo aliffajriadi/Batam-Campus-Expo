@@ -4,12 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ClearCacheOnMutation;
 
 class EventSetting extends Model
 {
     use HasFactory;
+    use ClearCacheOnMutation;
 
     protected $table = 'event_setting';
+
+    protected static $cacheTagsToFlush = ['event_settings'];
 
     protected $fillable = [
         'name_event',
