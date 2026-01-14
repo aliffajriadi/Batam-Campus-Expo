@@ -49,19 +49,23 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            # Masuk ke folder aplikasi di VPS
             cd /home/ubuntu/Batam-Campus-Expo
             
-            # Tarik perubahan docker-compose.yml terbaru dari Git
+            # FIX 1: Mengatasi "dubious ownership" agar bisa git pull
+            git config --global --add safe.directory /home/ubuntu/Batam-Campus-Expo
             git pull origin ${{ github.ref_name }}
 
-            # Login ke GHCR di sisi VPS (agar bisa pull image)
+            # Login ke GitHub Container Registry
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
-            # Pull image terbaru dan jalankan
+            # Update container
             docker compose pull
             docker compose up -d
             
-            # Jalankan perintah Laravel (pastikan nama service-nya 'app')
+            # FIX 2: Mengatasi "Failed opening autoload.php"
+            # Kita jalankan composer install di dalam container jika vendor kosong
+            docker compose exec -T app composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+            # Jalankan perintah standar Laravel
             docker compose exec -T app php artisan migrate --force
             docker compose exec -T app php artisan optimize
