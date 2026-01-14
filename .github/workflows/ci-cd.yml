@@ -51,6 +51,12 @@ jobs:
         run: |
           cp .env.example .env.testing
           php artisan key:generate --env=testing
+          # Memastikan folder storage ada dan bisa ditulis
+          mkdir -p storage/framework/cache/data
+          mkdir -p storage/framework/app
+          mkdir -p storage/framework/sessions
+          mkdir -p storage/framework/views
+          chmod -R 777 storage bootstrap/cache
 
       - name: Install NPM dependencies and Build
         run: |
@@ -112,19 +118,23 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            # Masuk ke folder tempat Anda clone repo tadi
+            # Pindah ke folder proyek di VPS
             cd /home/ubuntu/Batam-Campus-Expo
             
-            # Login ulang ke GHCR di VPS (opsional tapi aman)
+            # Update file terbaru dari Git (opsional jika docker-compose.yml berubah)
+            git pull origin ${{ github.ref_name }}
+
+            # Login ke GHCR agar bisa pull image private
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
-            # Tarik image terbaru
+            # Pull image terbaru yang baru di-push oleh job 'cd'
             docker compose pull
             
-            # Jalankan ulang container dengan image baru
+            # Restart container
             docker compose up -d
             
-            # Jalankan perintah laravel di dalam container
-            # Catatan: ganti 'app' dengan nama service di docker-compose.yml Anda
+            # Jalankan migrasi dan optimasi di dalam container
+            # Pastikan nama service adalah 'app' (cek docker-compose.yml)
             docker compose exec -T app php artisan migrate --force
             docker compose exec -T app php artisan optimize
+            docker compose exec -T app php artisan view:cache
