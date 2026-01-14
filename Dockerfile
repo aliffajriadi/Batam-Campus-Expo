@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-# Install system dependencies
+# 1. Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -15,30 +15,40 @@ RUN apt-get update && apt-get install -y \
     libwebp-dev \
     libxpm-dev
 
-# Clear cache
+# 2. Install Node.js (Wajib untuk Vite/npm build)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
+# 3. Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
+# 4. Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Install Redis extension
+# 5. Install Redis extension
 RUN pecl install redis && docker-php-ext-enable redis
 
-# Get latest Composer
+# 6. Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
+# 7. Set working directory
 WORKDIR /var/www
 
-# Copy existing application directory contents
+# 8. Copy source code ke container
 COPY . /var/www
 
-# Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www
+# 9. Install Composer dependencies
+# Kita jalankan ini agar vendor/ terisi di dalam image
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-# Install composer dependencies
-# RUN composer install --no-interaction --optimize-autoloader --no-dev
+# 10. Install NPM dependencies & Build Assets (Vite)
+# Ini solusi untuk error "Vite manifest not found"
+RUN npm install && npm run build
+
+# 11. Set permissions (Agar tidak Error 500 saat nulis log/cache)
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 9000
 CMD ["php-fpm"]
