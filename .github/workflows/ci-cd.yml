@@ -21,12 +21,13 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
-      # TAMBAHKAN INI
+      # TAMBAHKAN REDIS DISINI
       redis:
         image: redis:alpine
         ports:
           - 6379:6379
         options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,7 +36,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-          extensions: mbstring, xml, ctype, iconv, mysql, bcmath, gd, zip
+          extensions: mbstring, xml, ctype, iconv, mysql, bcmath, gd, zip, redis # Tambah ekstensi redis
           coverage: none
 
       - name: Setup Node.js
@@ -65,9 +66,12 @@ jobs:
           DB_DATABASE: bce_test
           DB_USERNAME: root
           DB_PASSWORD: ""
+          # SETTING REDIS UNTUK TEST
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
           CACHE_STORE: redis
+          SESSION_DRIVER: array # Gunakan array untuk session agar tidak ribet saat test
+          QUEUE_CONNECTION: sync
         run: php artisan test --env=testing
 
   cd:
