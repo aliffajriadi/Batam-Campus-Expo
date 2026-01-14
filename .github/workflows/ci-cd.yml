@@ -21,7 +21,6 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
-      # TAMBAHKAN REDIS DISINI
       redis:
         image: redis:alpine
         ports:
@@ -36,7 +35,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-          extensions: mbstring, xml, ctype, iconv, mysql, bcmath, gd, zip, redis # Tambah ekstensi redis
+          extensions: mbstring, xml, ctype, iconv, mysql, bcmath, gd, zip, redis
           coverage: none
 
       - name: Setup Node.js
@@ -66,11 +65,10 @@ jobs:
           DB_DATABASE: bce_test
           DB_USERNAME: root
           DB_PASSWORD: ""
-          # SETTING REDIS UNTUK TEST
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
           CACHE_STORE: redis
-          SESSION_DRIVER: array # Gunakan array untuk session agar tidak ribet saat test
+          SESSION_DRIVER: array
           QUEUE_CONNECTION: sync
         run: php artisan test --env=testing
 
@@ -114,8 +112,19 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /path/to/your/app
+            # Masuk ke folder tempat Anda clone repo tadi
+            cd /home/ubuntu/Batam-Campus-Expo
+            
+            # Login ulang ke GHCR di VPS (opsional tapi aman)
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            
+            # Tarik image terbaru
             docker compose pull
+            
+            # Jalankan ulang container dengan image baru
             docker compose up -d
-            docker exec bce-app php artisan migrate --force
-            docker exec bce-app php artisan optimize
+            
+            # Jalankan perintah laravel di dalam container
+            # Catatan: ganti 'app' dengan nama service di docker-compose.yml Anda
+            docker compose exec -T app php artisan migrate --force
+            docker compose exec -T app php artisan optimize
