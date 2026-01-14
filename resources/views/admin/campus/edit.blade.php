@@ -122,7 +122,11 @@
             <div>
                 <label for="logo_campus" class="block text-sm font-medium text-gray-300 mb-2">New Logo (optional)</label>
                 <input type="file" name="logo_campus" id="logo_campus" accept="image/*"
-                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-600 file:text-white file:cursor-pointer">
+                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-600 file:text-white file:cursor-pointer @error('logo_campus') border-red-500 @enderror">
+                <p class="mt-1 text-xs text-gray-400">Allowed: JPG, PNG, GIF. Max: 2MB</p>
+                @error('logo_campus')
+                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="flex justify-end pt-4">

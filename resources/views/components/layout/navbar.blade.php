@@ -8,6 +8,7 @@
                 aria-label="Batam Campus Expo Home">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 scale-150">
             </a>
+            <h1 class="font-sancreek uppercase md:hidden text-[#D32F2F] leading-[0.85]">Batam <br/> Campus Expo</h1>
         </div>
 
         <!-- Desktop Navigation Links -->
@@ -273,39 +274,19 @@
                     `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
             });
         });
-        //KONTOL MEMEK NGENTOT
-        // Navbar scroll effect
-        // let lastScroll = 0;
-        // window.addEventListener('scroll', function() {
-        //     const currentScroll = window.pageYOffset;
-        //     if (currentScroll <= 0) {
-        //         navbar.classList.add('shadow-[0_8px_32px_rgba(0,0,0,0.15)]');
-        //     }
-        //     if (!mobileNavMenu.classList.contains('hidden')) return;
-        //     if (currentScroll > lastScroll && currentScroll > 100) {
-        //         navbar.classList.add('-translate-y-full', 'opacity-0');
-        //     } else {
-        //         navbar.classList.remove('-translate-y-full', 'opacity-0');
-        //     }
-        //     lastScroll = currentScroll;
-        // });
 
-         window.addEventListener('scroll', () => {
-        if (window.scrollY > 80) {
-            navbar.classList.add(
-                'bg-black/10',
-                'backdrop-blur-sm'
-            );
-        } else {
-            navbar.classList.remove(
-                'bg-black/10',
-                'backdrop-blur-sm'
-            );
-        }
-    });
-
-        
-
-
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add(
+                    'bg-black/10',
+                    'backdrop-blur-sm'
+                );
+            } else {
+                navbar.classList.remove(
+                    'bg-black/10',
+                    'backdrop-blur-sm'
+                );
+            }
+        });
     });
 </script>

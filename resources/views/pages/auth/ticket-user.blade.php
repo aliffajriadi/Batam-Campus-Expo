@@ -19,8 +19,37 @@
                 </p>
             </div>
 
+            <!-- MESSAGES -->
+            @if (session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-r shadow-md animate-fade-in"
+                    role="alert">
+                    <p class="font-bold">Berhasil!</p>
+                    <p>{{ session('success') }}</p>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-r shadow-md animate-fade-in"
+                    role="alert">
+                    <p class="font-bold">Gagal!</p>
+                    <p>{{ session('error') }}</p>
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-r shadow-md animate-fade-in"
+                    role="alert">
+                    <p class="font-bold">Perhatian!</p>
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <!-- PAYMENT INFO CARD -->
-            @if (!$ticket)
+            @if (!$ticket || $ticket->status_acc === false)
                 <div class="bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.4)] p-6 mb-6">
                     <div class="flex items-center mb-4">
                         <svg class="w-6 h-6 text-[#A61E22] mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -216,22 +245,36 @@
                 <div
                     class="max-w-md mx-auto bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden border border-gray-100">
                     <div
-                        class="relative p-6 text-white {{ $ticket->status_acc ? 'bg-gradient-to-br from-green-500 to-green-600' : 'bg-gradient-to-br from-amber-400 to-orange-500' }}">
+                        class="relative p-6 text-white @if ($ticket->status_acc === true) bg-gradient-to-br from-green-500 to-green-600 @elseif($ticket->status_acc === false) bg-gradient-to-br from-red-500 to-red-600 @else bg-gradient-to-br from-amber-400 to-orange-500 @endif">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm opacity-80 uppercase tracking-wider font-semibold">Status Tiket</p>
                                 <h3 class="text-2xl font-black">
-                                    {{ $ticket->status_acc ? 'Verified' : 'Pending Review' }}
+                                    @if ($ticket->status_acc === true)
+                                        Verified
+                                    @elseif($ticket->status_acc === false)
+                                        Rejected
+                                    @else
+                                        Pending Review
+                                    @endif
                                 </h3>
                                 <p class="text-xs mt-1 bg-white/20 inline-block px-2 py-0.5 rounded">
                                     {{ $ticket->ticket->name ?? 'Unknown Ticket' }}</p>
                             </div>
-                            @if ($ticket->status_acc)
+                            @if ($ticket->status_acc === true)
                                 <div class="bg-white/20 p-2 rounded-full backdrop-blur-md">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                             d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                            @elseif($ticket->status_acc === false)
+                                <div class="bg-white/20 p-2 rounded-full backdrop-blur-md">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </div>
                             @else
@@ -247,9 +290,19 @@
                     </div>
 
                     <div class="p-8">
-                        @if ($ticket->status_acc)
+                        @if ($ticket->status_acc === true)
                             {{-- Approved status message or similar --}}
-                        @elseif (!$ticket->status_acc)
+                        @elseif($ticket->status_acc === false)
+                            <div class="text-center mb-6">
+                                <p class="text-red-500 font-bold mb-2">Pembayaran Ditolak</p>
+                                <p class="text-gray-500 text-sm leading-relaxed">
+                                    Mohon maaf, bukti pembayaran Kamu tidak valid atau tidak sesuai. Silakan
+                                    <span class="font-bold text-gray-700">unggah ulang bukti pembayaran yang
+                                        benar</span>
+                                    melalui form di bawah ini.
+                                </p>
+                            </div>
+                        @else
                             <div class="text-center mb-6">
                                 <p class="text-gray-500 text-sm leading-relaxed">
                                     Bukti pembayaran Anda sedang kami cek. Proses verifikasi biasanya memakan waktu
@@ -334,6 +387,14 @@
 
     @push('scripts')
         <script>
+            function validateForm() {
+                const ticketId = document.getElementById('ticket_id').value;
+                const fileInput = document.getElementById('payment_proof');
+                const hasFile = fileInput.files && fileInput.files.length > 0;
+
+                document.getElementById('submitBtn').disabled = !(ticketId && hasFile);
+            }
+
             // Ticket Selection Logic
             function selectTicket(radio) {
                 // Remove selected styling from all
@@ -362,7 +423,7 @@
 
                 // Update Hidden Input
                 document.getElementById('ticket_id').value = radio.value;
-                document.getElementById('submitBtn').disabled = false;
+                validateForm();
             }
 
             // Drag and drop functionality
@@ -402,6 +463,7 @@
                     if (file.size > 5 * 1024 * 1024) {
                         alert('Ukuran file terlalu besar. Maksimal 5MB.');
                         fileInput.value = '';
+                        validateForm();
                         return;
                     }
 
@@ -410,6 +472,7 @@
                     document.getElementById('file-preview').classList.remove('hidden');
                     document.getElementById('file-name').textContent = file.name;
                     document.getElementById('file-size').textContent = formatFileSize(file.size);
+                    validateForm();
                 }
             }
 
@@ -417,6 +480,7 @@
                 fileInput.value = '';
                 document.getElementById('upload-placeholder').classList.remove('hidden');
                 document.getElementById('file-preview').classList.add('hidden');
+                validateForm();
             }
 
             function formatFileSize(bytes) {
@@ -425,6 +489,20 @@
                 const sizes = ['Bytes', 'KB', 'MB'];
                 const i = Math.floor(Math.log(bytes) / Math.log(k));
                 return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const uploadForm = document.getElementById('uploadForm');
+
+            if (uploadForm) {
+                uploadForm.addEventListener('submit', function(e) {
+                    const ticketId = document.getElementById('ticket_id').value;
+                    if (!ticketId) {
+                        e.preventDefault();
+                        alert('Silakan pilih jenis tiket terlebih dahulu!');
+                        return false;
+                    }
+                });
             }
 
             function copyToClipboard(text) {

@@ -43,15 +43,15 @@
                     </div>
                     <div class="relative z-[2] p-4 sm:p-6 lg:p-8 w-full">
                         <div class="flex justify-center items-center mb-3 sm:mb-4">
-                            <div class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mx-1 sm:mx-2"
+                            <div class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mx-1 sm:mx-2"
                                 id="days">0</div>
                             <div
-                                class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+                                class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                                 :</div>
-                            <div class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mx-1 sm:mx-2"
+                            <div class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mx-1 sm:mx-2"
                                 id="hours">00</div>
                             <div
-                                class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+                                class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                                 :</div>
                             <div class="font-sancreek text-[#A61E22] drop-shadow-[0_0_10px_rgba(166,30,34,0.5)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mx-1 sm:mx-2"
                                 id="minutes">00</div>
@@ -96,13 +96,13 @@
 
     <!-- FUN SEPARATOR -->
     <!-- FUN SEPARATOR -->
-    <div class="relative w-full h-[90px] overflow-visible z-30 -mb-[45px]">
+    {{-- <div class="absolute inset-0 w-full h-[90px] overflow-visible z-30">
         <img src="{{ asset('images/funShape.svg') }}"
             class="absolute inset-x-0 top-0 h-full w-full object-cover separator-float" alt="transition separator">
 
         <!-- Shimmer effect overlay -->
         <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse"></div>
-    </div>
+    </div> --}}
 
 
     <!-- SECTION INFO -->
@@ -297,7 +297,7 @@
 
         <!-- Background Elements (existing) -->
         <img src="{{ asset('images/balloon.svg') }}"
-            class="absolute left-6 sm:left-8 lg:left-12 top-16 sm:top-20 lg:top-24 w-12 sm:w-14 lg:w-16 md:w-20 opacity-90 z-5"
+            class="hidden sm:block absolute left-6 sm:left-8 lg:left-12 top-16 sm:top-20 lg:top-24 w-12 sm:w-14 lg:w-16 md:w-20 opacity-90 z-5"
             alt="balloon">
         <img src="{{ asset('images/balloon.svg') }}"
             class="absolute right-8 sm:right-10 lg:right-16 top-24 sm:top-32 lg:top-40 w-10 sm:w-12 lg:w-14 md:w-16 opacity-80 z-5"
@@ -322,7 +322,7 @@
                 <div class="relative max-w-lg lg:max-w-xl">
                     <img src="{{ asset('images/ShapeDesc.svg') }}" class="w-full" alt="desc bg">
                     <div class="absolute inset-0 flex items-center px-6 sm:px-8 lg:px-12">
-                        <p class="text-white text-sm sm:text-base leading-relaxed">
+                        <p class="text-gray-100 text-xs sm:text-base md:text-sm leading-relaxed">
                             {{ $desc_event }}
                         </p>
                     </div>
@@ -393,8 +393,7 @@
                         ],
                         [
                             'question' => 'Apakah kegiatan ini berbayar?',
-                            'answer' =>
-                                'Tidak, tiket masuk Batam Campus Expo sepenuhnya GRATIS! Namun, peserta wajib mendaftar terlebih dahulu secara online untuk mendapatkan tiket elektronik yang akan dipindai saat masuk.',
+                            'answer' => 'Ya, Kegiatan ini berbayar sebesar Rp. 10.000,-',
                         ],
                         [
                             'question' => 'Apa saja yang bisa didapatkan di expo?',
@@ -408,7 +407,7 @@
                     <div class="relative cursor-pointer" onclick="toggleFAQ({{ $index }})">
                         <!-- Kotak Pertanyaan Bergaya Panah Kanan -->
                         <div
-                            class="flex items-center justify-between bg-[#c0992f] border-4 border-yellow-400 rounded-r-full px-4 sm:px-6 py-3 sm:py-4 shadow-lg transition-colors duration-300">
+                            class="flex items-center justify-between bg-yellow-400 border-4 border-yellow-600 rounded-r-full px-4 sm:px-6 py-3 sm:py-4 shadow-lg transition-colors duration-300">
                             <span
                                 class="font-bold text-[#1A2950] text-base sm:text-lg md:text-xl flex-grow pr-2 sm:pr-4">{{ $faq['question'] }}</span>
                             <svg id="arrow-{{ $index }}"
@@ -422,7 +421,7 @@
 
                         <!-- Jawaban (Default hidden) -->
                         <div id="answer-{{ $index }}"
-                            class="mt-2 bg-[#F0ECE1] border-l-4 border-yellow-400 rounded-b-lg shadow-md overflow-hidden transition-all duration-300"
+                            class="mt-2 bg-yellow-400 border-l-4 border-yellow-800 rounded-b-lg shadow-md overflow-hidden transition-all duration-300"
                             style="max-height: 0; opacity: 0; padding: 0;">
                             <div class="p-3 sm:p-4">
                                 <p class="text-gray-700 leading-relaxed text-sm sm:text-base">{{ $faq['answer'] }}</p>
