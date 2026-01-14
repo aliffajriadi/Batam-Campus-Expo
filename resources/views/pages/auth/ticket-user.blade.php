@@ -71,7 +71,8 @@
                                 @endphp
                                 <label
                                     class="relative flex items-center p-4 border-2 rounded-xl transition-all {{ $isSoldOut ? 'bg-gray-100 border-gray-200 opacity-75 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50 border-gray-200 ticket-option' }}"
-                                    data-price="{{ $finalPrice }}" data-id="{{ $t->id }}">
+                                    data-price="{{ $finalPrice }}" data-id="{{ $t->id }}"
+                                    data-ticket="{{ json_encode($t) }}">
                                     <input type="radio" name="selected_ticket" value="{{ $t->id }}"
                                         class="hidden" onchange="selectTicket(this)" {{ $isSoldOut ? 'disabled' : '' }}>
                                     <div class="flex-1">
@@ -124,14 +125,14 @@
                         <div class="space-y-3">
                             <div class="bg-white rounded-lg p-3 shadow-sm">
                                 <p class="text-xs text-gray-500 mb-1">Bank</p>
-                                <p class="font-bold text-gray-800">BCA</p>
+                                <p class="font-bold text-gray-800" id="bank-name">BCA</p>
                             </div>
 
                             <div class="bg-white rounded-lg p-3 shadow-sm">
                                 <p class="text-xs text-gray-500 mb-1">Nomor Rekening</p>
                                 <div class="flex items-center justify-between">
-                                    <p class="font-bold text-gray-800 text-lg">1234567890</p>
-                                    <button onclick="copyToClipboard('1234567890')"
+                                    <p class="font-bold text-gray-800 text-lg" id="account-number">1234567890</p>
+                                    <button onclick="copyToClipboard()"
                                         class="text-[#A61E22] hover:text-[#8a1a1e] transition">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -143,7 +144,7 @@
 
                             <div class="bg-white rounded-lg p-3 shadow-sm">
                                 <p class="text-xs text-gray-500 mb-1">Atas Nama</p>
-                                <p class="font-bold text-gray-800">BATAM CAMPUS EXPO</p>
+                                <p class="font-bold text-gray-800" id="account-name">BATAM CAMPUS EXPO</p>
                             </div>
 
                             <div class="bg-white rounded-lg p-3 shadow-sm">
@@ -418,14 +419,26 @@
                     style: 'currency',
                     currency: 'IDR'
                 }).format(price);
-                document.getElementById('display-price').textContent = formattedPrice.replace(/,00$/,
-                    ''); // Clean trailing zeros
+                const cleanPrice = formattedPrice.replace(/,00$/, ''); // Clean trailing zeros
+                document.getElementById('display-price').textContent = cleanPrice;
+
+                // Update Bank Details
+                const ticket = JSON.parse(label.getAttribute('data-ticket'));
+                document.getElementById('bank-name').textContent = ticket.bank_name || 'BCA';
+                document.getElementById('account-number').textContent = ticket.account_number || '1234567890';
+                document.getElementById('account-name').textContent = ticket.account_name || 'BATAM CAMPUS EXPO';
 
                 // Update Hidden Input
                 document.getElementById('ticket_id').value = radio.value;
                 validateForm();
             }
 
+            function copyToClipboard() {
+                const text = document.getElementById('account-number').textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Nomor rekening berhasil disalin!');
+                });
+            }
             // Drag and drop functionality
             const dropzone = document.getElementById('dropzone');
             const fileInput = document.getElementById('payment_proof');

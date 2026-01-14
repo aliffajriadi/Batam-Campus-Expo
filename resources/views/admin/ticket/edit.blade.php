@@ -85,6 +85,27 @@
                         <p class="text-xs text-gray-500 mt-2 italic">* This link will only be visible to buyers after their
                             payment is approved.</p>
                     </div>
+
+                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-700">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Bank Name</label>
+                            <input type="text" name="bank_name" value="{{ $ticket->bank_name }}"
+                                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                                placeholder="e.g. BCA">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Account Number</label>
+                            <input type="text" name="account_number" value="{{ $ticket->account_number }}"
+                                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                                placeholder="e.g. 12345678">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Account Name</label>
+                            <input type="text" name="account_name" value="{{ $ticket->account_name }}"
+                                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                                placeholder="e.g. Batam Campus Expo">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-700">

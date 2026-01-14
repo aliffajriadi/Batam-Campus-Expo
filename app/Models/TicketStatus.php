@@ -24,6 +24,9 @@ class TicketStatus extends Model
         'auto_close_ticket_at',
         'sold_ticket',
         'link',
+        'bank_name',
+        'account_number',
+        'account_name',
     ];
 
     public $timestamps = false;
