@@ -33,7 +33,7 @@ test('user can register for a ticket', function () {
     $this->assertDatabaseHas('ticket_buyer', [
         'id_user' => $user->id,
         'id_ticket' => $ticketType->id,
-        'status_acc' => false
+        'status_acc' => null
     ]);
 });
 
@@ -78,7 +78,7 @@ test('admin can approve ticket buyer', function () {
     $admin = Admin::factory()->create();
     $this->withSession(['admin_id' => $admin->id]);
 
-    $buyer = TicketBuyer::factory()->create(['status_acc' => false]);
+    $buyer = TicketBuyer::factory()->create(['status_acc' => null]);
 
     $response = $this->post(route('admin.ticket.approve', $buyer->id));
     $response->assertRedirect();

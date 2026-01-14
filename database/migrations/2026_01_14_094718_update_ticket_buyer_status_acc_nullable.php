@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ticket_buyer', function (Blueprint $table) {
-            //
+            $table->boolean('status_acc')->nullable()->change();
+        });
+
+        Schema::table('merchandise_buyer', function (Blueprint $table) {
+            $table->boolean('status_acc')->nullable()->change();
         });
     }
 
@@ -22,7 +26,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('ticket_buyer', function (Blueprint $table) {
-            //
+            $table->boolean('status_acc')->nullable(false)->change();
+        });
+
+        Schema::table('merchandise_buyer', function (Blueprint $table) {
+            $table->boolean('status_acc')->nullable(false)->change();
         });
     }
 };
