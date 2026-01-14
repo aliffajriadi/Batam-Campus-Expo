@@ -14,10 +14,10 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         Admin::updateOrCreate(
-            ['username' => 'admin'],
+            ['username' => env('ADMIN_USERNAME')],
             [
-                'username' => 'admin',
-                'password' => Hash::make('admin123'),
+                'username' => env('ADMIN_USERNAME'),
+                'password' => Hash::make(env('ADMIN_PASSWORD')),
             ]
         );
     }

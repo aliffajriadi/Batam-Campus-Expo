@@ -21,8 +21,20 @@
                 class="bg-white rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.3)] overflow-hidden backdrop-blur-sm animate-slide-up">
                 <!-- Accent Bar -->
                 <div class="h-2 bg-gradient-to-r from-[#D32F2F] via-[#FF5252] to-[#B71C1C]"></div>
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+                        role="alert">
+                        <strong class="font-bold">Ups! </strong>
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @if (session('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                        role="alert">
                         <strong class="font-bold">Haiii </strong>
                         <span class="block sm:inline">{{ session('error') }}</span>
                     </div>
@@ -56,7 +68,7 @@
                         </p>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form action="{{ route('profile.update') }}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -79,10 +91,13 @@
                                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                         </svg>
                                     </span>
-                                    <input type="text" disabled name="name" value="{{ Auth::user()->name }}"
-                                        class="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#D32F2F]/20 focus:border-[#D32F2F] outline-none transition-all duration-300 hover:border-gray-300"
+                                    <input type="text" disabled name="name" value="{{ old('name', Auth::user()->name) }}"
+                                        class="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 {{ $errors->has('name') ? 'border-red-500' : 'border-gray-200' }} rounded-2xl focus:ring-2 focus:ring-[#D32F2F]/20 focus:border-[#D32F2F] outline-none transition-all duration-300 hover:border-gray-300"
                                         placeholder="Masukkan nama lengkap Anda" required>
                                 </div>
+                                @error('name')
+                                    <p class="text-red-500 text-xs mt-1 ml-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <!-- Grid for School and Phone -->
@@ -297,13 +312,13 @@
                                         @endphp
 
                                         <select name="asal_sekolah"
-                                            class="w-full pl-12 pr-10 py-4 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#D32F2F]/20 focus:border-[#D32F2F] outline-none transition-all duration-300 hover:border-gray-300 appearance-none cursor-pointer"
+                                            class="w-full pl-12 pr-10 py-4 bg-gray-50 border-2 {{ $errors->has('asal_sekolah') ? 'border-red-500' : 'border-gray-200' }} rounded-2xl focus:ring-2 focus:ring-[#D32F2F]/20 focus:border-[#D32F2F] outline-none transition-all duration-300 hover:border-gray-300 appearance-none cursor-pointer"
                                             required>
                                             <option value="">Pilih asal sekolah</option>
 
                                             @foreach ($daftar_sekolah as $sekolah)
                                                 <option value="{{ $sekolah }}"
-                                                    {{ Auth::user()->asal_sekolah == $sekolah ? 'selected' : '' }}>
+                                                    {{ old('asal_sekolah', Auth::user()->asal_sekolah) == $sekolah ? 'selected' : '' }}>
                                                     {{ $sekolah }}
                                                 </option>
                                             @endforeach
@@ -317,6 +332,9 @@
                                             </svg>
                                         </span>
                                     </div>
+                                    @error('asal_sekolah')
+                                        <p class="text-red-500 text-xs mt-1 ml-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <!-- Nomor WhatsApp -->
@@ -338,10 +356,14 @@
                                                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                             </svg>
                                         </span>
-                                        <input type="tel" name="nohp" value="{{ Auth::user()->nohp }}"
-                                            class="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#D32F2F]/20 focus:border-[#D32F2F] outline-none transition-all duration-300 hover:border-gray-300"
+                                        <input type="tel" name="nohp"
+                                            value="{{ old('nohp', Auth::user()->nohp) }}"
+                                            class="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 {{ $errors->has('nohp') ? 'border-red-500' : 'border-gray-200' }} rounded-2xl focus:ring-2 focus:ring-[#D32F2F]/20 focus:border-[#D32F2F] outline-none transition-all duration-300 hover:border-gray-300"
                                             placeholder="Contoh: 08123456789" pattern="[0-9]{10,13}" required>
                                     </div>
+                                    @error('nohp')
+                                        <p class="text-red-500 text-xs mt-1 ml-1">{{ $message }}</p>
+                                    @enderror
                                     <p class="text-xs text-gray-500 mt-1 ml-1">Format: 08xxxxxxxxxx</p>
                                 </div>
                             </div>

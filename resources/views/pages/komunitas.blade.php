@@ -1,4 +1,4 @@
-<x-layout.app title="Komunitas" nohp="Komunitas" lokasi="Komunitas">
+<x-layout.app title="Komunitas">
     <!-- BACKGROUND -->
     <div class="absolute inset-0 -z-10">
         <div class="w-full h-full bg-gradient-to-br from-[#A61E22] via-[#8a1a1e] to-[#6b1419]"></div>
@@ -9,7 +9,7 @@
         <!-- Header -->
         <div class="mb-10 text-center animate-fade-in">
             <h1
-                class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 [text-shadow:_3px_3px_8px_rgba(0,0,0,0.4)]">
+                class="font-sancreek uppercase text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 [text-shadow:_3px_3px_8px_rgba(0,0,0,0.4)]">
                 Komunitas BCE 2026
             </h1>
             <p class="text-white/90 text-lg md:text-xl [text-shadow:_1px_1px_4px_rgba(0,0,0,0.3)]">

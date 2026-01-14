@@ -3,10 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ClearCacheOnMutation;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Campus extends Model
 {
+    use ClearCacheOnMutation, HasFactory;
+
     protected $table = 'campus';
+
+    protected static $cacheTagsToFlush = ['campuses'];
 
     protected $fillable = [
         'name_campus',
@@ -40,11 +47,11 @@ class Campus extends Model
     }
 
     protected static function booted()
-{
-    static::creating(function ($model) {
-        if (empty($model->logo_campus)) {
-            $model->logo_campus = 'dummy/logo/default.png';
-        }
-    });
-}
+    {
+        static::creating(function ($model) {
+            if (empty($model->logo_campus)) {
+                $model->logo_campus = 'dummy/logo/default.png';
+            }
+        });
+    }
 }
