@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Docker Build & Deploy
 
 on:
   push:
@@ -8,9 +8,11 @@ jobs:
   build-and-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
+    # Memberikan izin agar GitHub bisa menulis paket Docker (GHCR)
     permissions:
       contents: read
       packages: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,36 +29,39 @@ jobs:
         with:
           context: .
           push: true
-          # Gunakan nama lowercase secara manual di sini
+          # Menggunakan huruf kecil (lowercase) agar tidak error
           tags: |
-            ghcr.io/aliffajriadi/batam-campus-expo:latest
-            ghcr.io/aliffajriadi/batam-campus-expo:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/batam-campus-expo:latest
+            ghcr.io/${{ github.repository_owner }}/batam-campus-expo:${{ github.sha }}
 
   deploy:
     name: Deploy to Production
     needs: build-and-push
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    
 
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
         with:
+          # Memanggil data dari Secrets yang Anda isi tadi
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            # Masuk ke folder aplikasi di VPS
             cd /home/ubuntu/Batam-Campus-Expo
             
-            # Update docker-compose.yml jika ada perubahan di git
+            # Tarik perubahan docker-compose.yml terbaru dari Git
             git pull origin ${{ github.ref_name }}
 
-            # Login dan Update Container
+            # Login ke GHCR di sisi VPS (agar bisa pull image)
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            
+            # Pull image terbaru dan jalankan
             docker compose pull
             docker compose up -d
             
-            # Perintah Laravel (Sesuaikan 'app' dengan nama service di docker-compose.yml)
+            # Jalankan perintah Laravel (pastikan nama service-nya 'app')
             docker compose exec -T app php artisan migrate --force
             docker compose exec -T app php artisan optimize
