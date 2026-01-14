@@ -160,6 +160,27 @@
                         placeholder="https://chat.whatsapp.com/...">
                 </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Bank Name</label>
+                        <input type="text" name="bank_name"
+                            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="e.g. BCA">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Account Number</label>
+                        <input type="text" name="account_number"
+                            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="e.g. 12345678">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Account Name</label>
+                        <input type="text" name="account_name"
+                            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="e.g. Batam Campus Expo">
+                    </div>
+                </div>
+
                 <button type="submit"
                     class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition mt-4">
                     Create Ticket Type

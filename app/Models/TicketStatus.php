@@ -3,10 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ClearCacheOnMutation;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TicketStatus extends Model
 {
+    use ClearCacheOnMutation, HasFactory;
+
     protected $table = 'ticket_status';
+
+    protected static $cacheTagsToFlush = ['tickets'];
 
     protected $fillable = [
         'name',
@@ -18,6 +24,9 @@ class TicketStatus extends Model
         'auto_close_ticket_at',
         'sold_ticket',
         'link',
+        'bank_name',
+        'account_number',
+        'account_name',
     ];
 
     public $timestamps = false;

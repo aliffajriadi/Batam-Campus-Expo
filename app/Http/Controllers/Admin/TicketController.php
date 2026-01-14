@@ -103,6 +103,9 @@ class TicketController extends Controller
             'discount' => 'required|numeric|min:0|max:100',
             'auto_close_ticket_at' => 'required|date',
             'link' => 'nullable|string|max:255',
+            'bank_name' => 'nullable|string|max:255',
+            'account_number' => 'nullable|string|max:255',
+            'account_name' => 'nullable|string|max:255',
         ]);
 
         TicketStatus::create($request->all());
@@ -121,6 +124,9 @@ class TicketController extends Controller
             'discount' => 'required|numeric|min:0|max:100',
             'auto_close_ticket_at' => 'required|date',
             'link' => 'nullable|string|max:255',
+            'bank_name' => 'nullable|string|max:255',
+            'account_number' => 'nullable|string|max:255',
+            'account_name' => 'nullable|string|max:255',
         ]);
 
         $ticket = TicketStatus::findOrFail($id);

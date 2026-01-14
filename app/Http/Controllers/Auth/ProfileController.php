@@ -22,7 +22,6 @@ class ProfileController extends Controller
 
     // 2. Jalankan Validasi
     $validated = $request->validate([
-        'name' => 'required|string|max:255',
         'nohp' => 'required|string|max:20', // Sesuaikan panjang nomor HP
         'asal_sekolah' => 'required|string|max:255',
     ]);

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TicketBuyer extends Model
 {
+    use HasFactory;
+
     protected $table = 'ticket_buyer';
 
     protected $fillable = [

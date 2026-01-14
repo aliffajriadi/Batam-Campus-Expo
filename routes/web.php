@@ -73,14 +73,14 @@ Route::middleware(['auth', 'check.suspended'])->group(function () {
 
 
 // Admin Auth Routes
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix(env('ADMIN_USERNAME'))->name('admin.')->middleware('throttle:10,1')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 // Admin Protected Routes
-Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminAuth::class)->group(function () {
+Route::prefix(env('ADMIN_USERNAME'))->name('admin.')->middleware([\App\Http\Middleware\AdminAuth::class, 'throttle:60,1'])->group(function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 

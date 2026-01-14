@@ -38,15 +38,19 @@
 
                                 <!-- Campus Image/Logo -->
                                 <div
-                                    class="h-48 bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
+                                    class="h-48 bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center p-6">
                                     @if ($campus->logo_campus && file_exists(public_path('storage/' . $campus->logo_campus)))
-                                        <img src="{{ asset('storage/' . $campus->logo_campus) }}"
-                                            class="w-full h-full object-cover" alt="{{ $campus->name_campus }}">
+                                        <div
+                                            class="w-32 h-32 bg-white rounded-full p-2 shadow-lg overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                            <img src="{{ asset('storage/' . $campus->logo_campus) }}"
+                                                class="w-full h-full object-contain rounded-full"
+                                                alt="{{ $campus->name_campus }}">
+                                        </div>
                                     @else
                                         <div
-                                            class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg">
+                                            class="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                             <span
-                                                class="text-4xl font-bold text-red-600">{{ substr($campus->singkatan, 0, 3) }}</span>
+                                                class="text-5xl font-bold text-red-600">{{ substr($campus->singkatan, 0, 3) }}</span>
                                         </div>
                                     @endif
                                 </div>

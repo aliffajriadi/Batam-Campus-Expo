@@ -6,63 +6,78 @@ use Illuminate\Http\Request;
 use App\Models\Campus;
 use App\Models\EventSetting;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 class KampusController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Campus::orderBy('name_campus', 'asc');
+        $page = $request->get('page', 1);
+        $search = $request->get('search', '');
+        $status = $request->get('status', 'all');
+        $isAjax = $request->ajax() ? 'ajax' : 'full';
 
-        // Search Filter
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name_campus', 'like', '%' . $search . '%')
-                    ->orWhere('location', 'like', '%' . $search . '%')
-                    ->orWhere('singkatan', 'like', '%' . $search . '%');
-            });
-        }
+        $cacheKey = "kampus_list_{$isAjax}_{$page}_{$search}_{$status}";
 
-        // Status Filter
-        if ($request->filled('status') && $request->status !== 'all') {
-            $query->where('status', $request->status);
-        }
+        $data = Cache::tags(['kampus_page', 'campuses'])->remember($cacheKey, 3600, function () use ($request) {
+            $query = Campus::orderBy('name_campus', 'asc');
 
-        // Pagination
-        $kampuses = $query->paginate(10);
+            // Search Filter
+            if ($request->filled('search')) {
+                $searchVal = $request->search;
+                $query->where(function ($q) use ($searchVal) {
+                    $q->where('name_campus', 'like', '%' . $searchVal . '%')
+                        ->orWhere('location', 'like', '%' . $searchVal . '%')
+                        ->orWhere('singkatan', 'like', '%' . $searchVal . '%');
+                });
+            }
 
-        // Handle AJAX Request
-        if ($request->ajax()) {
-            $view = view('pages.partials.kampus-cards', compact('kampuses'))->render();
+            // Status Filter
+            if ($request->filled('status') && $request->status !== 'all') {
+                $query->where('status', $request->status);
+            }
+
+            // Pagination
+            $kampuses = $query->paginate(10);
+
+            // Handle AJAX Request data
+            if ($request->ajax()) {
+                $view = view('pages.partials.kampus-cards', compact('kampuses'))->render();
+                return [
+                    'ajax' => true,
+                    'html' => $view,
+                    'next_page_url' => $kampuses->nextPageUrl(),
+                    'kampuses_data' => $kampuses->items()
+                ];
+            }
+
+            return [
+                'ajax' => false,
+                'kampuses' => $kampuses,
+            ];
+        });
+
+        if ($data['ajax']) {
             return response()->json([
-                'html' => $view,
-                'next_page_url' => $kampuses->nextPageUrl(),
-                'kampuses_data' => $kampuses->items() // Send data for modal usage
+                'html' => $data['html'],
+                'next_page_url' => $data['next_page_url'],
+                'kampuses_data' => $data['kampuses_data']
             ]);
         }
-
-        // Get event settings for layout variables
-        $eventSetting = EventSetting::first();
-
-        // Provide default values if no event settings exist
-        $data = [
-            'kampuses' => $kampuses,
-            'lokasi' => $eventSetting->location_event ?? 'Mega Mall Batam Center, Lt. 3',
-            'nohp' => $eventSetting->no_contact ?? '081234567890',
-        ];
 
         return view('pages.kampus', $data);
     }
 
     public function vote(Request $request)
     {
-        \Log::info('Voting request received', $request->all());
+        Log::info('Voting request received', $request->all());
 
         $request->validate([
             'campus_id' => 'required|exists:campus,id'
         ]);
 
-        $userId = auth()->id();
+        $userId = Auth::id();
         $campusId = $request->campus_id;
 
         // Check if user already voted for this campus
@@ -84,7 +99,7 @@ class KampusController extends Controller
             'created_at' => now()
         ]);
 
-        \Log::info('Vote created successfully', ['user' => $userId, 'campus' => $campusId]);
+        Log::info('Vote created successfully', ['user' => $userId, 'campus' => $campusId]);
 
         // Get updated vote count
         $voteCount = \App\Models\CampusVoting::where('id_campus', $campusId)->count();

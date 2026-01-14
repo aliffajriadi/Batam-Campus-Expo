@@ -7,40 +7,67 @@ use App\Models\Comment;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class CommunityController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Post::with(['user', 'comments.user', 'likes'])
-            ->whereHas('user', function ($q) {
-                $q->where('is_suspended', false);
-            })
-            ->withCount(['comments', 'likes']);
-
+        $page = $request->get('page', 1);
         $sort = $request->get('sort', 'latest');
         $author = $request->get('author');
+        $isAjax = $request->ajax() ? 'ajax' : 'full';
+        $userId = Auth::id() ?: 'guest';
 
-        // Filter by Author
-        if ($author === 'me' && Auth::check()) {
-            $query->where('user_id', Auth::id());
+        $cacheKey = "community_posts_{$isAjax}_{$page}_{$sort}_{$author}_{$userId}";
+
+        $data = Cache::tags(['community_page', 'posts'])->remember($cacheKey, 3600, function () use ($request, $sort, $author) {
+            $query = Post::with(['user', 'comments.user', 'likes'])
+                ->whereHas('user', function ($q) {
+                    $q->where('is_suspended', false);
+                })
+                ->withCount(['comments', 'likes']);
+
+            // Filter by Author
+            if ($author === 'me' && Auth::check()) {
+                $query->where('user_id', Auth::id());
+            }
+
+            if ($sort === 'popular') {
+                $query->orderBy('likes_count', 'desc');
+            } elseif ($sort === 'comments') {
+                $query->orderBy('comments_count', 'desc');
+            } else {
+                $query->orderBy('created_at', 'desc');
+            }
+
+            $posts = $query->paginate(10);
+
+            if ($request->ajax()) {
+                $html = view('pages.partials.post-card', compact('posts'))->render();
+                return [
+                    'ajax' => true,
+                    'html' => $html
+                ];
+            }
+
+            return [
+                'ajax' => false,
+                'posts' => $posts,
+                'sort' => $sort,
+                'author' => $author
+            ];
+        });
+
+        if ($data['ajax']) {
+            return $data['html'];
         }
 
-        if ($sort === 'popular') {
-            $query->orderBy('likes_count', 'desc');
-        } elseif ($sort === 'comments') {
-            $query->orderBy('comments_count', 'desc');
-        } else {
-            $query->orderBy('created_at', 'desc');
-        }
-
-        $posts = $query->paginate(10);
-
-        if ($request->ajax()) {
-            return view('pages.partials.post-card', compact('posts'))->render();
-        }
-
-        return view('pages.komunitas', compact('posts', 'sort', 'author'));
+        return view('pages.komunitas', [
+            'posts' => $data['posts'],
+            'sort' => $data['sort'],
+            'author' => $data['author']
+        ]);
     }
 
     public function storePost(Request $request)
