@@ -6,6 +6,19 @@
 
 <x-layout.app :title="'Voting Kampus - Batam Campus Expo'" :nohp="$nohp" :lokasi="$lokasi">
     <!-- HERO SECTION VOTING -->
+
+
+    {{-- MODAL UNTUK BILANG KALAU HALAMAN INI SUDAH TIDAK DISEDIAKAN --}}
+    <div id="modal" class="fixed inset-0 z-50 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen bg-amber-950/50 backdrop-blur-3xl">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Maaf, Halaman Ini Tidak Tersedia</h2>
+                <p class="mb-4">Maaf, halaman voting kampus tidak tersedia lagi. <br> Kami menghargai partisipasi Anda dalam voting kampus dan menjaga sportifitas antar kampus.</p>
+                <a href="{{ route('home') }}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Hmmm Oke dech bang</a>
+            </div>
+        </div>
+    </div>
+
     <section class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
             <!-- Header -->

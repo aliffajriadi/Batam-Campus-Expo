@@ -127,7 +127,7 @@
                     PRODUCTS
                 </h1>
                 <p class="text-red-50 text-lg sm:text-xl md:text-2xl opacity-95 max-w-3xl mx-auto leading-relaxed [text-shadow:_2px_2px_4px_rgba(0,0,0,0.3)]">
-                    Temukan koleksi produk premium kami yang dirancang khusus untuk memenuhi kebutuhan Anda
+                    Temukan koleksi produk premium dari Batam Campus Expo.
                 </p>
             </div>
 
@@ -163,9 +163,9 @@
                                 <span class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#A61E22] to-[#8a1a1e]">
                                     Rp {{ number_format($item->price, 0, ',', '.') }}
                                 </span>
-                                <button class="w-full bg-gradient-to-r from-[#A61E22] to-[#8a1a1e] text-white font-bold px-6 py-3.5 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 text-base sm:text-lg">
+                                <a href="https://bit.ly/PreOrderMerchBCE2026" target="_blank" class="w-full bg-gradient-to-r from-[#A61E22] to-[#8a1a1e] text-white font-bold px-6 py-3.5 rounded-full transition-all duration-300 text-center hover:scale-105 hover:shadow-lg active:scale-95 text-base sm:text-lg">
                                     Beli Sekarang
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -50,6 +50,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/ubuntu/Batam-Campus-Expo
+
+            git fetch --all
+            git reset --hard origin/main
             
             # FIX 1: Mengatasi "dubious ownership" agar bisa git pull
             git config --global --add safe.directory /home/ubuntu/Batam-Campus-Expo
@@ -65,12 +68,10 @@ jobs:
             # FIX 2: Mengatasi "Failed opening autoload.php"
             # Kita jalankan composer install di dalam container jika vendor kosong
             docker compose exec -T app composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-            docker compose pull app
-            docker compose up -d app
             docker compose exec -T app php artisan optimize:clear
             docker compose exec -T app php artisan config:cache
             docker compose exec -T app php artisan view:cache
             docker compose exec -T app php artisan route:cache
-            docker compose exec -T app php artisan cache:clear
+
             # Jalankan perintah standar Laravel
             docker compose exec -T app php artisan migrate --force
