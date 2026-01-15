@@ -424,9 +424,9 @@
 
                 // Update Bank Details
                 const ticket = JSON.parse(label.getAttribute('data-ticket'));
-                document.getElementById('bank-name').textContent = ticket.bank_name || 'BCA';
-                document.getElementById('account-number').textContent = ticket.account_number || '1234567890';
-                document.getElementById('account-name').textContent = ticket.account_name || 'BATAM CAMPUS EXPO';
+                document.getElementById('bank-name').textContent = ticket.bank_name || '-';
+                document.getElementById('account-number').textContent = ticket.account_number || '-';
+                document.getElementById('account-name').textContent = ticket.account_name || '-';
 
                 // Update Hidden Input
                 document.getElementById('ticket_id').value = radio.value;
