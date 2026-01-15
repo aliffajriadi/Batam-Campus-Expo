@@ -50,12 +50,18 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/ubuntu/Batam-Campus-Expo
-
+            
+            sudo docker compose exec -T app php artisan storage:link
             sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/storage
             sudo chmod -R 775 /home/ubuntu/Batam-Campus-Expo/storage
+            sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/public
+            sudo chmod -R 775 /home/ubuntu/Batam-Campus-Expo/public
+            sudo mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache
+            sudo mkdir -p public/images/payment_proof
 
             sudo git fetch --all
             sudo git reset --hard origin/main
+            sudo docker compose exec -T app php artisan storage:link
 
             sudo docker compose exec -T app npm install
             sudo docker compose exec -T app npm run build

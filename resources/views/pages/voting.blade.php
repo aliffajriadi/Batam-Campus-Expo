@@ -14,7 +14,7 @@
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-bold mb-4">Maaf, Halaman Ini Tidak Tersedia</h2>
                 <p class="mb-4">Maaf, halaman voting kampus tidak tersedia lagi. <br> Kami menghargai partisipasi Anda dalam voting kampus dan menjaga sportifitas antar kampus.</p>
-                <a href="{{ route('home') }}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Hmmm Oke dech bang</a>
+                <a href="{{ route('home') }}" class="bg-red-500 rounded-4xl text-white px-4 py-2 hover:bg-green-800">Hmmm Oke dech bang</a>
             </div>
         </div>
     </div>
