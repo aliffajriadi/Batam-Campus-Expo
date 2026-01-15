@@ -72,9 +72,6 @@ jobs:
             # Kita jalankan composer install di dalam container jika vendor kosong
             sudo docker compose exec -T app composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
             sudo docker compose exec -T app php artisan optimize:clear
-            sudo docker compose exec -T app php artisan config:cache
-            sudo docker compose exec -T app php artisan view:cache
-            sudo docker compose exec -T app php artisan route:cache
 
             # Jalankan perintah standar Laravel
             sudo docker compose exec -T app php artisan migrate --force

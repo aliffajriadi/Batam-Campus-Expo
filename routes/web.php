@@ -71,7 +71,7 @@ Route::middleware(['auth', 'check.suspended'])->group(function () {
 //})->name('profile');
 //});
 
-$route = 'bcebcemanageradminbce26' . config('admin_username');
+$route = 'bcebcemanageradminbce26' . config('app.admin_username', 'it');
 // Admin Auth Routes
 Route::prefix($route)->name('admin.')->middleware('throttle:10,1')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
