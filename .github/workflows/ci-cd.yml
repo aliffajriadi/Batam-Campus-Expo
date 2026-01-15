@@ -56,6 +56,9 @@ jobs:
 
             sudo git fetch --all
             sudo git reset --hard origin/main
+
+            sudo docker compose exec -T app npm install
+            sudo docker compose exec -T app npm run build
             
             # FIX 1: Mengatasi "dubious ownership" agar bisa git pull
             sudo git config --global --add safe.directory /home/ubuntu/Batam-Campus-Expo
@@ -75,3 +78,4 @@ jobs:
 
             # Jalankan perintah standar Laravel
             sudo docker compose exec -T app php artisan migrate --force
+            sudo docker compose exec -T app php artisan optimize
