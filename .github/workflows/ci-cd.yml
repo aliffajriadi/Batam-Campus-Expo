@@ -51,6 +51,9 @@ jobs:
           script: |
             cd /home/ubuntu/Batam-Campus-Expo
 
+            sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/storage
+            sudo chmod -R 775 /home/ubuntu/Batam-Campus-Expo/storage
+
             git fetch --all
             git reset --hard origin/main
             
