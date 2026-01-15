@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 use App\Models\EventSetting;
 use App\Models\TicketStatus;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (config('app.env') !== 'local') {
+            URL::forceScheme('https');
+        }
         // Global view composer for event settings and ticket status
         View::composer('*', function ($view) {
             $globalSettings = Cache::tags(['event_settings'])->remember('global_event_settings', 3600, function () {

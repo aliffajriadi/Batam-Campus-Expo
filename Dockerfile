@@ -27,7 +27,9 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # 5. Install Redis extension
-RUN pecl install redis && docker-php-ext-enable redis
+RUN mkdir -p /usr/src/php/ext/redis \
+    && curl -L https://github.com/phpredis/phpredis/archive/6.0.2.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip-components=1 \
+    && docker-php-ext-install redis
 
 # 6. Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -40,7 +42,7 @@ COPY . /var/www
 
 # 9. Install Composer dependencies
 # Kita jalankan ini agar vendor/ terisi di dalam image
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
 # 10. Install NPM dependencies & Build Assets (Vite)
 # Ini solusi untuk error "Vite manifest not found"
