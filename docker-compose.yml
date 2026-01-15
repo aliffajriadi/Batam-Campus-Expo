@@ -14,14 +14,14 @@ services:
       - ./bootstrap/cache:/var/www/bootstrap/cache
     networks:
       - bce-network
-      
+
   # Nginx Service
   web:
     image: nginx:alpine
     container_name: bce-web
     restart: unless-stopped
     ports:
-      - "80:80" # Di prod biasanya pakai port 80/443
+      - "8000:80" # Di prod biasanya pakai port 80/443
     volumes:
       # JANGAN MOUNT ./:/var/www (Ini yang bikin CSS rusak & Permission error)
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
