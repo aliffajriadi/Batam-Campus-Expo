@@ -337,7 +337,7 @@
                 </h3>
 
                 <div class="flex flex-col gap-4 sm:gap-6 items-center">
-                    @php $okk = ['Berbagai Macam Merchandise', 'Sharing Seputar Kampus, Jurusan dan Beasiswa', 'Tanya Jawab di Komunitas'] @endphp
+                    @php $okk = ['Berbagai Macam Merchandise', 'Sharing Seputar Kampus dan Beasiswa', 'Tanya Jawab di Komunitas'] @endphp
                     @foreach ($okk as $campus)
                         <div class="relative w-full max-w-sm sm:max-w-md lg:max-w-xl">
                             <img src="{{ asset('images/PlaceHolderKampus.svg') }}" class="w-full" alt="label">
@@ -394,12 +394,16 @@
                         ],
                         [
                             'question' => 'Apakah kegiatan ini berbayar?',
-                            'answer' => 'Ya, Kegiatan ini berbayar sebesar Rp. 10.000,-',
+                            'answer' => 'Ya, Kegiatan ini berbayar sebesar Rp. 5.000,-',
                         ],
                         [
                             'question' => 'Apa saja yang bisa didapatkan di expo?',
                             'answer' =>
-                                'Pengunjung dapat: konsultasi langsung dengan perwakilan kampus, informasi program studi dan beasiswa, seminar pendidikan, workshop karir, doorprize menarik, serta kesempatan mendaftar langsung dengan potongan biaya masuk.',
+                                'Kamu akan dapat: konsultasi langsung dengan perwakilan kampus, informasi program studi dan beasiswa, seminar pendidikan, workshop karir, doorprize menarik, serta kesempatan mendaftar langsung dengan potongan biaya masuk.',
+                        ],
+                        [
+                            'question' => 'Bagaimana cara membeli tiket?',
+                            'answer' => 'Kamu dapat membeli dengan login terlebih dahulu, lalu kamu klik Ticket pada menu Atas dan lakukan pembayaran serta kirim bukti pembayaran ☺️',
                         ],
                     ];
                 @endphp
