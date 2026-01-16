@@ -27,6 +27,7 @@ services:
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
       # Nginx membaca volume yang sama dengan App (SANGAT PENTING)
       - bce-public-data:/var/www/public
+      - ./storage:/var/www/storage
     networks:
       - bce-network
     depends_on:
