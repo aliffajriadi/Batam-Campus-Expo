@@ -28,7 +28,7 @@ services:
       # JANGAN MOUNT ./:/var/www (Ini yang bikin CSS rusak & Permission error)
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
       # Kita pakai volumes_from agar Nginx bisa baca file statis (CSS/JS) dari container App
-      - ./storage/app/public:/var/www/storage/app/public
+      # - ./storage/app/public:/var/www/storage/app/public
     networks:
       - bce-network
     volumes_from:
