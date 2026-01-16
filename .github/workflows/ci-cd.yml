@@ -50,8 +50,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/ubuntu/Batam-Campus-Expo
-            
-            sudo docker compose exec -T app php artisan storage:link
+
+            sudo docker compose exec -T bce-app php artisan storage:link
             sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/storage
             sudo chmod -R 775 /home/ubuntu/Batam-Campus-Expo/storage
             sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/public
@@ -75,11 +75,10 @@ jobs:
             
             # FIX 2: Mengatasi "Failed opening autoload.php"
             # Kita jalankan composer install di dalam container jika vendor kosong
-            sudo docker compose exec -T app php artisan storage:link
-            sudo docker compose exec -T app composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-            sudo docker compose exec -T app php artisan optimize:clear
+            sudo docker compose exec -T bce-app composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+            sudo docker compose exec -T bce-app php artisan optimize:clear
 
             # Jalankan perintah standar Laravel
-            sudo docker compose exec -T app php artisan migrate --force
-            sudo docker compose exec -T app php artisan optimize
+            sudo docker compose exec -T bce-app php artisan migrate --force
+            sudo docker compose exec -T bce-app php artisan optimize
             sudo docker image prune -f
