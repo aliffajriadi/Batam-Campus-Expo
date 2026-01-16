@@ -3,7 +3,6 @@ version: "3.8"
 services:
   # PHP Service
   app:
-    # Hapus bagian 'build:', kita murni pakai image dari GitHub (GHCR)
     image: ghcr.io/aliffajriadi/batam-campus-expo:latest
     container_name: bce-app
     restart: unless-stopped
@@ -12,7 +11,8 @@ services:
       - ./.env:/var/www/.env
       - ./storage:/var/www/storage
       - ./bootstrap/cache:/var/www/bootstrap/cache
-      # - app-data:/var/www
+      # Kita buat volume khusus untuk folder public agar sinkron ke Nginx
+      - bce-public-data:/var/www/public
     networks:
       - bce-network
 
@@ -22,17 +22,13 @@ services:
     container_name: bce-web
     restart: unless-stopped
     ports:
-      - "8000:80" # Di prod biasanya pakai port 80/443
+      - "8000:80"
     volumes:
-      # - app-data:/var/www
-      # JANGAN MOUNT ./:/var/www (Ini yang bikin CSS rusak & Permission error)
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
-      # Kita pakai volumes_from agar Nginx bisa baca file statis (CSS/JS) dari container App
-      # - ./storage/app/public:/var/www/storage/app/public
+      # Nginx membaca volume yang sama dengan App (SANGAT PENTING)
+      - bce-public-data:/var/www/public
     networks:
       - bce-network
-    volumes_from:
-      - app
     depends_on:
       - app
 
@@ -75,5 +71,6 @@ volumes:
     driver: local
   bce-redis-data:
     driver: local
-  # app-data:
-  #   driver: local
+  # Definisikan volume untuk sinkronisasi file public
+  bce-public-data:
+    driver: local
