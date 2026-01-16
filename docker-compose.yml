@@ -31,6 +31,8 @@ services:
       - ./storage/app/public:/var/www/storage/app/public
     networks:
       - bce-network
+    volumes_from:
+      - app
     depends_on:
       - app
 
