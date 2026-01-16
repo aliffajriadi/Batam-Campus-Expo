@@ -333,11 +333,11 @@
             <div class="mt-16 sm:mt-20 lg:mt-24 text-center">
                 <h3
                     class="font-sancreek uppercase text-[#D32F2F] text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-10 lg:mb-12 [text-shadow:_1px_1px_0_rgba(255,99,132,0.4),_0_0_14px_rgba(255,182,193,0.5)]">
-                    Yuk Mampir ke Batam Campus Expo
+                    Ada apa aja sih di Batam Campus Expo ??
                 </h3>
 
                 <div class="flex flex-col gap-4 sm:gap-6 items-center">
-                    @php $okk = ['Berbagai Macam Merchandise', 'Order Ticket', 'Tanya Jawab di Komunitas'] @endphp
+                    @php $okk = ['Berbagai Macam Merchandise', 'Sharing Seputar Kampus, Jurusan dan Beasiswa', 'Tanya Jawab di Komunitas'] @endphp
                     @foreach ($okk as $campus)
                         <div class="relative w-full max-w-sm sm:max-w-md lg:max-w-xl">
                             <img src="{{ asset('images/PlaceHolderKampus.svg') }}" class="w-full" alt="label">
@@ -354,7 +354,7 @@
             <!-- CTA -->
             <div class="mt-12 sm:mt-16 lg:mt-20 text-center">
                 <button class="ticket-button">
-                    Selengkapnya..
+                    Masih Banyak lagi ...
                 </button>
             </div>
         </div>

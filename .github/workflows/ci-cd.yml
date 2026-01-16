@@ -59,12 +59,12 @@ jobs:
             sudo mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache
             sudo mkdir -p public/images/payment_proof
 
-            sudo git fetch --all
-            sudo git reset --hard origin/main
-            sudo docker compose exec -T app php artisan storage:link
+             # Update container
+            sudo docker compose pull
+            sudo docker compose up -d --force-recreate
 
-            sudo docker compose exec -T app npm install
-            sudo docker compose exec -T app npm run build
+            # sudo git fetch --all
+            # sudo git reset --hard origin/main
             
             # FIX 1: Mengatasi "dubious ownership" agar bisa git pull
             sudo git config --global --add safe.directory /home/ubuntu/Batam-Campus-Expo
@@ -73,12 +73,9 @@ jobs:
             # Login ke GitHub Container Registry
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
-            # Update container
-            sudo docker compose pull
-            sudo docker compose up -d
-            
             # FIX 2: Mengatasi "Failed opening autoload.php"
             # Kita jalankan composer install di dalam container jika vendor kosong
+            sudo docker compose exec -T app php artisan storage:link
             sudo docker compose exec -T app composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
             sudo docker compose exec -T app php artisan optimize:clear
 

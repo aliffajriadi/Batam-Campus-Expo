@@ -12,7 +12,7 @@ services:
       - ./.env:/var/www/.env
       - ./storage:/var/www/storage
       - ./bootstrap/cache:/var/www/bootstrap/cache
-      - app-data:/var/www
+      # - app-data:/var/www
     networks:
       - bce-network
 
@@ -24,7 +24,7 @@ services:
     ports:
       - "8000:80" # Di prod biasanya pakai port 80/443
     volumes:
-      - app-data:/var/www
+      # - app-data:/var/www
       # JANGAN MOUNT ./:/var/www (Ini yang bikin CSS rusak & Permission error)
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
       # Kita pakai volumes_from agar Nginx bisa baca file statis (CSS/JS) dari container App
@@ -73,5 +73,5 @@ volumes:
     driver: local
   bce-redis-data:
     driver: local
-  app-data:
-    driver: local
+  # app-data:
+  #   driver: local
