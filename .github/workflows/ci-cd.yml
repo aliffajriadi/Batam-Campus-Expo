@@ -51,7 +51,6 @@ jobs:
           script: |
             cd /home/ubuntu/Batam-Campus-Expo
 
-            sudo docker exec bce-app php artisan storage:link
             sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/storage
             sudo chmod -R 775 /home/ubuntu/Batam-Campus-Expo/storage
             sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/public
