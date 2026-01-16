@@ -17,7 +17,7 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-            class="w-[90vw] md:w-[400px] h-[500px] md:h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-2 relative">
+            class="w-[90vw] md:w-[350px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-2 relative">
 
             <!-- Header -->
             <div class="bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] p-4 flex justify-between items-center text-white">
