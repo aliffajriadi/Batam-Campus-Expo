@@ -172,6 +172,19 @@
                     </svg>
                     Scan Merchandise
                 </a>
+
+                <div class="pt-2">
+                    <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">System</p>
+                </div>
+
+                <a href="{{ route('admin.ai-settings.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('admin.ai-settings.*') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    AI Chat Settings
+                </a>
             </nav>
 
             <div class="p-4 border-t border-gray-700">

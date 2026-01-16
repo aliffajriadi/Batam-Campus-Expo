@@ -62,6 +62,12 @@
     <!-- FOOTER -->
     @include('components.layout.footer', ['nohp' => $nohp ?? '', 'lokasi' => $lokasi ?? ''])
 
+    <!-- Chat Widget -->
+    @include('components.chat-widget')
+
+    <!-- Alpine.js -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+
     @stack('scripts')
 </body>
 

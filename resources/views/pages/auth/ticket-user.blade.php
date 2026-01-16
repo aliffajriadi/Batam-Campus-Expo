@@ -147,6 +147,12 @@
                                 <p class="font-bold text-gray-800" id="account-name">BATAM CAMPUS EXPO</p>
                             </div>
 
+                            <div class="bg-white rounded-lg p-3 shadow-sm hidden" id="qr-container">
+                                <p class="text-xs text-gray-500 mb-2">Scan QRIS</p>
+                                <img id="qr-image" src="" alt="QRIS"
+                                    class="w-full max-w-[200px] mx-auto h-auto rounded-lg border border-gray-200">
+                            </div>
+
                             <div class="bg-white rounded-lg p-3 shadow-sm">
                                 <p class="text-xs text-gray-500 mb-1">Jumlah Transfer</p>
                                 <p class="font-bold text-[#A61E22] text-2xl" id="display-price">Rp 0</p>
@@ -427,6 +433,17 @@
                 document.getElementById('bank-name').textContent = ticket.bank_name || '-';
                 document.getElementById('account-number').textContent = ticket.account_number || '-';
                 document.getElementById('account-name').textContent = ticket.account_name || '-';
+
+                // Update QR Image
+                const qrContainer = document.getElementById('qr-container');
+                const qrImage = document.getElementById('qr-image');
+
+                if (ticket.qr_image) {
+                    qrImage.src = "{{ asset('storage') }}/" + ticket.qr_image;
+                    qrContainer.classList.remove('hidden');
+                } else {
+                    qrContainer.classList.add('hidden');
+                }
 
                 // Update Hidden Input
                 document.getElementById('ticket_id').value = radio.value;

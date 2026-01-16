@@ -106,9 +106,17 @@ class TicketController extends Controller
             'bank_name' => 'nullable|string|max:255',
             'account_number' => 'nullable|string|max:255',
             'account_name' => 'nullable|string|max:255',
+            'qr_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        TicketStatus::create($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('qr_image')) {
+            $path = $request->file('qr_image')->store('ticket-qr', 'public');
+            $data['qr_image'] = $path;
+        }
+
+        TicketStatus::create($data);
 
         return redirect()->back()->with('success', 'Ticket type created successfully');
     }
@@ -127,10 +135,22 @@ class TicketController extends Controller
             'bank_name' => 'nullable|string|max:255',
             'account_number' => 'nullable|string|max:255',
             'account_name' => 'nullable|string|max:255',
+            'qr_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $ticket = TicketStatus::findOrFail($id);
-        $ticket->update($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('qr_image')) {
+            // Delete old image if exists
+            if ($ticket->qr_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->qr_image)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->qr_image);
+            }
+            $path = $request->file('qr_image')->store('ticket-qr', 'public');
+            $data['qr_image'] = $path;
+        }
+
+        $ticket->update($data);
 
         return redirect()->route('admin.ticket.settings')->with('success', 'Ticket type updated successfully');
     }

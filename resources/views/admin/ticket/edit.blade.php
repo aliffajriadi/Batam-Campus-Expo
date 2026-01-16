@@ -19,7 +19,8 @@
 
     <div class="max-w-2xl">
         <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-xl">
-            <form action="{{ route('admin.ticket.type.update', $ticket->id) }}" method="POST" class="space-y-6">
+            <form action="{{ route('admin.ticket.type.update', $ticket->id) }}" method="POST" class="space-y-6"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -105,6 +106,22 @@
                                 class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
                                 placeholder="e.g. Batam Campus Expo">
                         </div>
+                    </div>
+
+                    <div class="md:col-span-2 pt-4 border-t border-gray-700">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">QRIS / Payment Image</label>
+
+                        @if ($ticket->qr_image)
+                            <div class="mb-4">
+                                <p class="text-xs text-gray-400 mb-2">Current Image:</p>
+                                <img src="{{ asset('storage/' . $ticket->qr_image) }}" alt="QRIS"
+                                    class="w-32 h-auto rounded-lg border border-gray-600">
+                            </div>
+                        @endif
+
+                        <input type="file" name="qr_image" accept="image/*"
+                            class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        <p class="text-xs text-gray-500 mt-2">Upload a new image to replace the current one.</p>
                     </div>
                 </div>
 

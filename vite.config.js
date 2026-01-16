@@ -11,8 +11,15 @@ export default defineConfig({
         tailwindcss(),
     ],
     server: {
+        host: '0.0.0.0', // Agar bisa diakses dari luar container
+        port: 5173,      // Paksa tetap di 5173
+        strictPort: true, // Jangan pindah ke 5174 kalau 5173 penuh
+        hmr: {
+            host: 'localhost',
+        },
         watch: {
             ignored: ['**/storage/framework/views/**'],
+            usePolling: true, // WAJIB untuk Docker agar perubahan file terdeteksi
         },
     },
 

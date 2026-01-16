@@ -27,6 +27,7 @@ class TicketStatus extends Model
         'bank_name',
         'account_number',
         'account_name',
+        'qr_image',
     ];
 
     public $timestamps = false;

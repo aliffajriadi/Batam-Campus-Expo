@@ -140,4 +140,18 @@ Route::prefix($route)->name('admin.')->middleware([\App\Http\Middleware\AdminAut
 
     // Kegiatan Management
     Route::resource('kegiatan', \App\Http\Controllers\Admin\KegiatanController::class);
+
+    // AI Chat Settings
+    Route::get('/ai-settings', [\App\Http\Controllers\Admin\AiChatSettingController::class, 'index'])->name('ai-settings.index');
+    Route::post('/ai-settings', [\App\Http\Controllers\Admin\AiChatSettingController::class, 'update'])->name('ai-settings.update');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/chat/history', [\App\Http\Controllers\ChatController::class, 'index'])
+        ->name('chat.history')
+        ->middleware('throttle:60,1'); // 60 requests per minute for history
+
+    Route::post('/chat/send', [\App\Http\Controllers\ChatController::class, 'sendMessage'])
+        ->name('chat.send')
+        ->middleware('throttle:5,1'); // 5 messages per minute to prevent spam
 });

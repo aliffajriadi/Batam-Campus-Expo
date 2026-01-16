@@ -96,7 +96,8 @@
         <!-- Create New Ticket -->
         <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 h-fit sticky top-6">
             <h2 class="text-xl font-semibold text-gray-200 mb-6">Add New Ticket Type</h2>
-            <form action="{{ route('admin.ticket.type.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.ticket.type.store') }}" method="POST" class="space-y-4"
+                enctype="multipart/form-data">
                 @csrf
 
                 <div>
@@ -179,6 +180,12 @@
                             class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             placeholder="e.g. Batam Campus Expo">
                     </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">QRIS / Payment Image</label>
+                    <input type="file" name="qr_image" accept="image/*"
+                        class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
 
                 <button type="submit"
