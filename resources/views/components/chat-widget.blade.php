@@ -8,7 +8,8 @@
 
 @if ($chatSetting && $chatSetting->is_active)
     <div x-data="chatWidget()" x-init="init()"
-        class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2 font-sans" style="display: none;" x-show="true">
+        class="fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-2 font-sans" style="display: none;"
+        x-show="true">
         <!-- Chat Window -->
         <div x-show="isOpen" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4 scale-95"
@@ -16,13 +17,15 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-            class="w-[350px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-2 relative">
+            class="w-[90vw] md:w-[400px] h-[500px] md:h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-2 relative">
 
             <!-- Header -->
             <div class="bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] p-4 flex justify-between items-center text-white">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                        <img src="{{ asset('images/logo.png') }}" alt="AI Chat" class="w-full h-full object-cover">
+                    <div
+                        class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm shrink-0 overflow-hidden">
+                        <img src="{{ asset('images/logo.png') }}" alt="AI Chat"
+                            class="w-full h-full object-cover object-center rounded-full">
                     </div>
                     <div>
                         <h3 class="font-bold text-sm text-[#fbbf24]">BCE AI Assistant</h3>
@@ -126,7 +129,8 @@
                         <path
                             d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
                     </svg>
-                    <p class="text-[10px] text-gray-400">AI Bisa saja salah, jikalau pertanyaan kamu tidak pas, silahkan hubungi nomor tertera.</p>
+                    <p class="text-[10px] text-gray-400">AI Bisa saja salah, jikalau pertanyaan kamu tidak pas, silahkan
+                        hubungi nomor tertera.</p>
                 </div>
             </div>
         </div>
