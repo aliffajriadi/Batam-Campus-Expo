@@ -25,8 +25,10 @@ class AiChatSettingController extends Controller
         $setting = AiChatSetting::firstOrNew();
         $setting->api_key = $request->api_key;
         $setting->system_instruction = $request->system_instruction;
-        // Check input for boolean switch
-        $setting->is_active = $request->has('is_active');
+        // Check input for boolean switch / select
+        // For select: value is "1" or "0". For checkbox: "1" or null.
+        // We cast to boolean.
+        $setting->is_active = (bool) $request->input('is_active');
         $setting->save();
 
         // Clear cache

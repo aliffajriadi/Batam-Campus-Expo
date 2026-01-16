@@ -18,13 +18,12 @@
                     <p class="text-sm text-gray-400">Turn the chat widget on or off for users.</p>
                 </div>
                 <!-- Toggle Switch -->
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" name="is_active" value="1" class="sr-only peer"
-                        {{ $setting->is_active ? 'checked' : '' }}>
-                    <div
-                        class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600">
-                    </div>
-                </label>
+                <!-- Toggle Switch Replaced with Select for Reliability -->
+                <select name="is_active"
+                    class="bg-gray-700 text-white border border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="0" {{ !$setting->is_active ? 'selected' : '' }}>Disabled</option>
+                    <option value="1" {{ $setting->is_active ? 'selected' : '' }}>Active</option>
+                </select>
             </div>
 
             <div>
