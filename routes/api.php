@@ -8,6 +8,6 @@ use App\Http\Controllers\Admin\ReportController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-
-Route::get('/scan/cek-ticket', [ReportController::class, 'checkTicket']);
-Route::get('/scan/confirm-ticket', [ReportController::class, 'confirmTicket']);
+$route = 'scan' . config('app.admin_username');
+Route::get('/scan/cek-ticket ' . $route, [ReportController::class, 'checkTicket']);
+Route::get('/scan/confirm-ticket ' . $route, [ReportController::class, 'confirmTicket']);
