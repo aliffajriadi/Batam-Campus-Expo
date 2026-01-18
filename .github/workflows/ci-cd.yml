@@ -51,6 +51,10 @@ jobs:
           script: |
             cd /home/ubuntu/Batam-Campus-Expo
 
+            # FIX 1: Mengatasi "dubious ownership" agar bisa git pull
+            sudo git config --global --add safe.directory /home/ubuntu/Batam-Campus-Expo
+            sudo git pull origin ${{ github.ref_name }}
+
             sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/storage
             sudo chmod -R 775 /home/ubuntu/Batam-Campus-Expo/storage
             sudo chown -R 33:33 /home/ubuntu/Batam-Campus-Expo/public
@@ -58,19 +62,15 @@ jobs:
             sudo mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache
             sudo mkdir -p public/images/payment_proof
 
-             # Update container
+            # Update container
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             sudo docker compose pull
             sudo docker compose up -d --force-recreate
 
             # sudo git fetch --all
             # sudo git reset --hard origin/main
-            
-            # FIX 1: Mengatasi "dubious ownership" agar bisa git pull
-            sudo git config --global --add safe.directory /home/ubuntu/Batam-Campus-Expo
-            sudo git pull origin ${{ github.ref_name }}
 
             # Login ke GitHub Container Registry
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
             # FIX 2: Mengatasi "Failed opening autoload.php"
             # Kita jalankan composer install di dalam container jika vendor kosong

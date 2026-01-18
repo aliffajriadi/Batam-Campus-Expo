@@ -381,9 +381,20 @@
 
                             @if ($ticket->status_acc)
                                 <div class="flex flex-col items-center justify-center space-y-4">
-                                    <div class="p-4 bg-gray-50 rounded-2xl border-2 border-gray-100 shadow-inner">
+                                    <div class="p-4 bg-gray-50 rounded-2xl border-2 border-gray-100 shadow-inner"
+                                        id="qr-content">
                                         {!! QrCode::size(160)->margin(1)->generate($ticket->token) !!}
                                     </div>
+                                    <button onclick="downloadQR()"
+                                        class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center transition">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4">
+                                            </path>
+                                        </svg>
+                                        Download QR
+                                    </button>
                                     <p class="text-[10px] text-gray-400 font-medium">SIMPAN QR INI, KARENA QR INI AKAN
                                         DI CEK PADA HARI ACARA</p>
                                 </div>
@@ -562,6 +573,49 @@
                 navigator.clipboard.writeText(text).then(() => {
                     alert('Nomor rekening berhasil disalin!');
                 });
+            }
+
+            function downloadQR() {
+                const qrContainer = document.getElementById('qr-content');
+                const svg = qrContainer.querySelector('svg');
+
+                if (svg) {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const img = new Image();
+
+                    // Convert SVG data to Base64
+                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const svgBlob = new Blob([svgData], {
+                        type: 'image/svg+xml;charset=utf-8'
+                    });
+                    const url = URL.createObjectURL(svgBlob);
+
+                    img.onload = function() {
+                        // Set canvas size to match image (plus some padding if desired, or keep original size)
+                        canvas.width = img.width + 40; // Add padding
+                        canvas.height = img.height + 40;
+
+                        // White background
+                        ctx.fillStyle = 'white';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                        // Draw image centered
+                        ctx.drawImage(img, 20, 20);
+
+                        const a = document.createElement('a');
+                        a.download = 'ticket-qr-{{ $ticket->code ?? 'CODE' }}.png';
+                        a.href = canvas.toDataURL('image/png');
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    };
+
+                    img.src = url;
+                } else {
+                    alert('QR Code not found!');
+                }
             }
         </script>
     @endpush

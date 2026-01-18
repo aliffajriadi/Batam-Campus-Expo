@@ -79,6 +79,23 @@
         </div>
     </div>
 
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Sales & Revenue Chart -->
+        <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <h2 class="text-lg font-semibold text-gray-100 mb-4">Sales & Revenue (Last 7 Days)</h2>
+            <canvas id="salesChart"></canvas>
+        </div>
+
+        <!-- Ticket Type Distribution -->
+        <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <h2 class="text-lg font-semibold text-gray-100 mb-4">Ticket Type Distribution</h2>
+            <div class="h-64 flex justify-center">
+                <canvas id="ticketTypeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
     <!-- Pending Items -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <!-- Pending Tickets -->
@@ -175,3 +192,113 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Sales & Revenue Chart
+        const ctxSales = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctxSales, {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($stats['chart_labels']) !!},
+                datasets: [{
+                    label: 'Tickets Sold',
+                    data: {!! json_encode($stats['chart_ticket_data']) !!},
+                    borderColor: '#10B981', // Emerald 500
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    yAxisID: 'y',
+                    tension: 0.4
+                }, {
+                    label: 'Revenue',
+                    data: {!! json_encode($stats['chart_revenue_data']) !!},
+                    borderColor: '#F59E0B', // Amber 500
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    yAxisID: 'y1',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        grid: {
+                            color: '#374151' // Gray 700
+                        },
+                        ticks: {
+                            color: '#9CA3AF' // Gray 400
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                        ticks: {
+                            color: '#9CA3AF',
+                            callback: function(value) {
+                                return 'Rp ' + new Intl.NumberFormat('id-ID').format(value);
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#374151'
+                        },
+                        ticks: {
+                            color: '#9CA3AF'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#D1D5DB' // Gray 300
+                        }
+                    }
+                }
+            }
+        });
+
+        // Ticket Type Distribution Chart
+        const ctxPie = document.getElementById('ticketTypeChart').getContext('2d');
+        new Chart(ctxPie, {
+            type: 'doughnut',
+            data: {
+                labels: {!! json_encode($stats['pie_labels']) !!},
+                datasets: [{
+                    data: {!! json_encode($stats['pie_data']) !!},
+                    backgroundColor: [
+                        '#3B82F6', // Blue 500
+                        '#8B5CF6', // Violet 500
+                        '#EC4899', // Pink 500
+                        '#10B981', // Emerald 500
+                        '#F59E0B', // Amber 500
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#D1D5DB'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
