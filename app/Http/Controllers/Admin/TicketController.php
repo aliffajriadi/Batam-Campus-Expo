@@ -34,6 +34,17 @@ class TicketController extends Controller
             }
         }
 
+        // Filter by claimed status (done_check)
+        if ($request->filled('claimed')) {
+            if ($request->claimed === 'yes') {
+                // Only show tickets that are approved and have been claimed
+                $query->where('status_acc', true)->where('done_check', true);
+            } elseif ($request->claimed === 'no') {
+                // Only show tickets that are approved but not yet claimed
+                $query->where('status_acc', true)->where('done_check', false);
+            }
+        }
+
         $buyers = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
 
         return view('admin.ticket.index', compact('buyers'));

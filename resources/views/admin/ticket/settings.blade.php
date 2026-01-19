@@ -31,11 +31,12 @@
                                     </path>
                             </a>
                             <!-- Delete Button -->
-                            <form action="{{ route('admin.ticket.type.destroy', $ticket->id) }}" method="POST"
-                                onsubmit="return confirm('Delete this ticket type?')">
+                            <form id="delete-form-{{ $ticket->id }}"
+                                action="{{ route('admin.ticket.type.destroy', $ticket->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="p-2 text-red-500 hover:text-red-400 transition"
+                                <button type="button" onclick="confirmDelete('{{ $ticket->id }}', '{{ $ticket->name }}')"
+                                    class="p-2 text-red-500 hover:text-red-400 transition"
                                     {{ $ticket->buyers->count() > 0 ? 'disabled title="Cannot delete, has buyers"' : '' }}>
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -195,5 +196,19 @@
             </form>
         </div>
     </div>
+    <script>
+        function confirmDelete(id, ticketName) {
+            // Prompt muncul menanyakan teks konfirmasi
+            const confirmationText = "konfirmasihapustiket";
+            const userInput = prompt(`Hapus tiket "${ticketName}"?\n\nKetik "${confirmationText}" untuk melanjutkan:`);
 
+            if (userInput === confirmationText) {
+                // Jika teks cocok, submit form
+                document.getElementById(`delete-form-${id}`).submit();
+            } else if (userInput !== null) {
+                // Jika teks salah (dan user tidak menekan 'Cancel')
+                alert("Teks konfirmasi salah. Penghapusan dibatalkan.");
+            }
+        }
+    </script>
 @endsection
