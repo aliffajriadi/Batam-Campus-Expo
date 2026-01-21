@@ -23,167 +23,177 @@
         <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
             <!-- HEADER -->
             <div class="text-center mb-8 md:mb-12">
-                <h1 class="font-sancreek uppercase text-[#D32F2F] text-4xl md:text-5xl lg:text-6xl mb-3 [text-shadow:_1px_1px_0_rgba(255,99,132,0.4),_0_0_14px_rgba(255,182,193,0.5)]">
+                <h1
+                    class="font-sancreek uppercase text-[#D32F2F] text-4xl md:text-5xl lg:text-6xl mb-3 [text-shadow:_1px_1px_0_rgba(255,99,132,0.4),_0_0_14px_rgba(255,182,193,0.5)]">
                     Campus Logo Quiz
                 </h1>
                 <p class="text-gray-800 text-base md:text-lg max-w-2xl mx-auto font-semibold px-4">
-                    Seberapa kenal kamu dengan kampus-kampus di Indonesia? <br class="hidden sm:block"> Tebak logonya dan jadilah yang tercepat!
+                    Seberapa kenal kamu dengan kampus-kampus di Indonesia? <br class="hidden sm:block"> Tebak logonya
+                    dan jadilah yang tercepat!
                 </p>
             </div>
 
-            <div class="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-start max-w-7xl mx-auto">
-                <!-- LEADERBOARD CONTAINER -->
-                <div class="lg:col-span-5 w-full bg-white/95 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-[#fbbf24]/30 lg:sticky lg:top-24">
-                    <!-- Header -->
-                    <div class="flex items-center gap-4 mb-6 md:mb-8">
-                        <div class="bg-gradient-to-br from-[#fbbf24] to-[#f59e0b] p-3 md:p-4 rounded-2xl shadow-xl transform -rotate-3 shrink-0">
-                            <svg class="w-8 h-8 md:w-9 md:h-9 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl md:text-3xl font-sancreek text-[#D32F2F] tracking-wide">Papan Juara</h3>
-                            <p class="text-gray-500 font-bold text-xs uppercase tracking-wider">10 Pemain Terbaik</p>
-                        </div>
-                    </div>
-
-                    <!-- Table -->
-                    <div class="overflow-x-auto rounded-2xl border-2 border-gray-50 shadow-inner bg-gray-50/30">
-                        <table class="w-full text-left min-w-[300px]">
-                            <thead class="bg-white/50 text-gray-500 uppercase text-xs font-black tracking-widest border-b border-gray-100">
-                                <tr>
-                                    <th class="px-4 md:px-6 py-3 md:py-4">#</th>
-                                    <th class="px-3 md:px-4 py-3 md:py-4">Pemain</th>
-                                    <th class="px-3 md:px-4 py-3 md:py-4">Skor</th>
-                                    <th class="px-4 md:px-6 py-3 md:py-4 text-right">Waktu</th>
-                                </tr>
-                            </thead>
-                            <tbody id="leaderboard-body" class="divide-y divide-gray-100">
-                                <tr>
-                                    <td colspan="4" class="px-6 py-12 text-center text-gray-400 italic">
-                                        <div class="animate-pulse flex flex-col items-center">
-                                            <div class="h-8 w-8 bg-gray-200 rounded-full mb-2"></div>
-                                            Memanggil para jawara...
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Info Box -->
-                    <div class="mt-6 md:mt-8 p-4 md:p-5 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border-2 border-yellow-100 text-yellow-800 text-sm md:text-base font-bold text-center italic shadow-inner">
-                        <span class="mr-2">💡</span> Klaim Skor setelah bermain untuk masuk daftar ini!
-                    </div>
-                </div>
-
-                <!-- GAME CONTAINER -->
-                <div class="lg:col-span-7 w-full bg-white/90 backdrop-blur-md rounded-3xl p-6 md:p-8 lg:p-10 shadow-2xl border-8 border-white relative overflow-hidden min-h-[480px] md:min-h-[520px] flex flex-col items-center justify-center">
-                    
-                    <!-- START SCREEN -->
-                    <div id="game-start-screen" class="text-center z-10 w-full max-w-md mx-auto px-4">
-                        <div class="relative w-32 h-32 md:w-36 md:h-36 mx-auto mb-6 md:mb-8">
-                            <img src="{{ asset('images/Countdown.svg') }}" class="w-full animate-bounce" alt="Game Start">
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-3xl md:text-4xl font-sancreek text-[#D32F2F]">?</span>
-                            </div>
-                        </div>
-
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- START CARD -->
+                <div
+                    class="bg-white/90 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-xl border-4 border-white relative overflow-hidden flex flex-col items-center justify-center">
+                    <div id="game-start-screen" class="text-center z-10 w-full max-w-md">
                         @auth
-                            <div class="mb-6 md:mb-8">
-                                <div class="flex items-center justify-center gap-3 md:gap-4 mb-3 md:mb-4">
-                                    <img src="{{ auth()->user()->photo ? (Str::startsWith(auth()->user()->photo, 'http') ? auth()->user()->photo : asset('storage/' . auth()->user()->photo)) : asset('images/default-avatar.svg') }}"
-                                        class="w-14 h-14 md:w-16 md:h-16 rounded-full border-4 border-[#fbbf24] shadow-lg object-cover shrink-0"
-                                        alt="{{ auth()->user()->name }}">
-                                    <div class="text-left overflow-hidden">
-                                        <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Selamat Datang,</p>
-                                        <h4 class="text-xl md:text-2xl font-black text-gray-800 truncate max-w-[180px] md:max-w-none">
-                                            {{ auth()->user()->name }}
-                                        </h4>
-                                    </div>
+                            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                                <img src="{{ auth()->user()->photo ? (Str::startsWith(auth()->user()->photo, 'http') ? auth()->user()->photo : asset('storage/' . auth()->user()->photo)) : asset('images/default-avatar.svg') }}"
+                                    class="w-16 h-16 rounded-full border-4 border-[#fbbf24] shadow-lg object-cover"
+                                    alt="{{ auth()->user()->name }}">
+                                <div class="text-center md:text-left">
+                                    <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Hi,
+                                        {{ auth()->user()->name }}!</p>
+                                    <h4 class="text-xl font-black text-gray-800">Siap pecahkan rekor hari ini?</h4>
                                 </div>
-                                <p class="text-gray-600 font-medium text-sm md:text-base mb-6">Siap pecahkan rekor hari ini?</p>
                             </div>
                             <button id="start-game-btn"
-                                class="ticket-button w-full md:w-auto !py-3 md:!py-4 !px-8 md:!px-12 !text-lg md:!text-xl shadow-[0_8px_0_#B71C1C] hover:shadow-[0_4px_0_#B71C1C] active:shadow-none translate-y-[-8px] active:translate-y-0 transition-all">
-                                Mulai Petualangan!
+                                class="ticket-button !py-4 !px-12 !text-xl shadow-[0_8px_0_#B71C1C] hover:shadow-[0_4px_0_#B71C1C] active:shadow-none translate-y-[-8px] active:translate-y-0 transition-all">
+                                Mulai Main Sekarang!
                             </button>
                         @else
-                            <div class="bg-red-50 border-4 border-dashed border-red-200 rounded-3xl p-6 md:p-8">
-                                <h4 class="text-xl md:text-2xl font-black text-red-600 mb-2">Ops! Kamu Belum Login</h4>
-                                <p class="text-gray-600 font-medium mb-6 text-sm md:text-base">Silakan login untuk ikut quiz dan masuk papan juara!</p>
+                            <div class="bg-red-50 border-4 border-dashed border-red-200 rounded-3xl p-6">
+                                <h4 class="text-xl font-black text-red-600 mb-2">Ops! Kamu Belum Login</h4>
+                                <p class="text-gray-600 font-medium mb-6 text-sm">Silakan login untuk ikut quiz dan masuk
+                                    papan juara!</p>
                                 <a href="{{ route('google.login') }}"
-                                    class="inline-flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-gray-700 font-bold py-3 px-6 md:px-8 rounded-2xl border-4 border-gray-100 transition-all shadow-lg w-full md:w-auto">
+                                    class="inline-flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-gray-700 font-bold py-3 px-8 rounded-2xl border-4 border-gray-100 transition-all shadow-lg">
                                     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                                        class="w-5 h-5 md:w-6 md:h-6" alt="Google">
+                                        class="w-6 h-6" alt="Google">
                                     Login dengan Google
                                 </a>
                             </div>
                         @endauth
                     </div>
+                </div>
+
+                <!-- LEADERBOARD CONTAINER -->
+                <div
+                    class="w-full bg-white/95 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-[#fbbf24]/30">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="bg-gradient-to-br from-[#fbbf24] to-[#f59e0b] p-3 rounded-2xl shadow-xl transform -rotate-3 shrink-0">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl md:text-3xl font-sancreek text-[#D32F2F] tracking-wide">Papan Juara
+                                </h3>
+                                <p class="text-gray-500 font-bold text-xs uppercase tracking-wider">Top 10 Global</p>
+                            </div>
+                        </div>
+                        <div class="hidden sm:block">
+                            <span class="bg-[#EFE4B7] text-[#D32F2F] px-4 py-2 rounded-full font-bold text-sm">Update
+                                Setiap Menit</span>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-2xl border-2 border-gray-50 shadow-inner bg-gray-50/30">
+                        <table class="w-full text-left">
+                            <thead
+                                class="bg-white/50 text-gray-500 uppercase text-xs font-black tracking-widest border-b border-gray-100">
+                                <tr>
+                                    <th class="px-6 py-4">#</th>
+                                    <th class="px-4 py-4">Pemain</th>
+                                    <th class="px-4 py-4 text-center">Skor</th>
+                                    <th class="px-6 py-4 text-right">Waktu</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-body" class="divide-y divide-gray-100">
+                                <tr>
+                                    <td colspan="4" class="px-6 py-12 text-center text-gray-400 italic">
+                                        Memanggil para jawara...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME MODAL -->
+        <div id="game-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen p-4 sm:p-6">
+                <!-- Overlay -->
+                <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"></div>
+
+                <!-- Modal Content -->
+                <div
+                    class="bg-white rounded-[2.5rem] w-full max-w-2xl p-6 md:p-10 shadow-2xl relative z-10 border-8 border-white overflow-hidden">
+                    <!-- Close Button (Only for Result Screen or Confirmation) -->
+                    <button id="close-modal-btn"
+                        class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors hidden z-20">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
 
                     <!-- PLAY SCREEN -->
-                    <div id="game-play-screen" class="hidden w-full text-center z-10 max-w-2xl mx-auto px-4">
-                        <!-- Stats Bar -->
-                        <div class="flex flex-wrap justify-between items-center mb-6 md:mb-8 gap-3">
-                            <div class="bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] text-white px-4 md:px-6 py-2 rounded-2xl font-bold shadow-lg text-sm md:text-base">
-                                Skor: <span id="game-score" class="text-lg md:text-xl">0</span>
+                    <div id="game-play-screen" class="hidden w-full text-center">
+                        <div class="flex flex-wrap justify-between items-center mb-8 gap-3">
+                            <div
+                                class="bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] text-white px-6 py-2 rounded-2xl font-bold shadow-lg">
+                                Skor: <span id="game-score" class="text-xl">0</span>
                             </div>
                             <div class="flex flex-col items-center">
-                                <div class="text-[#D32F2F] font-sancreek text-3xl md:text-4xl" id="game-timer">15s</div>
-                                <div class="w-24 md:w-32 h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
-                                    <div id="timer-bar" class="h-full bg-[#D32F2F] transition-all duration-1000 ease-linear" style="width: 100%"></div>
+                                <div class="text-[#D32F2F] font-sancreek text-4xl" id="game-timer">15s</div>
+                                <div class="w-32 h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
+                                    <div id="timer-bar"
+                                        class="h-full bg-[#D32F2F] transition-all duration-1000 ease-linear"
+                                        style="width: 100%"></div>
                                 </div>
                             </div>
-                            <div class="bg-gradient-to-r from-[#fbbf24] to-[#f59e0b] text-white px-4 md:px-6 py-2 rounded-2xl font-bold shadow-lg text-sm md:text-base">
-                                Soal: <span id="game-level" class="text-lg md:text-xl">1</span>/10
+                            <div
+                                class="bg-gradient-to-r from-[#fbbf24] to-[#f59e0b] text-white px-6 py-2 rounded-2xl font-bold shadow-lg">
+                                Soal: <span id="game-level" class="text-xl">1</span>/10
                             </div>
                         </div>
 
-                        <!-- LOGO CLUE -->
-                        <div class="relative w-44 h-44 md:w-64 md:h-64 mx-auto mb-6 md:mb-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl border-4 border-gray-100 overflow-hidden flex items-center justify-center">
+                        <div
+                            class="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl border-4 border-gray-100 overflow-hidden flex items-center justify-center">
                             <div id="logo-clue-container" class="transition-all duration-700 transform scale-150">
                                 <img id="logo-clue-img" src=""
                                     class="max-w-none filter blur-md grayscale opacity-90 transition-all duration-700 h-full w-auto"
                                     alt="Clue">
                             </div>
-                            <div class="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-white/10"></div>
-                            <div class="absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.1)] pointer-events-none"></div>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-white/10">
+                            </div>
                         </div>
 
-                        <!-- OPTIONS -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 w-full" id="game-options">
-                            <!-- Options will be injected here -->
-                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full" id="game-options"></div>
                     </div>
 
                     <!-- RESULT SCREEN -->
-                    <div id="game-result-screen" class="hidden text-center z-10 w-full max-w-md mx-auto px-4">
-                        <div class="mb-4 md:mb-6">
-                            <span class="text-6xl md:text-7xl">🎉</span>
+                    <div id="game-result-screen" class="hidden text-center w-full">
+                        <div class="mb-6">
+                            <span class="text-7xl">🎉</span>
                         </div>
-                        <h3 class="text-3xl md:text-4xl font-sancreek text-[#D32F2F] mb-4 md:mb-6">Selesai!</h3>
-                        <div class="bg-[#EFE4B7]/50 rounded-3xl p-6 md:p-8 mb-6 md:mb-8 border-4 border-dashed border-[#D32F2F]/20">
-                            <p class="text-gray-600 mb-2 font-bold uppercase tracking-widest text-xs">Skor Akhir Kamu</p>
-                            <p class="text-5xl md:text-6xl font-black text-[#D32F2F]" id="final-score">0</p>
+                        <h3 class="text-4xl font-sancreek text-[#D32F2F] mb-6">Permainan Selesai!</h3>
+                        <div class="bg-[#EFE4B7]/50 rounded-3xl p-8 mb-8 border-4 border-dashed border-[#D32F2F]/20">
+                            <p class="text-gray-600 mb-2 font-bold uppercase tracking-widest">Skor Akhir Kamu</p>
+                            <p class="text-6xl font-black text-[#D32F2F]" id="final-score">0</p>
                         </div>
-                        <div class="flex flex-col md:flex-row gap-3 md:gap-4 justify-center">
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
                             <button id="restart-game-btn"
-                                class="bg-white hover:bg-gray-50 text-gray-700 font-bold py-3 md:py-4 px-6 md:px-8 rounded-2xl border-4 border-gray-100 transition-all shadow-lg w-full md:w-auto">
+                                class="bg-white hover:bg-gray-50 text-gray-700 font-bold py-4 px-8 rounded-2xl border-4 border-gray-100 transition-all shadow-lg w-full sm:w-auto">
                                 Ulangi Lagi
                             </button>
                             <button id="submit-score-btn"
-                                class="bg-[#D32F2F] hover:bg-[#B71C1C] text-white font-bold py-3 md:py-4 px-6 md:px-10 rounded-2xl transition-all shadow-xl hover:scale-105 transform w-full md:w-auto">
+                                class="bg-[#D32F2F] hover:bg-[#B71C1C] text-white font-bold py-4 px-10 rounded-2xl transition-all shadow-xl hover:scale-105 transform w-full sm:w-auto">
                                 Klaim Juara!
                             </button>
                         </div>
                     </div>
-
-                    <!-- Decorative Patterns -->
-                    <div class="absolute -top-20 -right-20 w-56 md:w-64 h-56 md:h-64 bg-[#D32F2F]/5 rounded-full blur-3xl pointer-events-none"></div>
-                    <div class="absolute -bottom-20 -left-20 w-56 md:w-64 h-56 md:h-64 bg-[#fbbf24]/5 rounded-full blur-3xl pointer-events-none"></div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -213,6 +223,8 @@
             const gameOptionsEl = document.getElementById('game-options');
             const finalScoreEl = document.getElementById('final-score');
             const leaderboardBody = document.getElementById('leaderboard-body');
+            const gameModal = document.getElementById('game-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
 
             // Load Leaderboard on init
             loadLeaderboard();
@@ -233,7 +245,8 @@
                         const rankClass = index === 0 ? 'bg-yellow-400 text-white' : (index === 1 ?
                             'bg-gray-300 text-white' : (index === 2 ? 'bg-orange-400 text-white' :
                                 'bg-gray-100 text-gray-400'));
-                        const rankIcon = index === 0 ? '🏆' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : index + 1));
+                        const rankIcon = index === 0 ? '🏆' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : index +
+                            1));
 
                         const userPhoto = item.user && item.user.photo ?
                             (item.user.photo.startsWith('http') ? item.user.photo : `/storage/${item.user.photo}`) :
@@ -241,19 +254,23 @@
 
                         leaderboardBody.innerHTML += `
                             <tr class="hover:bg-white transition-all group">
-                                <td class="px-4 md:px-6 py-4">
-                                    <div class="flex items-center justify-center">
-                                        <span class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-xl ${rankClass} shadow-sm group-hover:scale-110 transition-transform text-sm md:text-base">${rankIcon}</span>
+                                <td class="px-6 py-4 font-bold">
+                                    <div class="flex items-center">
+                                        <span class="w-10 h-10 flex items-center justify-center rounded-xl ${rankClass} shadow-sm group-hover:scale-110 transition-transform">${rankIcon}</span>
                                     </div>
                                 </td>
-                                <td class="px-3 md:px-4 py-4">
-                                    <div class="flex items-center gap-2 md:gap-3">
-                                        <img src="${userPhoto}" class="w-9 h-9 md:w-10 md:h-10 rounded-full object-cover border-2 border-gray-100 shrink-0" alt="${item.username}">
-                                        <span class="font-bold text-gray-800 text-sm md:text-base truncate">${item.username}</span>
+                                <td class="px-4 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="${userPhoto}" class="w-10 h-10 rounded-full object-cover border-2 border-gray-100 shrink-0" alt="${item.username}">
+                                        <div class="flex flex-col">
+                                            <span class="font-bold text-gray-800 text-sm md:text-base leading-tight">${item.username}</span>
+                                            <span class="text-[10px] text-gray-400 font-bold sm:hidden capitalize">Skor: ${item.score}</span>
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="px-3 md:px-4 py-4 text-[#D32F2F] font-black text-lg md:text-xl">${item.score}</td>
-                                <td class="px-4 md:px-6 py-4 text-gray-400 text-xs md:text-sm font-bold text-right">${item.time_taken}d</td>
+                                <td class="px-4 py-4 text-[#D32F2F] font-black text-xl text-center hidden sm:table-cell">${item.score}</td>
+                                <td class="px-4 py-4 text-[#D32F2F] font-black text-lg sm:hidden text-center">${item.score}</td>
+                                <td class="px-6 py-4 text-gray-400 text-xs md:text-sm font-bold text-right">${item.time_taken}d</td>
                             </tr>
                         `;
                     });
@@ -269,25 +286,28 @@
                 @guest
                 alert('Silakan login terlebih dahulu!');
                 return;
-                @endguest
+            @endguest
 
-                gameStartScreen.classList.add('hidden');
-                gameResultScreen.classList.add('hidden');
-                gamePlayScreen.classList.remove('hidden');
+            closeModalBtn.classList.add('hidden');
+            gameModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
 
-                gameScore = 0;
-                currentQuestionIndex = 0;
-                gameScoreEl.textContent = '0';
-                gameStartTime = Date.now();
+            gameResultScreen.classList.add('hidden');
+            gamePlayScreen.classList.remove('hidden');
 
-                try {
-                    const response = await fetch('{{ route('game.questions') }}');
-                    currentGameQuestions = await response.json();
-                    showQuestion();
-                } catch (error) {
-                    console.error('Error fetching questions:', error);
-                    alert('Gagal mengambil data pertanyaan. Coba lagi nanti.');
-                }
+            gameScore = 0;
+            currentQuestionIndex = 0;
+            gameScoreEl.textContent = '0';
+            gameStartTime = Date.now();
+
+            try {
+                const response = await fetch('{{ route('game.questions') }}');
+                currentGameQuestions = await response.json();
+                showQuestion();
+            } catch (error) {
+                console.error('Error fetching questions:', error);
+                alert('Gagal mengambil data pertanyaan. Coba lagi nanti.');
+            }
             }
 
             function showQuestion() {
@@ -411,11 +431,17 @@
                 gameResultScreen.classList.remove('hidden');
                 finalScoreEl.textContent = gameScore;
 
+                closeModalBtn.classList.remove('hidden');
                 submitScoreBtn.classList.remove('hidden');
                 submitScoreBtn.disabled = false;
-                submitScoreBtn.textContent = 'Klaim Papan Skor!';
+                submitScoreBtn.textContent = 'Klaim Juara!';
                 submitScoreBtn.onclick = () => submitScore(totalTime);
             }
+
+            closeModalBtn.onclick = () => {
+                gameModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            };
 
             async function submitScore(totalTime) {
                 submitScoreBtn.disabled = true;
