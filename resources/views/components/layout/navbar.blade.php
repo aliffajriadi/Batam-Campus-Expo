@@ -58,15 +58,32 @@
                 <span
                     class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('toko') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
-            <span
-                class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('komunitas') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
-            </a>
-            <a href="{{ url('/game') }}"
-                class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('game') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
-                Games
-                <span
-                    class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('game') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
-            </a>
+            <!-- Desktop Navbar Dropdown Komunitas -->
+            <div class="relative group komunitas-dropdown">
+                <button
+                    class="text-[#333] flex items-center gap-1 font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] group-hover:text-[#D32F2F] max-lg:text-sm">
+                    Seru Seruan
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                    <span
+                        class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('komunitas*') || request()->is('game*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                </button>
+                <div
+                    class="absolute left-0 mt-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+                    <div class="py-2">
+                        <a href="{{ url('/komunitas') }}"
+                            class="block px-4 py-2.5 text-sm font-medium text-[#333] hover:bg-gray-50 hover:text-[#D32F2F] transition-colors {{ request()->is('komunitas') ? 'text-[#D32F2F] bg-gray-50' : '' }}">
+                            Web Komunitas
+                        </a>
+                        <a href="{{ url('/game') }}"
+                            class="block px-4 py-2.5 text-sm font-medium text-[#333] hover:bg-gray-50 hover:text-[#D32F2F] transition-colors {{ request()->is('game') ? 'text-[#D32F2F] bg-gray-50' : '' }}">
+                            Mini Games
+                        </a>
+                    </div>
+                </div>
+            </div>
 
             @auth
                 <!-- Jika user sudah login -->
@@ -139,7 +156,8 @@
                     <span>Kampus</span>
                     <svg class="w-4 h-4 transition-transform duration-300 dropdown-icon" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                        </path>
                     </svg>
                 </button>
                 <div class="hidden flex-col mt-1 pl-4 space-y-1 mobile-dropdown-menu">
@@ -158,10 +176,28 @@
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('kegiatan') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Kegiatan</a>
             <a href="{{ url('/toko') }}"
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('toko') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Toko</a>
-            <a href="{{ url('/komunitas') }}"
-                class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('komunitas') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Komunitas</a>
-            <a href="{{ url('/game') }}"
-                class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('game') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Games</a>
+            <!-- Mobile Dropdown Komunitas -->
+            <div class="mx-2">
+                <button
+                    class="w-full flex justify-between items-center p-3 text-[#333] font-semibold text-base transition-all duration-300 rounded-lg hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] mobile-dropdown-btn {{ request()->is('komunitas*') || request()->is('game*') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }}">
+                    <span>Seru Seruan</span>
+                    <svg class="w-4 h-4 transition-transform duration-300 dropdown-icon" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                        </path>
+                    </svg>
+                </button>
+                <div class="hidden flex-col mt-1 pl-4 space-y-1 mobile-dropdown-menu">
+                    <a href="{{ url('/komunitas') }}"
+                        class="block p-2.5 text-[#555] font-medium text-sm transition-all duration-300 rounded-lg hover:bg-gray-100 hover:text-[#D32F2F] {{ request()->is('komunitas') ? 'text-[#D32F2F]' : '' }}">
+                        Web Komunitas
+                    </a>
+                    <a href="{{ url('/game') }}"
+                        class="block p-2.5 text-[#555] font-medium text-sm transition-all duration-300 rounded-lg hover:bg-gray-100 hover:text-[#D32F2F] {{ request()->is('game') ? 'text-[#D32F2F]' : '' }}">
+                        Mini Games
+                    </a>
+                </div>
+            </div>
 
             <div class="border-t my-2"></div>
 
@@ -233,18 +269,22 @@
         }
 
         // Mobile Dropdown Functionality
-        const mobileDropdownBtn = document.querySelector('.mobile-dropdown-btn');
-        const mobileDropdownMenu = document.querySelector('.mobile-dropdown-menu');
-        const dropdownIcon = document.querySelector('.dropdown-icon');
+        const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
 
-        if (mobileDropdownBtn && mobileDropdownMenu) {
-            mobileDropdownBtn.addEventListener('click', function(e) {
+        mobileDropdownBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                mobileDropdownMenu.classList.toggle('hidden');
-                mobileDropdownMenu.classList.toggle('flex');
-                dropdownIcon.classList.toggle('rotate-180');
+                const menu = this.nextElementSibling;
+                const icon = this.querySelector('.dropdown-icon');
+
+                // Toggle logic
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
             });
-        }
+        });
 
         // User dropdown functionality
         const userMenuBtn = document.querySelector('.user-menu-btn');
