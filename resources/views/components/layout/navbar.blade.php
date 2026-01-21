@@ -8,7 +8,7 @@
                 aria-label="Batam Campus Expo Home">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 scale-150">
             </a>
-            <h1 class="font-sancreek uppercase md:hidden text-[#D32F2F] leading-[0.85]">Batam <br/> Campus Expo</h1>
+            <h1 class="font-sancreek uppercase md:hidden text-[#D32F2F] leading-[0.85]">Batam <br /> Campus Expo</h1>
         </div>
 
         <!-- Desktop Navigation Links -->
@@ -58,11 +58,14 @@
                 <span
                     class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('toko') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
-            <a href="{{ url('/komunitas') }}"
-                class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('komunitas') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
-                Komunitas
+            <span
+                class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('komunitas') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+            </a>
+            <a href="{{ url('/game') }}"
+                class="text-[#333] no-underline font-semibold text-base transition-all duration-300 relative py-2 hover:text-[#D32F2F] hover:-translate-y-[1px] group {{ request()->is('game') ? 'text-[#D32F2F]' : '' }} max-lg:text-sm">
+                Games
                 <span
-                    class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('komunitas') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                    class="absolute bottom-0 left-0 h-[2px] bg-[#D32F2F] transition-[width] duration-300 {{ request()->is('game') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
 
             @auth
@@ -157,6 +160,8 @@
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('toko') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Toko</a>
             <a href="{{ url('/komunitas') }}"
                 class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('komunitas') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Komunitas</a>
+            <a href="{{ url('/game') }}"
+                class="block p-3 text-[#333] no-underline font-semibold text-base transition-all duration-300 rounded-lg mx-2 hover:bg-[#D32F2F]/10 hover:text-[#D32F2F] {{ request()->is('game') ? 'bg-[#D32F2F]/10 text-[#D32F2F]' : '' }} max-md:text-[0.95rem] max-md:p-2.5 max-[375px]:text-sm max-[375px]:p-2">Games</a>
 
             <div class="border-t my-2"></div>
 

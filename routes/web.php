@@ -23,6 +23,12 @@ use App\Http\Controllers\Auth\ProfileController;
 // Rute untuk halaman utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Game Routes
+Route::get('/game', [\App\Http\Controllers\GameController::class, 'index'])->name('game.index');
+Route::get('/game/questions', [\App\Http\Controllers\GameController::class, 'getQuestions'])->name('game.questions');
+Route::post('/game/submit', [\App\Http\Controllers\GameController::class, 'submitScore'])->name('game.submit');
+Route::get('/game/leaderboard', [\App\Http\Controllers\GameController::class, 'getLeaderboard'])->name('game.leaderboard');
+
 // Rute dummy untuk testing
 Route::get('/voting', [VotingController::class, 'index'])->name('voting');
 
